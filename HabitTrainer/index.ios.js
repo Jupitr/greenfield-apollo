@@ -5,30 +5,52 @@
 'use strict';
 
 var React = require('react-native');
+var Habits = require('./Habits');
+var Home = require('./Home');
+
 var {
   AppRegistry,
   StyleSheet,
+  TabBarIOS,
   Text,
   View,
+  Component
 } = React;
 
 var HabitTrainer = React.createClass({
+  
+  getInitialState: function() {
+    return {
+      selectedTab: 'home'  
+    };    
+  },
+   
   render: function() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <TabBarIOS selectedTab={this.state.selectedTab}>
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'home'}
+          systemIcon='featured'
+          onPress={() => {
+            this.setState({
+              selectedTab: 'home'
+            });
+          }}>
+          <Home/>
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'habits'}
+          systemIcon='search'
+          onPress={() => {
+            this.setState({
+              selectedTab: 'habits'
+            });
+          }}>
+          <Habits/>
+        </TabBarIOS.Item>
+      </TabBarIOS>
     );
-  }
+  },
 });
 
 var styles = StyleSheet.create({
