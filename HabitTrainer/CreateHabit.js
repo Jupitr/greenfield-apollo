@@ -14,18 +14,18 @@ var {
   TouchableHighlight
 } = React;
  
-var EditHabit = React.createClass ({
+var CreateHabit = React.createClass ({
   getInitialState: function() {
     return {
-      habitName: this.props.selectedHabit.habit.habitName,
+      habitName: '',
       // reminderTime: this.props.selectedHabit.habit.reminderTime,
       reminderTime: moment().add(30 - moment(new Date()).minutes() % 30, 'minutes'),
       // dueTime: this.props.selectedHabit.habit.dueTime,
       dueTime: moment().add(30 - moment(new Date()).minutes() % 30, 'minutes')
     }
   },
-
-  // helper functions to set reminder and due time  
+  
+  // helper functions to set reminder and due time
   subtractReminderTime: function(){
     this.setState({ reminderTime: moment(this.state.reminderTime).subtract(30, 'minutes') });
   },
@@ -39,21 +39,21 @@ var EditHabit = React.createClass ({
     this.setState({ dueTime: moment(this.state.dueTime).add(30, 'minutes') });
   },
   
-  updateHabit: function() {
-    // TODO -- build update function
-    console.log('update habit');
-  },
-  
-  deleteHabit: function() {
-    // TODO -- build delete function
-    console.log('deleting habit');
+  createHabit: function() {
+    // TODO -- build create function
+    console.log('create habit');
   },
   
   render: function(){
     return (
       <View style={styles.container}>
-        <Text style={styles.content}>{this.state.habitName}</Text>
-        
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(text) => this.setState({habitName: text})}
+          placeholder='Habit Name'
+          value={this.state.habitName}
+        />
+                
         <Text style={styles.content}>Remind Me At</Text>
         <View style={styles.rowContainer}>
           <TouchableHighlight
@@ -85,13 +85,8 @@ var EditHabit = React.createClass ({
         </View>
         
         <TouchableHighlight
-          onPress={this.updateHabit.bind(this)}>
-          <Text style={styles.updateButtonText}>Update Habit</Text>
-        </TouchableHighlight> 
-        
-        <TouchableHighlight
-          onPress={this.deleteHabit.bind(this)}>
-          <Text style={styles.deleteButtonText}>Delete Habit</Text>
+          onPress={this.createHabit.bind(this)}>
+          <Text style={styles.createButtonText}>Create Habit</Text>
         </TouchableHighlight> 
       
       </View>
@@ -117,14 +112,10 @@ var styles = StyleSheet.create({
     margin: 10,
     color: 'black',
   },
-  updateButtonText: {
+  createButtonText: {
     textAlign: 'center',
     color: 'blue',
   },
-  deleteButtonText: {
-    textAlign: 'center',
-    color: 'red',
-  }
 });
 
-module.exports = EditHabit;
+module.exports = CreateHabit;
