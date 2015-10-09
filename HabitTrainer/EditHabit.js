@@ -24,19 +24,17 @@ var EditHabit = React.createClass ({
       dueTime: moment().add(30 - moment(new Date()).minutes() % 30, 'minutes')
     }
   },
-  
+
+  // helper functions to set reminder and due time  
   subtractReminderTime: function(){
     this.setState({ reminderTime: moment(this.state.reminderTime).subtract(30, 'minutes') });
   },
-
   addReminderTime: function(){
     this.setState({ reminderTime: moment(this.state.reminderTime).add(30, 'minutes') });
   },
-  
   subtractDueTime: function(){
     this.setState({ dueTime: moment(this.state.dueTime).subtract(30, 'minutes') });
   },
-
   addDueTime: function(){
     this.setState({ dueTime: moment(this.state.dueTime).add(30, 'minutes') });
   },

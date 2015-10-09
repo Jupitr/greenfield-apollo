@@ -33,7 +33,10 @@ var editRoute = {
 
 var createRoute = {
   title: 'Create Habit',
-  component: CreateHabit
+  component: CreateHabit,
+  passProps: {
+    userHabits: HABITS
+  }
 }
 
 var HabitList = React.createClass ({
