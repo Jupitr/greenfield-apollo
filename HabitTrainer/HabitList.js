@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Swipeout = require('react-native-swipeout');
+var EditHabit = require('./EditHabit.js');
 
 var {
   StyleSheet,
@@ -17,13 +18,22 @@ var HABITS = [
   {habitName: 'Workout', streak: 8, checkinCount: 15, failedCount: 2, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 8, active:true}
 ]
 
-var editBtn = [
-  {
-    text: 'Edit',
-    backgroundColor: 'orange',
-    onPress: function(){ alert('button pressed') }
-  }
-];
+var editRoute = {
+  title: 'Edit Habit',
+  component: EditHabit
+};
+
+
+// var editBtn = [
+//   {
+//     text: 'Edit',
+//     backgroundColor: 'orange',
+//     onPress: function(){ 
+//       navigator.push(editRoute);
+//     }
+//   }
+// ];
+
 var completeBtn = [
  {
     text: 'Did It!',
@@ -34,6 +44,7 @@ var completeBtn = [
 ];
 
 var HabitList = React.createClass ({
+
   getInitialState: function() {
     return {
       dataSource: new ListView.DataSource({
@@ -43,6 +54,15 @@ var HabitList = React.createClass ({
   },
   
   componentDidMount: function() {
+    var self = this;
+    this.editBtn = [{
+      text: 'Edit',
+      backgroundColor: 'orange',
+      onPress: function(){ 
+        self.props.navigator.push(editRoute);
+      }
+    }],
+
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(HABITS),
     })
@@ -52,7 +72,7 @@ var HabitList = React.createClass ({
     return (
       <Swipeout
         right={completeBtn}
-        left={editBtn}>
+        left={this.editBtn}>
         <View>
           <Text>{habit.habitName}</Text>
           <Text>Streak: {habit.streakRecord}</Text>
