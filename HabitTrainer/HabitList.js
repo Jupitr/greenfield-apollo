@@ -54,8 +54,7 @@ var HabitList = React.createClass ({
     this.completeBtn = [{
       text: 'Did It!',
       backgroundColor: 'green',
-      onPress: function(){},
-      autoClose: true
+      onPress: function(){ alert('Hi, Lain. I\'m back') }
     }]
 
     this.setState({
@@ -69,6 +68,7 @@ var HabitList = React.createClass ({
       <Swipeout
         right={this.completeBtn}
         left={this.editBtn}
+        autoClose='true'
         // sets selected row habit property on swipe
         onOpen={function() {activeRow.habit = habit}}
         >
