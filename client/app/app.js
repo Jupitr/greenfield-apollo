@@ -51,7 +51,7 @@ angular.module('app', [
     $authProvider.tokenPrefix = 'habit';
 
     $authProvider.google({
-      clientId: '416143587162-phs72qq27pfvqua6buqb5lf4okum9krq.apps.googleusercontent.com',
+      clientId: '1074720521433-5fa2tl6n48b9750rhbpqeq3lstrk6c6h.apps.googleusercontent.com',
       url: '/authenticate/google'
     });
 
