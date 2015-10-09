@@ -18,30 +18,16 @@ var HABITS = [
   {habitName: 'Workout', streak: 8, checkinCount: 15, failedCount: 2, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 8, active:true}
 ]
 
+// empty object to hole selected row
+var activeRow = {};
+
 var editRoute = {
   title: 'Edit Habit',
-  component: EditHabit
-};
-
-
-// var editBtn = [
-//   {
-//     text: 'Edit',
-//     backgroundColor: 'orange',
-//     onPress: function(){ 
-//       navigator.push(editRoute);
-//     }
-//   }
-// ];
-
-var completeBtn = [
- {
-    text: 'Did It!',
-    backgroundColor: 'green',
-    onPress: function(){ alert('button pressed') },
-    autoClose: true
+  component: EditHabit,
+  passProps: {
+    selectedHabit: activeRow
   }
-];
+};
 
 var HabitList = React.createClass ({
 
@@ -54,25 +40,38 @@ var HabitList = React.createClass ({
   },
   
   componentDidMount: function() {
+    
     var self = this;
+    
     this.editBtn = [{
       text: 'Edit',
       backgroundColor: 'orange',
-      onPress: function(){ 
+      onPress: function(){
         self.props.navigator.push(editRoute);
       }
-    }],
+    }]
+    
+    this.completeBtn = [{
+      text: 'Did It!',
+      backgroundColor: 'green',
+      onPress: function(){},
+      autoClose: true
+    }]
 
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(HABITS),
     })
+    
   },
   
   renderHabit: function(habit) {
     return (
       <Swipeout
-        right={completeBtn}
-        left={this.editBtn}>
+        right={this.completeBtn}
+        left={this.editBtn}
+        // sets selected row on swipe
+        onOpen={function() {activeRow.habit = habit}}
+        >
         <View>
           <Text>{habit.habitName}</Text>
           <Text>Streak: {habit.streakRecord}</Text>
@@ -86,7 +85,8 @@ var HabitList = React.createClass ({
     return (
       <ListView
         dataSource = {this.state.dataSource}
-        renderRow = {this.renderHabit.bind(this)} />
+        renderRow = {this.renderHabit.bind(this)}
+      />
     );
   }
 });
