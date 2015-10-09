@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var Swipeout = require('react-native-swipeout');
 
 var {
   StyleSheet,
@@ -15,6 +16,22 @@ var HABITS = [
   {habitName: 'Complete a Pomodoro', streak: 10, checkinCount: 20, failedCount: 4, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 20, active:true},
   {habitName: 'Workout', streak: 8, checkinCount: 15, failedCount: 2, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 8, active:true}
 ]
+
+var editBtn = [
+  {
+    text: 'Edit',
+    backgroundColor: 'orange',
+    onPress: function(){ alert('button pressed') }
+  }
+];
+var completeBtn = [
+ {
+    text: 'Did It!',
+    backgroundColor: 'green',
+    onPress: function(){ alert('button pressed') },
+    autoClose: true
+  }
+];
 
 var HabitList = React.createClass ({
   getInitialState: function() {
@@ -33,11 +50,15 @@ var HabitList = React.createClass ({
   
   renderHabit: function(habit) {
     return (
-      <View>
-        <Text>{habit.habitName}</Text>
-        <Text>Streak: {habit.streakRecord}</Text>
-        <Text>Due: {habit.dueTime}</Text>
-      </View>
+      <Swipeout
+        right={completeBtn}
+        left={editBtn}>
+        <View>
+          <Text>{habit.habitName}</Text>
+          <Text>Streak: {habit.streakRecord}</Text>
+          <Text>Due: {habit.dueTime}</Text>
+        </View>
+      </Swipeout>
     );
   },
 
