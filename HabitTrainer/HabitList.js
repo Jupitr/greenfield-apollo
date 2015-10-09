@@ -69,7 +69,7 @@ var HabitList = React.createClass ({
       <Swipeout
         right={this.completeBtn}
         left={this.editBtn}
-        // sets selected row on swipe
+        // sets selected row habit property on swipe
         onOpen={function() {activeRow.habit = habit}}
         >
         <View>

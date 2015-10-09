@@ -7,17 +7,43 @@ var {
   NavigatorIOS,
   Component, 
   View,
-  Text
+  Text,
+  TextInput
 } = React;
  
 var EditHabit = React.createClass ({
+  getInitialState: function() {
+    var habitName = this.props.selectedHabit.habit.habitName;
+    var reminderTime = this.props.selectedHabit.habit.reminderTime;
+    var dueTime = this.props.selectedHabit.habit.dueTime;
+    return {
+      habitName: habitName,
+      reminderTime: reminderTime,
+      dueTime: dueTime
+    }
+  },
+  
   render: function(){
-  console.log(this.props.selectedHabit.habit);
   return (
     <View style={styles.container}>
-      <Text style={styles.content}>
-        Test -- display on edit page
-      </Text>
+      <Text style={styles.content}>Daily Habit</Text>
+      <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(text) => this.setState({habitName: text})}
+        value={this.state.habitName}
+      />
+      <Text style={styles.content}>Remind Me At</Text>
+      <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(text) => this.setState({reminderTime: text})}
+        value={this.state.reminderTime}
+      />
+      <Text style={styles.content}>Due At</Text>
+      <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(text) => this.setState({dueTime: text})}
+        value={this.state.dueTime}
+      />
     </View>
   );
 }
