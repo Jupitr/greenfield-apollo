@@ -1,12 +1,12 @@
 # greenfield-apollo
 
-> Habit Trainer Web App with Chrome Extension
+> iOS mobile version of the Habit Trainer Web App with Chrome Extension
 
 ## Team
 
-  - __Product Owner__: Igor Stefanco
-  - __Scrum Master__: David Churchill
-  - __Development Team Members__: Erik Hsiao, Sanjay Chakrapani
+  - __Product Owner__: Lain Jiang
+  - __Scrum Master__: Kevin Lee
+  - __Development Team Members__: Melinda Budde, Don Steinert
 
 ## Table of Contents
 
@@ -39,13 +39,11 @@ From within the root directory:
 ```sh
 sudo npm install -g bower grunt
 npm install
-bower install
-grunt build
 ```
 
 ### Roadmap
 
-View the project roadmap [here](https://github.com/greenfield-apollo/greenfield-apollo/issues)
+View the project roadmap [here](https://github.com/Jupitr/greenfield-apollo/issues)
 
 
 ## Contributing
