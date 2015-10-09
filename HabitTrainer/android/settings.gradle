@@ -1,0 +1,3 @@
+rootProject.name = 'HabitTrainer'
+
+include ':app'
