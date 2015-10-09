@@ -54,7 +54,7 @@ var HabitList = React.createClass ({
     this.completeBtn = [{
       text: 'Did It!',
       backgroundColor: 'green',
-      onPress: function(){}
+      onPress: function(){ alert('Hi, Lain. I\'m back') }
     }]
 
     this.setState({
