@@ -8,45 +8,56 @@ var {
   Component, 
   View,
   Text,
-  TextInput
+  TextInput,
+  TouchableHighlight
 } = React;
  
 var EditHabit = React.createClass ({
   getInitialState: function() {
-    var habitName = this.props.selectedHabit.habit.habitName;
-    var reminderTime = this.props.selectedHabit.habit.reminderTime;
-    var dueTime = this.props.selectedHabit.habit.dueTime;
     return {
-      habitName: habitName,
-      reminderTime: reminderTime,
-      dueTime: dueTime
+      habitName: this.props.selectedHabit.habit.habitName,
+      reminderTime: this.props.selectedHabit.habit.reminderTime,
+      dueTime: this.props.selectedHabit.habit.dueTime
     }
   },
   
+  updateHabit: function() {
+    // TODO -- build update function
+    console.log('update habit');
+  },
+  
+  deleteHabit: function() {
+    // TODO -- build delete function
+    console.log('deleting habit');
+  },
+  
   render: function(){
-  return (
-    <View style={styles.container}>
-      <Text style={styles.content}>Daily Habit</Text>
-      <TextInput
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={(text) => this.setState({habitName: text})}
-        value={this.state.habitName}
-      />
-      <Text style={styles.content}>Remind Me At</Text>
-      <TextInput
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={(text) => this.setState({reminderTime: text})}
-        value={this.state.reminderTime}
-      />
-      <Text style={styles.content}>Due At</Text>
-      <TextInput
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={(text) => this.setState({dueTime: text})}
-        value={this.state.dueTime}
-      />
-    </View>
-  );
-}
+    return (
+      <View style={styles.container}>
+        <Text style={styles.content}>{this.state.habitName}</Text>
+        <Text style={styles.content}>Remind Me At</Text>
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(text) => this.setState({reminderTime: text})}
+          value={this.state.reminderTime}
+        />
+        <Text style={styles.content}>Due At</Text>
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(text) => this.setState({dueTime: text})}
+          value={this.state.dueTime}
+        />
+        <TouchableHighlight
+          onPress={this.updateHabit.bind(this)}>
+          <Text style={styles.updateButtonText}>Update Habit</Text>
+        </TouchableHighlight> 
+        <TouchableHighlight
+          onPress={this.deleteHabit.bind(this)}>
+          <Text style={styles.deleteButtonText}>Delete Habit</Text>
+        </TouchableHighlight> 
+      </View>
+    );
+  }
 });
 
 var styles = StyleSheet.create({
@@ -59,6 +70,14 @@ var styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+  },
+  updateButtonText: {
+    textAlign: 'center',
+    color: 'blue',
+  },
+  deleteButtonText: {
+    textAlign: 'center',
+    color: 'red',
   }
 });
 
