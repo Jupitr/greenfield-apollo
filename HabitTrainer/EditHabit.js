@@ -22,10 +22,12 @@ var EditHabit = React.createClass ({
   },
   
   updateHabit: function() {
+    // TODO -- build update function
     console.log('update habit');
   },
   
   deleteHabit: function() {
+    // TODO -- build delete function
     console.log('deleting habit');
   },
   
