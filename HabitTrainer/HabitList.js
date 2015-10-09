@@ -3,13 +3,15 @@
 var React = require('react-native');
 var Swipeout = require('react-native-swipeout');
 var EditHabit = require('./EditHabit.js');
+var CreateHabit = require('./CreateHabit.js');
 
 var {
   StyleSheet,
   View,
   ListView,
-  Component,
-  Text
+  Text,
+  TouchableHighlight,
+  Component
 } = React;
 
 var HABITS = [
@@ -28,6 +30,11 @@ var editRoute = {
     selectedHabit: activeRow
   }
 };
+
+var createRoute = {
+  title: 'Create Habit',
+  component: CreateHabit
+}
 
 var HabitList = React.createClass ({
 
@@ -56,12 +63,17 @@ var HabitList = React.createClass ({
       backgroundColor: 'green',
       onPress: function(){ alert('Hi, Lain. I\'m back') }
     }]
+  
+    this._redirectToCreateHabit = function() {
+      self.props.navigator.push(createRoute);
+    },
 
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(HABITS),
     })
     
   },
+  
   
   renderHabit: function(habit) {
     return (
@@ -83,16 +95,35 @@ var HabitList = React.createClass ({
 
   render: function() {
     return (
-      <ListView
-        dataSource = {this.state.dataSource}
-        renderRow = {this.renderHabit.bind(this)}
-      />
+      <View style={styles.container}>
+        <ListView stye={styles.listContainer}
+          dataSource = {this.state.dataSource}
+          renderRow = {this.renderHabit.bind(this)}
+        />
+        <TouchableHighlight
+          style={styles.btnContainer}
+          onPress={this._redirectToCreateHabit}>
+          <Text style={styles.createButtonText}>+ Add New Habit</Text>
+        </TouchableHighlight> 
+      </View>      
     );
   }
 });
 
 var styles = StyleSheet.create({
-  
+  container: {
+
+  },
+  listContainer: {
+    
+  },
+  btnContainer: {
+    
+  },
+  createButtonText: {
+    textAlign: 'center',
+    color: 'red',
+  }
 });
 
 module.exports = HabitList;
