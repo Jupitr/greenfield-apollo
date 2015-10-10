@@ -78,12 +78,22 @@ var HabitList = React.createClass ({
     ]
   
     this._redirectToCreateHabit = function() {
+      // console.log(habitCount);
+      // if (habitCount === 3) {
+      //   AlertIOS.alert(
+      //     'Three Habit Limit Reached',
+      //     'Please deactivate an existing habit if you wish to add a new one.',
+      //     [
+      //       {text: 'ok', onPress: function() {
+      //         return;
+      //       }},
+      //     ]
+      //   )
+      // }
+      
       self.props.navigator.push({
         title: 'Create Habit',
         component: CreateHabit,
-        passProps: {
-          userHabits: self.state.userHabits
-        }
       });
     }
     
