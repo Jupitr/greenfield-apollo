@@ -66,16 +66,30 @@ var HabitList = React.createClass ({
       text: 'Did It!',
       backgroundColor: 'green',
       onPress: function() {
-        activeRow.habit.status = 'completed';
-        AlertIOS.alert(
-          'Nice Work!',
-          'Keep it up!',
-          [
-            {text: 'ok', onPress: function() {
-              self.setState();
-            }},
-          ]
-        )
+        if (activeRow.habit.status === 'completed') {
+          return;
+        } else if (activeRow.habit.status === 'missed') {
+          AlertIOS.alert(
+            'Sorry',
+            'You missed the deadline for this habit',
+            [
+              {text: 'ok', onPress: function() {
+                return
+              }},
+            ]
+          )
+        } else {
+          activeRow.habit.status = 'completed';
+          AlertIOS.alert(
+            'Nice Work!',
+            'Keep it up!',
+            [
+              {text: 'ok', onPress: function() {
+                self.setState();
+              }},
+            ]
+          )
+        }
       }}
     ]
   
