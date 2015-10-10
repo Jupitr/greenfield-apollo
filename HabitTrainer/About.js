@@ -18,8 +18,7 @@ var About = React.createClass ({
           initialRoute={{
             title: 'About',
             component: AboutList
-          }}/
-      >            
+          }}/>            
     );
   },
 });
