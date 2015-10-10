@@ -18,10 +18,8 @@ var EditHabit = React.createClass ({
   getInitialState: function() {
     return {
       habitName: this.props.selectedHabit.habit.habitName,
-      // reminderTime: this.props.selectedHabit.habit.reminderTime,
-      reminderTime: moment().add(30 - moment(new Date()).minutes() % 30, 'minutes'),
-      // dueTime: this.props.selectedHabit.habit.dueTime,
-      dueTime: moment().add(30 - moment(new Date()).minutes() % 30, 'minutes')
+      reminderTime: this.props.selectedHabit.habit.reminderTime,
+      dueTime: this.props.selectedHabit.habit.dueTime
     }
   },
 

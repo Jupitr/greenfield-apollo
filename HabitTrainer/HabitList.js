@@ -76,10 +76,6 @@ var HabitList = React.createClass ({
     this._redirectToCreateHabit = function() {
       self.props.navigator.push(createRoute);
     }
-
-    // this.setState({
-    //   dataSource: this.state.dataSource.cloneWithRows(HABITS),
-    // })
     
   },
   
@@ -96,27 +92,31 @@ var HabitList = React.createClass ({
   },
   
   renderHabit: function(habit) {
-    return (
-      <Swipeout
-        right={this.completeBtn}
-        left={this.editBtn}
-        autoClose='true'
-        // sets selected row habit property on swipe
-        onOpen={function() {activeRow.habit = habit}}
-        >
-        <View>
-          <Text>{habit.habitName}</Text>
-          <Text>Streak: {habit.streakRecord}</Text>
-          <Text>Due: { moment(habit.dueTime).format('hh:mm a')}</Text>
-        </View>
-      </Swipeout>
-    );
+    if (habit.active) {
+      return (
+        <Swipeout
+          right={this.completeBtn}
+          left={this.editBtn}
+          autoClose='true'
+          // sets selected row habit property on swipe
+          onOpen={function() {activeRow.habit = habit}}
+          >
+          <View>
+            <Text>{habit.habitName}</Text>
+            <Text>Streak: {habit.streakRecord}</Text>
+            <Text>Due: { moment(habit.dueTime).format('hh:mm a')}</Text>
+          </View>
+        </Swipeout>
+      );
+    } else {
+      return (<View></View>);
+    }
   },
 
   render: function() {
     return (
       <View style={styles.container}>
-        <ListView stye={styles.listContainer}
+        <ListView style={styles.listContainer}
           dataSource = {this.state.dataSource}
           renderRow = {this.renderHabit.bind(this)}
         />
@@ -132,13 +132,11 @@ var HabitList = React.createClass ({
 
 var styles = StyleSheet.create({
   container: {
-
   },
   listContainer: {
-    
+    height: 300
   },
   btnContainer: {
-    
   },
   createButtonText: {
     textAlign: 'center',
