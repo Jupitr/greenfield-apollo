@@ -3,13 +3,18 @@
 var React = require('react-native');
 var helpers = require('./helper/helpers.js');
 var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
+var PageControl = require('react-native-page-control');
+var screen = require('Dimensions').get('window');
 
 var {
+  AppRegistry,
   StyleSheet,
   View,
+  ScrollView,
   Text,
   Component,
   PixelRatio,
+  NavigatorIOS,
   TouchableOpacity,
   Image,
   NativeModules: {
@@ -23,21 +28,31 @@ var HABITS = [
   {habitName: 'Workout', streak: 8, checkinCount: 15, failedCount: 2, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 8, active:true}
 ];
 
-var user = {
+var USER = {
   name: 'Pied Piper',
-  dateJoined: '10/06/15'
+  dateJoined: '10/06/15',
+  points: 420
 }
-
-
-var date = new Date();
-var hour = date.getHours();
-var min = date.getMinutes();
 
 var HabitSummary = React.createClass ({
   getInitialState: function(){
     return {
-      avatarSource: null
+      avatarSource: null,
     };
+  },
+
+  componentDidMount: function() {
+    var next = helpers.nextHabit(HABITS);
+    var diff = next[2];
+    var dueTime = next[1];
+    var nextHabitHolder = next[0];
+    var nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
+    this.setState({nextHabit: nextHabitHolder, nextWidth: nextWidthHolder});
+    this._interval = window.setInterval(this.onTick, 60000);
+  },
+
+  componentWillUnmount: function() {
+    window.clearInterval(this._interval);
   },
 
   avatarTapped: function() {
@@ -71,6 +86,23 @@ var HabitSummary = React.createClass ({
     });
   },
 
+  onTick: function() {
+    var next = helpers.nextHabit(HABITS);
+    var diff = next[2];
+    var dueTime = next[1];
+    var nextHabitHolder = next[0];
+    var nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
+    this.setState({nextWidth: nextWidthHolder, nextHabit: nextHabitHolder});
+  },
+
+  onScroll: function(event){
+    var offsetX = event.nativeEvent.contentOffset.x,
+        pageWidth = screen.width - 10;
+    this.setState({
+      currentPage: Math.floor((offsetX - pageWidth / 2) / pageWidth) + 1
+    });
+  },
+
   render: function(){
   return (
     <View style={styles.container}>
@@ -84,42 +116,83 @@ var HabitSummary = React.createClass ({
         </TouchableOpacity>
         <View>
           <Text style={styles.content}>
-            Hello, {user.name}! 
+            Hello, {USER.name}! 
           </Text>
           <Text style={styles.contentSmall}>
-            Training since {user.dateJoined}
+            Training since {USER.dateJoined}
           </Text>
         </View>
       </View>
-      <View>
+      <View style={{backgroundColor:'red', width:screen.width,height: 250}}>
+        <ScrollView 
+          ref="ad" 
+          pagingEnabled={true} 
+          horizontal={true} 
+          showsHorizontalScrollIndicator={false} 
+          bounces={false} 
+          onScroll={this.onScroll} 
+          scrollEventThrottle={16} 
+          style={{height: 250, borderWidth: 1, backgroundColor: 'grey'}}>
+          <View style={{width:screen.width,  height:164}}>
+            <View style={styles.pointsCir}>
+              <Text style={styles.points}>
+                {USER.points}
+              </Text>
+            </View>
+          </View>
+          <View style={{width:screen.width,  height:164}}>
+            <View style={styles.pointsCir}>
+              <Text style={styles.points}>
+                another one
+              </Text>
+            </View>
+          </View>
+          <View style={{width:screen.width,  height:164}}>
+            <View style={styles.pointsCir}>
+              <Text style={styles.points}>
+                third one
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
+        <PageControl 
+          style={{position:'absolute', left:0, right:0, bottom:10}} 
+          numberOfPages={3} 
+          currentPage={this.state.currentPage} 
+          hidesForSinglePage={true} 
+          pageIndicatorTintColor='gray' 
+          indicatorSize={{width:8, height:8}} 
+          currentPageIndicatorTintColor='black' />
+      </View>
+      <View style={{flexDirection: 'row'}}>
         <Text style={styles.content}>
           Next Up
         </Text>
       </View>
       <View>
-        <Text style={styles.content}>
-          {helpers.nextHabit(HABITS)}
+        <View style={[styles.overlay,{width: this.state.nextWidth}]}>
+        </View>
+        <Text style={styles.next}>
+          {this.state.nextHabit}
         </Text>
-      </View>
-      <View>
-
       </View>
     </View>
   );
 }
 });
 
+var test = 50;
 var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   content: {
     // borderWidth: 1,
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   contentSmall: {
     // borderWidth: 1,
@@ -131,9 +204,39 @@ var styles = StyleSheet.create({
     width: 75,
     height: 75,
     borderWidth: 1 / PixelRatio.get(),
-    justifyContent: 'center',
-    alignItems: 'center'
   },
+  next: {
+    flex: 1,
+    borderWidth: 1,
+    padding: 10,
+    textAlign: 'center',
+    width: 250,
+    backgroundColor: 'rgba(0, 0, 0, 0)'
+  },
+  pointsCir: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    borderWidth: 1,
+    margin: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 10, 0, 0.2)'
+  },
+  points: {
+    fontSize: 50,
+    textAlign: 'center',
+  }, 
+  overlay: {
+    top: 0, 
+    position: 'absolute', 
+    padding: 10, 
+    height: 39, 
+    borderWidth: 1,
+    backgroundColor: 'rgba(255, 255, 0, 0.9)'
+  }
 });
+
+AppRegistry.registerComponent('HabitSummary', () => HabitSummary);
 
 module.exports = HabitSummary;

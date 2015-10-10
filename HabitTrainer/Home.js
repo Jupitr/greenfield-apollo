@@ -21,7 +21,7 @@ var Home = React.createClass ({
       <NavigatorIOS
         style={styles.container}
           initialRoute={{
-            title: 'Habit Summary',
+            title: 'COLOR IS JUST FOR TESTING',
             component: HabitSummary
         }}/>            
     );
