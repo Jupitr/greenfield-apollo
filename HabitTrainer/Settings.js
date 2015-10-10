@@ -4,10 +4,10 @@ var React = require('react-native');
 var SettingsList = require('./SettingsList');
 
 var {
-    StyleSheet,
-    NavigatorIOS,
-    Component
-   } = React;
+  StyleSheet,
+  NavigatorIOS,
+  Component
+} = React;
 
 
 var Settings = React.createClass ({
@@ -18,7 +18,8 @@ var Settings = React.createClass ({
           initialRoute={{
             title: 'Settings',
             component: SettingsList
-        }}/>            
+          }}/
+      >            
     );
   },
 });
