@@ -9,7 +9,7 @@ var {
   Component
 } = React;
 
-var SettingsList = React.createClass ({
+var AboutList = React.createClass ({
   render: function() {
     return (
       <View>
@@ -19,4 +19,4 @@ var SettingsList = React.createClass ({
   }
 });
 
-module.exports = SettingsList;
+module.exports = AboutList;

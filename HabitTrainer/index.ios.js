@@ -7,7 +7,7 @@
 var React = require('react-native');
 var Habits = require('./Habits');
 var Home = require('./Home');
-var Settings = require('./Settings');
+var About = require('./About');
 
 var {
   AppRegistry,
@@ -50,14 +50,14 @@ var HabitTrainer = React.createClass({
           <Habits/>
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          selected={this.state.selectedTab === 'settings'}
-          title='Settings'
+          selected={this.state.selectedTab === 'about'}
+          title='About'
           onPress={() => {
             this.setState({
-              selectedTab: 'settings'
+              selectedTab: 'about'
             });
           }}>
-          <Settings/>
+          <About/>
         </TabBarIOS.Item>
       </TabBarIOS>
     );
