@@ -10,7 +10,7 @@ var {
   NavigatorIOS
 } = React;
 
-var Tech = React.createClass({
+var Devs = React.createClass({
 
   render: function() {
     return (
@@ -30,4 +30,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = Tech;
+module.exports = Devs;

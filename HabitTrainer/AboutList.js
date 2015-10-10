@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var TechStack = require('./TechStack.js');
+var DevTeam = require('./DevTeam.js');
 var Button = require('apsl-react-native-button'); 
 
 var {
@@ -9,36 +10,41 @@ var {
   View,
   Text,
   Component,
-  Navigator
+  NavigatorIOS
 } = React;
-
-// Look into navigational routes for scenes
-var sceneRouter = function(){};
 
 var AboutList = React.createClass({
 
-  techStackRoute: function(){},
+  techStackRoute: function(){
+    this.props.navigator.push({
+      title: 'Tech Stack',
+      component: TechStack
+    })
+  },
 
-  devTeamRoute: function(){},
+  devTeamRoute: function(){
+    this.props.navigator.push({
+      title: 'Dev Team',
+      component: DevTeam
+    })
+  },
 
   render: function() {
     return (
       <View style={styles.container}>
         <Button style={styles.techStackButton}
           textStyle={styles.buttonText}
-          // onPress= {
-          //   // scene techstack view
-            
-          // }
+          onPress={() => {
+            this.techStackRoute();
+          }}
         >
           Tech Stack
         </Button>
         <Button style={styles.devTeamButton}
           textStyle={styles.buttonText}
-          // onPress={
-          //   // scene dev team view
-            
-          // }
+          onPress={() => {
+            this.devTeamRoute();
+          }}
         >
           Development Team
         </Button>
