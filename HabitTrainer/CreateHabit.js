@@ -17,7 +17,6 @@ var {
  
 var CreateHabit = React.createClass ({
   getInitialState: function() {
-    console.log(this.props.userHabits);
     return {
       habitName: '',
       reminderTime: moment().add(30 - moment(new Date()).minutes() % 30, 'minutes'),
@@ -70,7 +69,7 @@ var CreateHabit = React.createClass ({
         }
       )
     }
-    console.log(this.props.userHabits.habits);
+    // console.log(this.props.userHabits.habits);
   },
   
   render: function(){
