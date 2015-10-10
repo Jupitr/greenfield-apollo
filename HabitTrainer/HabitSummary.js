@@ -7,7 +7,6 @@ var PageControl = require('react-native-page-control');
 var screen = require('Dimensions').get('window');
 
 var {
-  AppRegistry,
   StyleSheet,
   View,
   ScrollView,
@@ -304,7 +303,5 @@ var styles = StyleSheet.create({
     borderWidth: 1
   }
 });
-
-AppRegistry.registerComponent('HabitSummary', () => HabitSummary);
 
 module.exports = HabitSummary;
