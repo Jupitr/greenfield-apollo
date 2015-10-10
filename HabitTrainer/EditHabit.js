@@ -57,13 +57,13 @@ var EditHabit = React.createClass ({
         <Text style={styles.content}>Remind Me At</Text>
         <View style={styles.rowContainer}>
           <TouchableHighlight
-            onPress={this.subtractReminderTime.bind(this)}
+            onPress={this.subtractReminderTime}
             underlayColor="transparent">
             <Text style={styles.text}>-</Text>
           </TouchableHighlight>
           <Text style={styles.text}> { moment(this.state.reminderTime).format('hh:mm') + '\n' + moment(this.state.reminderTime).format('A') } </Text>
           <TouchableHighlight
-            onPress={this.addReminderTime.bind(this)}
+            onPress={this.addReminderTime}
             underlayColor="transparent">
             <Text style={styles.text}>+</Text>
           </TouchableHighlight>
@@ -72,25 +72,25 @@ var EditHabit = React.createClass ({
         <Text style={styles.content}>Due At</Text>
         <View style={styles.rowContainer}>
           <TouchableHighlight
-            onPress={this.subtractDueTime.bind(this)}
+            onPress={this.subtractDueTime}
             underlayColor="transparent">
             <Text style={styles.text}>-</Text>
           </TouchableHighlight>
           <Text style={styles.text}> { moment(this.state.dueTime).format('hh:mm') + '\n' + moment(this.state.dueTime).format('A') } </Text>
           <TouchableHighlight
-            onPress={this.addDueTime.bind(this)}
+            onPress={this.addDueTime}
             underlayColor="transparent">
             <Text style={styles.text}>+</Text>
           </TouchableHighlight>
         </View>
         
         <TouchableHighlight
-          onPress={this.updateHabit.bind(this)}>
+          onPress={this.updateHabit}>
           <Text style={styles.updateButtonText}>Update Habit</Text>
         </TouchableHighlight> 
         
         <TouchableHighlight
-          onPress={this.deleteHabit.bind(this)}>
+          onPress={this.deleteHabit}>
           <Text style={styles.deleteButtonText}>Delete Habit</Text>
         </TouchableHighlight> 
       
