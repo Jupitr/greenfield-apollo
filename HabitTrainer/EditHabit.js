@@ -15,11 +15,10 @@ var {
   AlertIOS
 } = React;
 
-// 'https://jupitrlegacy.herokuapp.com/'
+// var BASE_URL = 'https://jupitrlegacy.herokuapp.com/';
 var BASE_URL = 'http://localhost:8080';
 var REQUEST_USER_HABITS_URL = BASE_URL + '/public/users/habits/';
 var PUT_USER_HABIT_URL = BASE_URL + '/public/users/habits/';
-
  
 var EditHabit = React.createClass ({
   getInitialState: function() {

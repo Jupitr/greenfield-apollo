@@ -22,10 +22,9 @@ var {
 //   {habitName: 'Workout', streak: 8, checkinCount: 15, failedCount: 2, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 8, active:true}
 // ]
 
-// 'https://jupitrlegacy.herokuapp.com/'
+// var BASE_URL = 'https://jupitrlegacy.herokuapp.com/';
 var BASE_URL = 'http://localhost:8080';
 var REQUEST_USER_HABITS_URL = BASE_URL + '/public/users/habits/';
-var PUT_USER_HABIT_URL = BASE_URL + '/public/users/habits/';
 
 // empty object to reference selected row
 var activeRow = {};

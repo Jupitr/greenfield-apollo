@@ -34,7 +34,9 @@ var USER = {
   points: 420
 };
 
-var REQUEST_USER_HABITS_URL = 'https://jupitrlegacy.herokuapp.com/public/users/habits';
+// var BASE_URL = 'https://jupitrlegacy.herokuapp.com/';
+var BASE_URL = 'http://localhost:8080';
+var REQUEST_USER_HABITS_URL = BASE_URL + '/public/users/habits/';
 
 var HabitSummary = React.createClass ({
   getInitialState: function(){
