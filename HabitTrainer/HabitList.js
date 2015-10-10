@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Swipeout = require('react-native-swipeout');
+var moment = require('moment');
 var EditHabit = require('./EditHabit.js');
 var CreateHabit = require('./CreateHabit.js');
 
@@ -14,11 +15,13 @@ var {
   Component
 } = React;
 
-var HABITS = [
-  {habitName: 'Submit a Pull Request', streak: 5, checkinCount: 25, failedCount: 3, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 15, active:true},
-  {habitName: 'Complete a Pomodoro', streak: 10, checkinCount: 20, failedCount: 4, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 20, active:true},
-  {habitName: 'Workout', streak: 8, checkinCount: 15, failedCount: 2, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 8, active:true}
-]
+// var HABITS = [
+//   {habitName: 'Submit a Pull Request', streak: 5, checkinCount: 25, failedCount: 3, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 15, active:true},
+//   {habitName: 'Complete a Pomodoro', streak: 10, checkinCount: 20, failedCount: 4, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 20, active:true},
+//   {habitName: 'Workout', streak: 8, checkinCount: 15, failedCount: 2, reminderTime: '2:30 PM', dueTime: '4:30 PM', streakRecord: 8, active:true}
+// ]
+
+var REQUEST_USER_HABITS_URL = 'https://jupitrlegacy.herokuapp.com/public/users/habits';
 
 // empty object to hole selected row
 var activeRow = {};
@@ -35,13 +38,14 @@ var createRoute = {
   title: 'Create Habit',
   component: CreateHabit,
   passProps: {
-    userHabits: HABITS
+    // userHabits: HABITS
   }
 }
 
 var HabitList = React.createClass ({
 
   getInitialState: function() {
+    console.log(this.state);
     return {
       dataSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
@@ -50,6 +54,8 @@ var HabitList = React.createClass ({
   },
   
   componentDidMount: function() {
+    
+    this.fetchUserHabits();
     
     var self = this;
     
@@ -69,12 +75,24 @@ var HabitList = React.createClass ({
   
     this._redirectToCreateHabit = function() {
       self.props.navigator.push(createRoute);
-    },
+    }
 
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(HABITS),
-    })
+    // this.setState({
+    //   dataSource: this.state.dataSource.cloneWithRows(HABITS),
+    // })
     
+  },
+  
+  fetchUserHabits: function() {
+    fetch(REQUEST_USER_HABITS_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('user habits fetched from server');
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(responseData.habits)
+        });   
+      })
+      .done();
   },
   
   renderHabit: function(habit) {
@@ -89,7 +107,7 @@ var HabitList = React.createClass ({
         <View>
           <Text>{habit.habitName}</Text>
           <Text>Streak: {habit.streakRecord}</Text>
-          <Text>Due: {habit.dueTime}</Text>
+          <Text>Due: { moment(habit.dueTime).format('hh:mm a')}</Text>
         </View>
       </Swipeout>
     );
