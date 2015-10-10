@@ -27,6 +27,8 @@ var REQUEST_USER_HABITS_URL = 'https://jupitrlegacy.herokuapp.com/public/users/h
 // empty object to reference selected row
 var activeRow = {};
 
+var activeHabits = 0;
+
 var HabitList = React.createClass ({
   
   getInitialState: function() {
@@ -78,23 +80,22 @@ var HabitList = React.createClass ({
     ]
   
     this._redirectToCreateHabit = function() {
-      // console.log(habitCount);
-      // if (habitCount === 3) {
-      //   AlertIOS.alert(
-      //     'Three Habit Limit Reached',
-      //     'Please deactivate an existing habit if you wish to add a new one.',
-      //     [
-      //       {text: 'ok', onPress: function() {
-      //         return;
-      //       }},
-      //     ]
-      //   )
-      // }
-      
-      self.props.navigator.push({
-        title: 'Create Habit',
-        component: CreateHabit,
-      });
+      if (activeHabits >= 3) {
+        AlertIOS.alert(
+          'Three Habit Limit Reached',
+          'Please deactivate an existing habit if you wish to add a new one.',
+          [
+            {text: 'ok', onPress: function() {
+              return;
+            }},
+          ]
+        )
+      } else {
+        self.props.navigator.push({
+          title: 'Create Habit',
+          component: CreateHabit,
+        });
+      }
     }
     
   },
@@ -114,6 +115,7 @@ var HabitList = React.createClass ({
   
   renderHabit: function(habit) {
     if (habit.active) {
+      activeHabits++;
       return (
         <Swipeout
           right={this.completeBtn}
@@ -136,6 +138,7 @@ var HabitList = React.createClass ({
   },
 
   render: function() {
+    activeHabits = 0;
     return (
       <View style={styles.container}>
         <ListView style={styles.listContainer}
