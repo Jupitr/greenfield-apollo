@@ -76,8 +76,8 @@ var HabitSummary = React.createClass ({
 
   render: function(){
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={{flexDirection: 'row'}}>
         <TouchableOpacity onPress={this.avatarTapped}>
           <View style={styles.icon}>
           { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
@@ -94,13 +94,13 @@ var HabitSummary = React.createClass ({
           </Text>
         </View>
       </View>
-      <View style={styles.container}>
+      <View style={{flexDirection: 'row'}}>
         <Text style={styles.content}>
           Next Up
         </Text>
       </View>
-      <View style={styles.container}>
-        <Text style={styles.content && styles.next}>
+      <View style={{flexDirection: 'row'}}>
+        <Text style={styles.next}>
           {helpers.nextHabit(HABITS)}
         </Text>
       </View>
@@ -112,15 +112,15 @@ var HabitSummary = React.createClass ({
 
 var styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row'
+    alignItems: 'center'
   },
   content: {
     // borderWidth: 1,
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   contentSmall: {
     // borderWidth: 1,
@@ -136,6 +136,7 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   next: {
+    flex: 1,
     borderWidth: 1,
     padding: 10
   },
