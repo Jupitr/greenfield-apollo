@@ -18,7 +18,24 @@ var nextHabit = exports.nextHabit = function(habits) {
     }
   }
   next = next || 'good job!'
+  if (next === 'good job!') {
+    nextDue = 0;
+    diff = 0;
+  }
   return [next, nextDue, diff];
+}
+
+var sortHabits = exports.sortHabits = function(habits) {
+  var accomplished = [], active = [];
+  for (var i = 0; i < habits.length; i++) {
+    if (habits[i].streak >= 21) {
+      accomplished.push(habits[i]);
+    }
+    if (habits[i].active) {
+      active.push(habits[i]);
+    }
+  }
+  return [accomplished, active];
 }
 
 var parseTime = exports.parseTime = function(time, cb) {
