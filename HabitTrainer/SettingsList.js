@@ -10,6 +10,13 @@ var {
 } = React;
 
 var SettingsList = React.createClass ({
+  render: function() {
+    return (
+      <View>
+        <Text> /*TODO Create settings options*/ </Text>
+      </View>      
+    );
+  }
 });
 
 module.exports = SettingsList;
