@@ -39,26 +39,26 @@ var HabitTrainer = React.createClass({
   },
 
   render: function() {
-    if (!this.state.user) {
-      return (
-        <View style={styles.container}>
-          <TouchableHighlight onPress={() => {this._signIn(); }}>
-            <View style={{backgroundColor: '#f44336', flexDirection: 'row'}}>
-              <View style={{padding: 12, borderWidth: 1/2, borderColor: 'transparent', borderRightColor: 'white'}}>
-                <Icon
-                  name='ion|social-googleplus'
-                  size={24}
-                  color='white'
-                  style={{width: 24, height: 24}}
-                />
-              </View>
-              <Text style={{color: 'white', padding: 12, marginTop: 2, fontWeight: 'bold'}}>Sign in with Google+</Text>
-            </View>
-          </TouchableHighlight>
-        </View>
-      );
-    }
-    else {
+    // if (!this.state.user) {
+    //   return (
+    //     <View style={styles.container}>
+    //       <TouchableHighlight onPress={() => {this._signIn(); }}>
+    //         <View style={{backgroundColor: '#f44336', flexDirection: 'row'}}>
+    //           <View style={{padding: 12, borderWidth: 1/2, borderColor: 'transparent', borderRightColor: 'white'}}>
+    //             <Icon
+    //               name='ion|social-googleplus'
+    //               size={24}
+    //               color='white'
+    //               style={{width: 24, height: 24}}
+    //             />
+    //           </View>
+    //           <Text style={{color: 'white', padding: 12, marginTop: 2, fontWeight: 'bold'}}>Sign in with Google+</Text>
+    //         </View>
+    //       </TouchableHighlight>
+    //     </View>
+    //   );
+    // }
+    // else {
       return (
         <TabBarIOS
           tintColor="white"
@@ -101,7 +101,7 @@ var HabitTrainer = React.createClass({
           </Icon.TabBarItem>
         </TabBarIOS>
       );
-    }
+    // }
   },
 
   _configureOauth: function(clientId, scopes=[]) {
