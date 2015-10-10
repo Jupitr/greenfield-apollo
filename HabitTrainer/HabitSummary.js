@@ -3,11 +3,14 @@
 var React = require('react-native');
 var helpers = require('./helper/helpers.js');
 var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
+var PageControl = require('react-native-page-control');
+var screen = require('Dimensions').get('window');
 
 var {
   AppRegistry,
   StyleSheet,
   View,
+  ScrollView,
   Text,
   Component,
   PixelRatio,
@@ -92,6 +95,14 @@ var HabitSummary = React.createClass ({
     this.setState({nextWidth: nextWidthHolder, nextHabit: nextHabitHolder});
   },
 
+  onScroll: function(event){
+    var offsetX = event.nativeEvent.contentOffset.x,
+        pageWidth = screen.width - 10;
+    this.setState({
+      currentPage: Math.floor((offsetX - pageWidth / 2) / pageWidth) + 1
+    });
+  },
+
   render: function(){
   return (
     <View style={styles.container}>
@@ -112,10 +123,46 @@ var HabitSummary = React.createClass ({
           </Text>
         </View>
       </View>
-      <View style={styles.pointsCir}>
-        <Text style={styles.points}>
-          {USER.points}
-        </Text>
+      <View style={{backgroundColor:'red', width:screen.width,height: 250}}>
+        <ScrollView 
+          ref="ad" 
+          pagingEnabled={true} 
+          horizontal={true} 
+          showsHorizontalScrollIndicator={false} 
+          bounces={false} 
+          onScroll={this.onScroll} 
+          scrollEventThrottle={16} 
+          style={{height: 250, borderWidth: 1, backgroundColor: 'grey'}}>
+          <View style={{width:screen.width,  height:164}}>
+            <View style={styles.pointsCir}>
+              <Text style={styles.points}>
+                {USER.points}
+              </Text>
+            </View>
+          </View>
+          <View style={{width:screen.width,  height:164}}>
+            <View style={styles.pointsCir}>
+              <Text style={styles.points}>
+                another one
+              </Text>
+            </View>
+          </View>
+          <View style={{width:screen.width,  height:164}}>
+            <View style={styles.pointsCir}>
+              <Text style={styles.points}>
+                third one
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
+        <PageControl 
+          style={{position:'absolute', left:0, right:0, bottom:10}} 
+          numberOfPages={3} 
+          currentPage={this.state.currentPage} 
+          hidesForSinglePage={true} 
+          pageIndicatorTintColor='gray' 
+          indicatorSize={{width:8, height:8}} 
+          currentPageIndicatorTintColor='black' />
       </View>
       <View style={{flexDirection: 'row'}}>
         <Text style={styles.content}>
