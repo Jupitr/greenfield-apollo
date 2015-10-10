@@ -24,7 +24,7 @@ var AboutList = React.createClass({
 
   devTeamRoute: function(){
     this.props.navigator.push({
-      title: 'Dev Team',
+      title: 'Developers',
       component: DevTeam
     })
   },
@@ -46,7 +46,7 @@ var AboutList = React.createClass({
             this.devTeamRoute();
           }}
         >
-          Development Team
+          Developers
         </Button>
         </View>
     );
