@@ -97,7 +97,7 @@ var HabitSummary = React.createClass ({
         </Text>
       </View>
       <View>
-        <Text style={styles.content}>
+        <Text style={styles.content && styles.next}>
           {helpers.nextHabit(HABITS)}
         </Text>
       </View>
@@ -134,6 +134,10 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  next: {
+    borderWidth: 1,
+    padding: 10
+  }
 });
 
 module.exports = HabitSummary;
