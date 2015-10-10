@@ -54,21 +54,24 @@ var HabitSummary = React.createClass ({
         this.setState({
           userHabits: responseData
         });
-        console.log(this.state.userHabits);    
+        console.log(this.state.userHabits);
+        this._processHabits(this.state.userHabits.habits);  
       })
       .done();
   },
 
-  componentDidMount: function() {
-    this.fetchUserHabits();
-    
-    var next = helpers.nextHabit(HABITS);
+  _processHabits: function(habits) {
+    var next = helpers.nextHabit(habits);
     var diff = next[2];
     var dueTime = next[1];
     var nextHabitHolder = next[0];
     var nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
     this.setState({nextHabit: nextHabitHolder, nextWidth: nextWidthHolder});
     this._interval = window.setInterval(this.onTick, 60000);
+  },
+
+  componentDidMount: function() {
+    this.fetchUserHabits();
   },
 
   componentWillUnmount: function() {
@@ -107,12 +110,7 @@ var HabitSummary = React.createClass ({
   },
 
   onTick: function() {
-    var next = helpers.nextHabit(HABITS);
-    var diff = next[2];
-    var dueTime = next[1];
-    var nextHabitHolder = next[0];
-    var nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
-    this.setState({nextWidth: nextWidthHolder, nextHabit: nextHabitHolder});
+    this._processHabits(this.state.userHabits.habits);
   },
 
   onScroll: function(event){
@@ -124,81 +122,81 @@ var HabitSummary = React.createClass ({
   },
 
   render: function(){
-  return (
-    <View style={styles.container}>
-      <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity onPress={this.avatarTapped}>
-          <View style={styles.icon}>
-          { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
-            <Image style={styles.icon} source={this.state.avatarSource} />
-          }
+    return (
+      <View style={styles.container}>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity onPress={this.avatarTapped}>
+            <View style={styles.icon}>
+            { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
+              <Image style={styles.icon} source={this.state.avatarSource} />
+            }
+            </View>
+          </TouchableOpacity>
+          <View>
+            <Text style={styles.content}>
+              Hello, {USER.name}! 
+            </Text>
+            <Text style={styles.contentSmall}>
+              Training since {USER.dateJoined}
+            </Text>
           </View>
-        </TouchableOpacity>
-        <View>
+        </View>
+        <View style={{backgroundColor:'red', width:screen.width,height: 250}}>
+          <ScrollView 
+            ref="ad" 
+            pagingEnabled={true} 
+            horizontal={true} 
+            showsHorizontalScrollIndicator={false} 
+            bounces={false} 
+            onScroll={this.onScroll} 
+            scrollEventThrottle={16} 
+            style={{height: 250, borderWidth: 1, backgroundColor: 'grey'}}>
+            <View style={{width:screen.width,  height:164}}>
+              <View style={styles.pointsCir}>
+                <Text style={styles.points}>
+                  {USER.points}
+                </Text>
+              </View>
+            </View>
+            <View style={{width:screen.width,  height:164}}>
+              <View style={styles.pointsCir}>
+                <Text style={styles.points}>
+                  another one
+                </Text>
+              </View>
+            </View>
+            <View style={{width:screen.width,  height:164}}>
+              <View style={styles.pointsCir}>
+                <Text style={styles.points}>
+                  third one
+                </Text>
+              </View>
+            </View>
+          </ScrollView>
+          <PageControl 
+            style={{position:'absolute', left:0, right:0, bottom:10}} 
+            numberOfPages={3} 
+            currentPage={this.state.currentPage} 
+            hidesForSinglePage={true} 
+            pageIndicatorTintColor='gray' 
+            indicatorSize={{width:8, height:8}} 
+            currentPageIndicatorTintColor='black' />
+        </View>
+        <View style={{flexDirection: 'row'}}>
           <Text style={styles.content}>
-            Hello, {USER.name}! 
+            Next Up
           </Text>
-          <Text style={styles.contentSmall}>
-            Training since {USER.dateJoined}
+        </View>
+        <View>
+          <View style={[styles.overlay,{width: this.state.nextWidth}]}>
+          </View>
+          <Text style={styles.next}>
+            {this.state.nextHabit}
           </Text>
         </View>
       </View>
-      <View style={{backgroundColor:'red', width:screen.width,height: 250}}>
-        <ScrollView 
-          ref="ad" 
-          pagingEnabled={true} 
-          horizontal={true} 
-          showsHorizontalScrollIndicator={false} 
-          bounces={false} 
-          onScroll={this.onScroll} 
-          scrollEventThrottle={16} 
-          style={{height: 250, borderWidth: 1, backgroundColor: 'grey'}}>
-          <View style={{width:screen.width,  height:164}}>
-            <View style={styles.pointsCir}>
-              <Text style={styles.points}>
-                {USER.points}
-              </Text>
-            </View>
-          </View>
-          <View style={{width:screen.width,  height:164}}>
-            <View style={styles.pointsCir}>
-              <Text style={styles.points}>
-                another one
-              </Text>
-            </View>
-          </View>
-          <View style={{width:screen.width,  height:164}}>
-            <View style={styles.pointsCir}>
-              <Text style={styles.points}>
-                third one
-              </Text>
-            </View>
-          </View>
-        </ScrollView>
-        <PageControl 
-          style={{position:'absolute', left:0, right:0, bottom:10}} 
-          numberOfPages={3} 
-          currentPage={this.state.currentPage} 
-          hidesForSinglePage={true} 
-          pageIndicatorTintColor='gray' 
-          indicatorSize={{width:8, height:8}} 
-          currentPageIndicatorTintColor='black' />
-      </View>
-      <View style={{flexDirection: 'row'}}>
-        <Text style={styles.content}>
-          Next Up
-        </Text>
-      </View>
-      <View>
-        <View style={[styles.overlay,{width: this.state.nextWidth}]}>
-        </View>
-        <Text style={styles.next}>
-          {this.state.nextHabit}
-        </Text>
-      </View>
-    </View>
-  );
-}
+    );
+  }
 });
 
 var test = 50;
@@ -231,6 +229,7 @@ var styles = StyleSheet.create({
     padding: 10,
     textAlign: 'center',
     width: 250,
+    height: 39,
     backgroundColor: 'rgba(0, 0, 0, 0)'
   },
   pointsCir: {

@@ -1,11 +1,13 @@
 'use strict'
 
+var moment = require('moment');
+
 var nextHabit = exports.nextHabit = function(habits) {
   var date = new Date();
   var current = convertTime(date.getHours(),  date.getMinutes());
   var diff, temp, next, nextDue;
   for (var i = 0; i < habits.length; i++) {
-    var due = parseTime(habits[i].dueTime, convertTime);
+    var due = parseTime(moment(habits[i].dueTime).format('hh:mm a'), convertTime);
     temp = due - current;
     if (temp > 0) {
       if (temp < diff || diff === undefined) {
@@ -22,19 +24,19 @@ var nextHabit = exports.nextHabit = function(habits) {
 var parseTime = exports.parseTime = function(time, cb) {
   var hr = time.match(/\d+(?=:)/gi).join("")*1;
   var min = time.match(/\d+(?= [ap]m)/gi).join("")*1;
-  var ap = time.match(/AM|PM/).join("");
+  var ap = time.match(/am|pm/).join("");
 
   return cb(hr, min, ap);
 }
 
 var convertTime = exports.convertTime = function(hr, min, ap) {
-  if (ap === 'AM') {
+  if (ap === 'am') {
     if (hr === 12) {
       return min;
     }
     return hr * 60 + min;
   }
-  else if (ap === 'PM'){
+  else if (ap === 'pm'){
     if (hr !== 12) {
       return (hr + 12) * 60 + min;
     }
