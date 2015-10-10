@@ -18,6 +18,10 @@ var nextHabit = exports.nextHabit = function(habits) {
     }
   }
   next = next || 'good job!'
+  if (next === 'good job!') {
+    nextDue = 0;
+    diff = 0;
+  }
   return [next, nextDue, diff];
 }
 

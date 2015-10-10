@@ -141,7 +141,7 @@ var HabitSummary = React.createClass ({
             </Text>
           </View>
         </View>
-        <View style={{backgroundColor:'red', width:screen.width,height: 250}}>
+        <View style={styles.scrollContainer}>
           <ScrollView 
             ref="ad" 
             pagingEnabled={true} 
@@ -149,23 +149,22 @@ var HabitSummary = React.createClass ({
             showsHorizontalScrollIndicator={false} 
             bounces={false} 
             onScroll={this.onScroll} 
-            scrollEventThrottle={16} 
-            style={{height: 250, borderWidth: 1, backgroundColor: 'grey'}}>
-            <View style={{width:screen.width,  height:164}}>
+            scrollEventThrottle={16}>
+            <View style={{width: screen.width}}>
               <View style={styles.pointsCir}>
                 <Text style={styles.points}>
                   {USER.points}
                 </Text>
               </View>
             </View>
-            <View style={{width:screen.width,  height:164}}>
+            <View style={{width: screen.width}}>
               <View style={styles.pointsCir}>
                 <Text style={styles.points}>
                   another one
                 </Text>
               </View>
             </View>
-            <View style={{width:screen.width,  height:164}}>
+            <View style={{width: screen.width}}>
               <View style={styles.pointsCir}>
                 <Text style={styles.points}>
                   third one
@@ -233,14 +232,21 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0)'
   },
   pointsCir: {
+    position: 'absolute',
     width: 200,
     height: 200,
+    left: screen.width / 2 - 100,
+    top: -50 ,
     borderRadius: 100,
     borderWidth: 1,
-    margin: 20,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(255, 10, 0, 0.2)'
+  },
+  scrollContainer: {
+    width:screen.width, 
+    height:250,
+    marginTop: 10
   },
   points: {
     fontSize: 50,
@@ -253,7 +259,7 @@ var styles = StyleSheet.create({
     height: 39, 
     borderWidth: 1,
     backgroundColor: 'rgba(255, 255, 0, 0.9)'
-  }
+  },
 });
 
 AppRegistry.registerComponent('HabitSummary', () => HabitSummary);
