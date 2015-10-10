@@ -26,8 +26,8 @@ var REQUEST_USER_HABITS_URL = 'https://jupitrlegacy.herokuapp.com/public/users/h
 
 // empty object to reference selected row
 var activeRow = {};
-
 var activeHabits = 0;
+var userHabitRecord;
 
 var HabitList = React.createClass ({
   
@@ -94,6 +94,9 @@ var HabitList = React.createClass ({
         self.props.navigator.push({
           title: 'Create Habit',
           component: CreateHabit,
+          passProps: {
+            userHabits: self.state.userHabits
+          }
         });
       }
     }
@@ -106,9 +109,9 @@ var HabitList = React.createClass ({
       .then((responseData) => {
         console.log('user habits fetched from server');
         this.setState({
+          userHabits: responseData,
           dataSource: this.state.dataSource.cloneWithRows(responseData.habits)
         });
-        userHabits: responseData;   
       })
       .done();
   },
