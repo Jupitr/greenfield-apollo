@@ -9,7 +9,12 @@ var {
   View,
   Text,
   Component,
-  Image
+  PixelRatio,
+  TouchableOpacity,
+  Image,
+  NativeModules: {
+    UIImagePickerManager
+  }
 } = React;
 
 var HABITS = [
@@ -23,19 +28,60 @@ var user = {
   dateJoined: '10/06/15'
 }
 
+
 var date = new Date();
 var hour = date.getHours();
 var min = date.getMinutes();
 
 var HabitSummary = React.createClass ({
+  getInitialState: function(){
+    return {
+      avatarSource: null
+    };
+  },
+
+  avatarTapped: function() {
+  // Specify any or all of these keys
+    var options = {
+      title: 'Select Avatar',
+      cancelButtonTitle: 'Cancel',
+      takePhotoButtonTitle: 'Take Photo...',
+      takePhotoButtonHidden: false,
+      chooseFromLibraryButtonTitle: 'Choose from Library...',
+      chooseFromLibraryButtonHidden: false,
+      returnBase64Image: false,
+      returnIsVertical: false,
+      quality: 0.2
+    };
+    UIImagePickerManager.showImagePicker(options, (responseType, response) => {
+      console.log(`Response Type = ${responseType}`);
+
+      if (responseType !== 'cancel') {
+        var source;
+        if (responseType === 'data') { // New photo taken OR passed returnBase64Image true -  response is the 64 bit encoded image data string
+          source = {uri: 'data:image/jpeg;base64,' + response, isStatic: true};
+        } else { // Selected from library - response is the URI to the local file asset
+          source = {uri: response.replace('file://', ''), isStatic: true};
+        }
+
+        this.setState({
+          avatarSource: source
+        });
+      }
+    });
+  },
+
   render: function(){
   return (
     <View style={styles.container}>
       <View style={{flexDirection: 'row'}}>
-        <Image
-        style={styles.icon}
-        source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
-        />
+        <TouchableOpacity onPress={this.avatarTapped}>
+          <View style={styles.icon}>
+          { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
+            <Image style={styles.avatar} source={this.state.avatarSource} />
+          }
+          </View>
+        </TouchableOpacity>
         <View>
           <Text style={styles.content}>
             Hello, {user.name}! 
@@ -84,6 +130,7 @@ var styles = StyleSheet.create({
   icon: {
     width: 75,
     height: 75,
+    borderWidth: 1
   },
 });
 
