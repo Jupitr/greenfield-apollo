@@ -208,9 +208,9 @@ var HabitSummary = React.createClass ({
             numberOfPages={3} 
             currentPage={this.state.currentPage} 
             hidesForSinglePage={true} 
-            pageIndicatorTintColor='gray' 
+            pageIndicatorTintColor='rgba(30, 30, 30, 0.2)' 
             indicatorSize={{width:8, height:8}} 
-            currentPageIndicatorTintColor='black' />
+            currentPageIndicatorTintColor='rgba(0, 0, 0, 0.4)' />
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.content}>
