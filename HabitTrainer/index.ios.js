@@ -7,6 +7,7 @@
 var React = require('react-native');
 var Habits = require('./Habits');
 var Home = require('./Home');
+var Settings = require('./Settings');
 
 var {
   AppRegistry,
@@ -49,6 +50,17 @@ var HabitTrainer = React.createClass({
             });
           }}>
           <Habits/>
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'settings'}
+          // systemIcon='search'
+          title='Settings'
+          onPress={() => {
+            this.setState({
+              selectedTab: 'settings'
+            });
+          }}>
+          <Settings/>
         </TabBarIOS.Item>
       </TabBarIOS>
     );
