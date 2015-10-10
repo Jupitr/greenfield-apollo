@@ -39,18 +39,15 @@ var EditHabit = React.createClass ({
   },
   
   updateHabit: function() {
-    console.log('update habit');
-    
     this.props.selectedHabit.habit.reminderTime = this.state.reminderTime;
     this.props.selectedHabit.habit.dueTime = this.state.dueTime;
-    
   },
   
-  deleteHabit: function() {
+  deactivateHabit: function() {
     var habit = this.props.selectedHabit.habit;
     AlertIOS.alert(
-      'Delete Habit',
-      'Do you want to delete this habit?',
+      'Deactivate Habit',
+      'Do you want to deactivate this habit?',
       [
         {text: 'No', onPress: function() {
           return
@@ -103,8 +100,8 @@ var EditHabit = React.createClass ({
         </TouchableHighlight> 
         
         <TouchableHighlight
-          onPress={this.deleteHabit}>
-          <Text style={styles.deleteButtonText}>Delete Habit</Text>
+          onPress={this.deactivateHabit}>
+          <Text style={styles.deactivateButtonText}>Deactivate Habit</Text>
         </TouchableHighlight> 
       
       </View>
@@ -134,7 +131,7 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: 'blue',
   },
-  deleteButtonText: {
+  deactivateButtonText: {
     textAlign: 'center',
     color: 'red',
   }
