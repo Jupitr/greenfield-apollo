@@ -34,14 +34,34 @@ var USER = {
   points: 420
 }
 
+var REQUEST_USER_HABITS_URL = 'https://jupitrlegacy.herokuapp.com/public/users/habits';
+
 var HabitSummary = React.createClass ({
   getInitialState: function(){
+    console.log(this.props.userHabits);
     return {
       avatarSource: null,
+      userName: 'Public User',
+      userHabits: null
     };
   },
 
+  fetchUserHabits: function() {
+    fetch(REQUEST_USER_HABITS_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('_______________user habits fetched from server______________');
+        this.setState({
+          userHabits: responseData
+        });
+        console.log(this.state.userHabits);    
+      })
+      .done();
+  },
+
   componentDidMount: function() {
+    this.fetchUserHabits();
+    
     var next = helpers.nextHabit(HABITS);
     var diff = next[2];
     var dueTime = next[1];

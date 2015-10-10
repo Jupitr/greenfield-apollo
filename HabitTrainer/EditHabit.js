@@ -11,17 +11,16 @@ var {
   Text,
   DatePickerIOS,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight,
+  AlertIOS
 } = React;
  
 var EditHabit = React.createClass ({
   getInitialState: function() {
     return {
       habitName: this.props.selectedHabit.habit.habitName,
-      // reminderTime: this.props.selectedHabit.habit.reminderTime,
-      reminderTime: moment().add(30 - moment(new Date()).minutes() % 30, 'minutes'),
-      // dueTime: this.props.selectedHabit.habit.dueTime,
-      dueTime: moment().add(30 - moment(new Date()).minutes() % 30, 'minutes')
+      reminderTime: this.props.selectedHabit.habit.reminderTime,
+      dueTime: this.props.selectedHabit.habit.dueTime
     }
   },
 
@@ -40,13 +39,26 @@ var EditHabit = React.createClass ({
   },
   
   updateHabit: function() {
-    // TODO -- build update function
     console.log('update habit');
+    
+    this.props.selectedHabit.habit.reminderTime = this.state.reminderTime;
+    this.props.selectedHabit.habit.dueTime = this.state.dueTime;
+    
   },
   
   deleteHabit: function() {
-    // TODO -- build delete function
-    console.log('deleting habit');
+    AlertIOS.alert(
+      'Delete Habit',
+      'Do you want to delete this habit?',
+      [
+        {text: 'No', onPress: function() {
+          return
+        }},
+        {text: 'Yes', onPress: function() {
+          this.props.selectedHabit.habit.active = false
+        }},
+      ]
+    )
   },
   
   render: function(){

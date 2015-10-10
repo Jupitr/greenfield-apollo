@@ -23,10 +23,10 @@ var HabitTrainer = React.createClass({
   
   getInitialState: function() {
     return {
-      selectedTab: 'home'  
+      selectedTab: 'home',
     };    
   },
-
+  
   render: function() {
     return (
       <TabBarIOS
