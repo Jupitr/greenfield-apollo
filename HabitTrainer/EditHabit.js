@@ -14,6 +14,11 @@ var {
   TouchableHighlight,
   AlertIOS
 } = React;
+
+// 'https://jupitrlegacy.herokuapp.com/'
+var BASE_URL = 'http://localhost:8080';
+var REQUEST_USER_HABITS_URL = BASE_URL + '/public/users/habits/';
+var PUT_USER_HABIT_URL = BASE_URL + '/public/users/habits/';
  
 var EditHabit = React.createClass ({
   getInitialState: function() {
@@ -56,7 +61,19 @@ var EditHabit = React.createClass ({
         }},
         {text: 'Yes', onPress: function() {
           habit.active = false;
-          habit.status = 'inactive';
+          var url = PUT_USER_HABIT_URL + habit._id;
+          fetch(url, {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(habit)
+          })
+          .then((responseData) => {
+            console.log(responseData);
+          })
+          .done();
         }},
       ]
     )
