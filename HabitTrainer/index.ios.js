@@ -31,8 +31,7 @@ var HabitTrainer = React.createClass({
       <TabBarIOS selectedTab={this.state.selectedTab}>
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'home'}
-          // systemIcon='featured'
-          title='Home'
+          systemIcon='featured'
           onPress={() => {
             this.setState({
               selectedTab: 'home'
@@ -42,8 +41,7 @@ var HabitTrainer = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'habits'}
-          // systemIcon='search'
-          title='My Habits'
+          systemIcon='search'
           onPress={() => {
             this.setState({
               selectedTab: 'habits'

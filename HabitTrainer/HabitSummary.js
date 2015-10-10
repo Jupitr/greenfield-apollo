@@ -5,11 +5,14 @@ var helpers = require('./helper/helpers.js');
 var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
 
 var {
+  AppRegistry,
   StyleSheet,
   View,
   Text,
   Component,
   PixelRatio,
+  NavigatorIOS,
+  WebView,
   TouchableOpacity,
   Image,
   NativeModules: {
@@ -73,8 +76,8 @@ var HabitSummary = React.createClass ({
 
   render: function(){
   return (
-    <View style={styles.container}>
-      <View style={{flexDirection: 'row'}}>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}}>
+      <View style={styles.container}>
         <TouchableOpacity onPress={this.avatarTapped}>
           <View style={styles.icon}>
           { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
@@ -91,29 +94,27 @@ var HabitSummary = React.createClass ({
           </Text>
         </View>
       </View>
-      <View>
+      <View style={styles.container}>
         <Text style={styles.content}>
           Next Up
         </Text>
       </View>
-      <View>
+      <View style={styles.container}>
         <Text style={styles.content && styles.next}>
           {helpers.nextHabit(HABITS)}
         </Text>
-      </View>
-      <View>
-
       </View>
     </View>
   );
 }
 });
 
+
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row'
   },
   content: {
     // borderWidth: 1,
@@ -137,7 +138,17 @@ var styles = StyleSheet.create({
   next: {
     borderWidth: 1,
     padding: 10
+  },
+  vector: {
+    height: 500,
+    width: 500,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    borderWidth: 1,
+    flexDirection: 'row'
   }
 });
+
+AppRegistry.registerComponent('HabitSummary', () => HabitSummary);
 
 module.exports = HabitSummary;
