@@ -14,6 +14,11 @@ var {
   TouchableHighlight,
   AlertIOS
 } = React;
+
+var BASE_URL = 'https://jupitrlegacy.herokuapp.com';
+// var BASE_URL = 'http://localhost:8080';
+var REQUEST_USER_HABITS_URL = BASE_URL + '/public/users/habits/';
+var POST_USER_HABIT_URL = BASE_URL + '/public/users/habits/';
  
 var CreateHabit = React.createClass ({
   getInitialState: function() {
@@ -68,6 +73,23 @@ var CreateHabit = React.createClass ({
           active: true
         }
       )
+      var habit = {
+        habitName: habitName,
+        reminderTime: reminderTime,
+        dueTime: dueTime
+      }
+      fetch(POST_USER_HABIT_URL, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(habit)
+      })
+      .then((responseData) => {
+        console.log(responseData);
+      })
+      .done();
     }
     // console.log(this.props.userHabits.habits);
   },

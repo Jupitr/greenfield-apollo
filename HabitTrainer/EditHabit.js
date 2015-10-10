@@ -14,6 +14,11 @@ var {
   TouchableHighlight,
   AlertIOS
 } = React;
+
+var BASE_URL = 'https://jupitrlegacy.herokuapp.com';
+// var BASE_URL = 'http://localhost:8080';
+var REQUEST_USER_HABITS_URL = BASE_URL + '/public/users/habits/';
+var PUT_USER_HABIT_URL = BASE_URL + '/public/users/habits/';
  
 var EditHabit = React.createClass ({
   getInitialState: function() {
@@ -38,15 +43,32 @@ var EditHabit = React.createClass ({
     this.setState({ dueTime: moment(this.state.dueTime).add(30, 'minutes') });
   },
   
+  putToServer: function(habit) {
+    var url = PUT_USER_HABIT_URL + habit._id;
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(habit)
+    })
+    .then((responseData) => {
+      console.log(responseData);
+    })
+    .done();
+  },
+  
   updateHabit: function() {
-    this.props.selectedHabit.habit.reminderTime = 
-      moment(this.state.reminderTime).toISOString();
-    this.props.selectedHabit.habit.dueTime = 
-      moment(this.state.dueTime).toISOString();
+    var habit = this.props.selectedHabit.habit;
+    habit.reminderTime = moment(this.state.reminderTime).toISOString();
+    habit.dueTime = moment(this.state.dueTime).toISOString();
+    this.putToServer(habit);
   },
   
   deactivateHabit: function() {
     var habit = this.props.selectedHabit.habit;
+    var self = this
     AlertIOS.alert(
       'Deactivate Habit',
       'Do you want to deactivate this habit?',
@@ -56,7 +78,7 @@ var EditHabit = React.createClass ({
         }},
         {text: 'Yes', onPress: function() {
           habit.active = false;
-          habit.status = 'inactive';
+          self.putToServer(habit);
         }},
       ]
     )
