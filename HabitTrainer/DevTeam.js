@@ -11,18 +11,17 @@ var {
   Image
 } = React;
 
-var Tech = React.createClass({
+var Devs = React.createClass({
 
+      // sample placeholder image
+        // create dev team images in list?
+        // Their role in the project
   render: function() {
     return (
       <View style={styles.container}>
         <Image 
         style={styles.avatar}
-        source={{uri: 'http://red-badger.com/blog/wp-content/uploads/2015/04/react-logo-1000-transparent.png'}}
-        />
-        <Image 
-        style={styles.largerAvatar}
-        source={{uri: 'http://www.invokemedia.com/wp-content/uploads/2015/07/angular.png'}}
+        source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
         />
       </View>
     );
@@ -38,13 +37,9 @@ var styles = StyleSheet.create({
     marginRight: 20,
   },
   avatar: {
-    width: 50,
-    height: 50
-  },
-  largerAvatar: {
     width: 100,
     height: 100
   }
 });
 
-module.exports = Tech;
+module.exports = Devs;
