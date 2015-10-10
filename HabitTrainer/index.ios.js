@@ -8,6 +8,7 @@ var React = require('react-native');
 var Habits = require('./Habits');
 var Home = require('./Home');
 var About = require('./About');
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var {
   AppRegistry,
@@ -25,44 +26,90 @@ var HabitTrainer = React.createClass({
       selectedTab: 'home'  
     };    
   },
-   
+
   render: function() {
     return (
-      <TabBarIOS selectedTab={this.state.selectedTab}>
-        <TabBarIOS.Item
+      <TabBarIOS
+        tintColor="white"
+        barTintColor="#black">
+        <Icon.TabBarItem
+          title="Home"
+          iconName="ios-home-outline"
+          selectedIconName="ios-home"
           selected={this.state.selectedTab === 'home'}
-          systemIcon='featured'
           onPress={() => {
             this.setState({
-              selectedTab: 'home'
+              selectedTab: 'home',
             });
           }}>
           <Home/>
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
+        </Icon.TabBarItem>
+        <Icon.TabBarItem
+          title="Habits"
+          iconName="ios-checkmark-outline"
+          selectedIconName="ios-checkmark"
           selected={this.state.selectedTab === 'habits'}
-          systemIcon='search'
           onPress={() => {
             this.setState({
-              selectedTab: 'habits'
+              selectedTab: 'habits',
             });
           }}>
           <Habits/>
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
+        </Icon.TabBarItem>
+        <Icon.TabBarItem
+          title="About"
+          iconName="ios-gear-outline"
+          selectedIconName="ios-gear"
           selected={this.state.selectedTab === 'about'}
-          title='About'
           onPress={() => {
             this.setState({
-              selectedTab: 'about'
+              selectedTab: 'about',
             });
           }}>
           <About/>
-        </TabBarIOS.Item>
+        </Icon.TabBarItem>
       </TabBarIOS>
     );
-  },
+  }
 });
+ 
+//   render: function() {
+//     return (
+//       <TabBarIOS selectedTab={this.state.selectedTab}>
+//         <TabBarIOS.Item
+//           selected={this.state.selectedTab === 'home'}
+//           systemIcon='featured'
+//           onPress={() => {
+//             this.setState({
+//               selectedTab: 'home'
+//             });
+//           }}>
+//           <Home/>
+//         </TabBarIOS.Item>
+//         <TabBarIOS.Item
+//           selected={this.state.selectedTab === 'habits'}
+//           systemIcon='search'
+//           onPress={() => {
+//             this.setState({
+//               selectedTab: 'habits'
+//             });
+//           }}>
+//           <Habits/>
+//         </TabBarIOS.Item>
+//         <TabBarIOS.Item
+//           selected={this.state.selectedTab === 'about'}
+//           title='About'
+//           onPress={() => {
+//             this.setState({
+//               selectedTab: 'about'
+//             });
+//           }}>
+//           <About/>
+//         </TabBarIOS.Item>
+//       </TabBarIOS>
+//     );
+//   },
+// });
 
 var styles = StyleSheet.create({
   container: {
