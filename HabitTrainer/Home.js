@@ -10,9 +10,9 @@ var {
    } = React;
  
 var styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
+  container: {
+      flex: 1
+  }
 });
  
 var Home = React.createClass ({
