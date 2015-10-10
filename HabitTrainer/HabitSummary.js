@@ -7,7 +7,6 @@ var PageControl = require('react-native-page-control');
 var screen = require('Dimensions').get('window');
 
 var {
-  AppRegistry,
   StyleSheet,
   View,
   ScrollView,
@@ -208,9 +207,9 @@ var HabitSummary = React.createClass ({
             numberOfPages={3} 
             currentPage={this.state.currentPage} 
             hidesForSinglePage={true} 
-            pageIndicatorTintColor='gray' 
+            pageIndicatorTintColor='rgba(30, 30, 30, 0.2)' 
             indicatorSize={{width:8, height:8}} 
-            currentPageIndicatorTintColor='black' />
+            currentPageIndicatorTintColor='rgba(0, 0, 0, 0.4)' />
         </View>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.content}>
@@ -304,7 +303,5 @@ var styles = StyleSheet.create({
     borderWidth: 1
   }
 });
-
-AppRegistry.registerComponent('HabitSummary', () => HabitSummary);
 
 module.exports = HabitSummary;

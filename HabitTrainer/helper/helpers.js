@@ -7,13 +7,15 @@ var nextHabit = exports.nextHabit = function(habits) {
   var current = convertTime(date.getHours(),  date.getMinutes());
   var diff, temp, next, nextDue;
   for (var i = 0; i < habits.length; i++) {
-    var due = parseTime(moment(habits[i].dueTime).format('hh:mm a'), convertTime);
-    temp = due - current;
-    if (temp > 0) {
-      if (temp < diff || diff === undefined) {
-        diff = temp;
-        next = habits[i].habitName;
-        nextDue = due;
+    if (habits[i].status !== 'completed'){
+      var due = parseTime(moment(habits[i].dueTime).format('hh:mm a'), convertTime);
+      temp = due - current;
+      if (temp > 0) {
+        if (temp < diff || diff === undefined) {
+          diff = temp;
+          next = habits[i].habitName;
+          nextDue = due;
+        }
       }
     }
   }
