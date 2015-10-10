@@ -12,7 +12,8 @@ var {
   ListView,
   Text,
   TouchableHighlight,
-  Component
+  Component,
+  AlertIOS
 } = React;
 
 // var HABITS = [
@@ -43,7 +44,7 @@ var createRoute = {
 }
 
 var HabitList = React.createClass ({
-
+  
   getInitialState: function() {
     console.log(this.state);
     return {
@@ -70,8 +71,19 @@ var HabitList = React.createClass ({
     this.completeBtn = [{
       text: 'Did It!',
       backgroundColor: 'green',
-      onPress: function(){ alert('Hi, Lain. I\'m back') }
-    }]
+      onPress: function() {
+        activeRow.habit.status = 'completed';
+        AlertIOS.alert(
+          'Nice Work!',
+          'Keep it up!',
+          [
+            {text: 'ok', onPress: function() {
+              return
+            }},
+          ]
+        )
+      }}
+    ]
   
     this._redirectToCreateHabit = function() {
       self.props.navigator.push(createRoute);
@@ -104,6 +116,7 @@ var HabitList = React.createClass ({
           <View>
             <Text>{habit.habitName}</Text>
             <Text>Streak: {habit.streakRecord}</Text>
+            <Text>Status: {habit.status}</Text>
             <Text>Due: { moment(habit.dueTime).format('hh:mm a')}</Text>
           </View>
         </Swipeout>
