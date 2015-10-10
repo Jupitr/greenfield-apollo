@@ -77,7 +77,6 @@ var HabitList = React.createClass ({
     
   },
   
-  
   renderHabit: function(habit) {
     return (
       <Swipeout
