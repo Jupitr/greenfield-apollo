@@ -78,7 +78,7 @@ var HabitSummary = React.createClass ({
         <TouchableOpacity onPress={this.avatarTapped}>
           <View style={styles.icon}>
           { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
-            <Image style={styles.avatar} source={this.state.avatarSource} />
+            <Image style={styles.icon} source={this.state.avatarSource} />
           }
           </View>
         </TouchableOpacity>
@@ -130,7 +130,9 @@ var styles = StyleSheet.create({
   icon: {
     width: 75,
     height: 75,
-    borderWidth: 1
+    borderWidth: 1 / PixelRatio.get(),
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 });
 
