@@ -8,14 +8,20 @@ var {
   StyleSheet,
   View,
   Text,
-  Component
+  Component,
+  Navigator
 } = React;
 
 // Look into navigational routes for scenes
 var sceneRouter = function(){};
 
 var AboutList = React.createClass({
-  render() {
+
+  techStackRoute: function(){},
+
+  devTeamRoute: function(){},
+
+  render: function() {
     return (
       <View style={styles.container}>
         <Button style={styles.techStackButton}
