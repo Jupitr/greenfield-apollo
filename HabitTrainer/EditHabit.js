@@ -39,8 +39,10 @@ var EditHabit = React.createClass ({
   },
   
   updateHabit: function() {
-    this.props.selectedHabit.habit.reminderTime = this.state.reminderTime;
-    this.props.selectedHabit.habit.dueTime = this.state.dueTime;
+    this.props.selectedHabit.habit.reminderTime = 
+      moment(this.state.reminderTime).toISOString();
+    this.props.selectedHabit.habit.dueTime = 
+      moment(this.state.dueTime).toISOString();
   },
   
   deactivateHabit: function() {
@@ -53,7 +55,8 @@ var EditHabit = React.createClass ({
           return
         }},
         {text: 'Yes', onPress: function() {
-          habit.active = false
+          habit.active = false;
+          habit.status = 'inactive';
         }},
       ]
     )
