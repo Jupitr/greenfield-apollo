@@ -47,6 +47,7 @@ var EditHabit = React.createClass ({
   },
   
   deleteHabit: function() {
+    var habit = this.props.selectedHabit.habit;
     AlertIOS.alert(
       'Delete Habit',
       'Do you want to delete this habit?',
@@ -55,7 +56,7 @@ var EditHabit = React.createClass ({
           return
         }},
         {text: 'Yes', onPress: function() {
-          this.props.selectedHabit.habit.active = false
+          habit.active = false
         }},
       ]
     )
