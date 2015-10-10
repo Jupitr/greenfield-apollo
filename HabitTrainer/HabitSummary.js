@@ -11,6 +11,7 @@ var {
   StyleSheet,
   View,
   ScrollView,
+  ListView,
   Text,
   Component,
   PixelRatio,
@@ -32,7 +33,7 @@ var USER = {
   name: 'Pied Piper',
   dateJoined: '10/06/15',
   points: 420
-}
+};
 
 var REQUEST_USER_HABITS_URL = 'https://jupitrlegacy.herokuapp.com/public/users/habits';
 
@@ -42,7 +43,12 @@ var HabitSummary = React.createClass ({
     return {
       avatarSource: null,
       userName: 'Public User',
-      userHabits: null
+      userHabits: null,
+      activeHabits: null,
+      accomplishedHabits: null,
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
     };
   },
 
@@ -54,8 +60,13 @@ var HabitSummary = React.createClass ({
         this.setState({
           userHabits: responseData
         });
-        console.log(this.state.userHabits);
-        this._processHabits(this.state.userHabits.habits);  
+        var accomplished = helpers.sortHabits(this.state.userHabits.habits)[0];
+        var active = helpers.sortHabits(this.state.userHabits.habits)[1];
+        this.setState({accomplishedHabits: accomplished, activeHabits: active});
+        this.setState(this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(HABITS)
+        }));
+        this._processHabits(this.state.activeHabits);  
       })
       .done();
   },
@@ -110,7 +121,7 @@ var HabitSummary = React.createClass ({
   },
 
   onTick: function() {
-    this._processHabits(this.state.userHabits.habits);
+    this._processHabits(this.state.activeHabits);
   },
 
   onScroll: function(event){
@@ -119,6 +130,25 @@ var HabitSummary = React.createClass ({
     this.setState({
       currentPage: Math.floor((offsetX - pageWidth / 2) / pageWidth) + 1
     });
+  },
+
+  renderAccomplishedHabits: function(habit) {
+    if (habit) {
+      return (
+        <View style={styles.accomplishedList}>
+          <Text style={{textAlign: 'center'}}>{habit.habitName}</Text>
+        </View>
+      );
+    }
+    else {
+      return (
+        <View> 
+          <Text>
+            You haven't accomplished any habits. Time to get moving!
+          </Text>
+        </View>
+      )
+    }
   },
 
   render: function(){
@@ -146,6 +176,7 @@ var HabitSummary = React.createClass ({
             ref="ad" 
             pagingEnabled={true} 
             horizontal={true} 
+            vertical={false}
             showsHorizontalScrollIndicator={false} 
             bounces={false} 
             onScroll={this.onScroll} 
@@ -157,17 +188,17 @@ var HabitSummary = React.createClass ({
                 </Text>
               </View>
             </View>
-            <View style={{width: screen.width}}>
-              <View style={styles.pointsCir}>
-                <Text style={styles.points}>
-                  another one
-                </Text>
-              </View>
+            <View style={styles.accomplishedListContainer}>
+              <Text style={styles.content}>
+                Habits You've Formed
+              </Text>
+              <ListView dataSource = {this.state.dataSource}
+                renderRow = {this.renderAccomplishedHabits.bind(this)}/>
             </View>
             <View style={{width: screen.width}}>
               <View style={styles.pointsCir}>
                 <Text style={styles.points}>
-                  third one
+                  badges?!?!?
                 </Text>
               </View>
             </View>
@@ -241,7 +272,7 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 10, 0, 0.2)'
+    // backgroundColor: 'rgba(255, 10, 0, 0.2)'
   },
   scrollContainer: {
     width:screen.width, 
@@ -260,6 +291,18 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: 'rgba(255, 255, 0, 0.9)'
   },
+  accomplishedListContainer: {
+    top: -30,
+    width: screen.width, 
+    justifyContent: 'center', 
+    alignItems: 'center',    
+  },
+  accomplishedList: {
+    width: 200,
+    padding: 5,
+    margin: 5,
+    borderWidth: 1
+  }
 });
 
 AppRegistry.registerComponent('HabitSummary', () => HabitSummary);

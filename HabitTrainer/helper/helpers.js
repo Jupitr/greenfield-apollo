@@ -25,6 +25,19 @@ var nextHabit = exports.nextHabit = function(habits) {
   return [next, nextDue, diff];
 }
 
+var sortHabits = exports.sortHabits = function(habits) {
+  var accomplished = [], active = [];
+  for (var i = 0; i < habits.length; i++) {
+    if (habits[i].streak >= 21) {
+      accomplished.push(habits[i]);
+    }
+    if (habits[i].active) {
+      active.push(habits[i]);
+    }
+  }
+  return [accomplished, active];
+}
+
 var parseTime = exports.parseTime = function(time, cb) {
   var hr = time.match(/\d+(?=:)/gi).join("")*1;
   var min = time.match(/\d+(?= [ap]m)/gi).join("")*1;
