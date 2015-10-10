@@ -53,7 +53,6 @@ var HabitTrainer = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'settings'}
-          // systemIcon='search'
           title='Settings'
           onPress={() => {
             this.setState({

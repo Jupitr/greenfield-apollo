@@ -1,38 +1,32 @@
 'use strict';
 
 var React = require('react-native');
+var SettingsList = require('./SettingsList');
 
 var {
-  StyleSheet,
-  View,
-  Text,
-  Component
-} = React;
+    StyleSheet,
+    NavigatorIOS,
+    Component
+   } = React;
 
 
 var Settings = React.createClass ({
-  render: function(){
-  return (
-    <View style={styles.container}>
-      <Text style={styles.content}>
-        Settings
-      </Text>
-    </View>
-  );
-}
+  render: function() {
+    return (
+      <NavigatorIOS
+        style={styles.container}
+          initialRoute={{
+            title: 'Settings',
+            component: SettingsList
+        }}/>            
+    );
+  },
 });
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    flex: 1
   }
 });
 
-module.exports = HabitSummary;
+module.exports = Settings;
