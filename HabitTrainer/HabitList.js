@@ -24,24 +24,8 @@ var {
 
 var REQUEST_USER_HABITS_URL = 'https://jupitrlegacy.herokuapp.com/public/users/habits';
 
-// empty object to hole selected row
+// empty object to reference selected row
 var activeRow = {};
-
-var editRoute = {
-  title: 'Edit Habit',
-  component: EditHabit,
-  passProps: {
-    selectedHabit: activeRow
-  }
-};
-
-var createRoute = {
-  title: 'Create Habit',
-  component: CreateHabit,
-  passProps: {
-    // userHabits: HABITS
-  }
-}
 
 var HabitList = React.createClass ({
   
@@ -50,7 +34,9 @@ var HabitList = React.createClass ({
     return {
       dataSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
-      })
+      }),
+      userName: 'Public User',
+      userHabits: null
     };
   },
   
@@ -64,7 +50,13 @@ var HabitList = React.createClass ({
       text: 'Edit',
       backgroundColor: 'orange',
       onPress: function(){
-        self.props.navigator.push(editRoute);
+        self.props.navigator.push({
+          title: 'Edit Habit',
+          component: EditHabit,
+          passProps: {
+            selectedHabit: activeRow
+          }
+        });
       }
     }]
     
@@ -78,7 +70,7 @@ var HabitList = React.createClass ({
           'Keep it up!',
           [
             {text: 'ok', onPress: function() {
-              return
+              self.setState();
             }},
           ]
         )
@@ -86,7 +78,13 @@ var HabitList = React.createClass ({
     ]
   
     this._redirectToCreateHabit = function() {
-      self.props.navigator.push(createRoute);
+      self.props.navigator.push({
+        title: 'Create Habit',
+        component: CreateHabit,
+        passProps: {
+          userHabits: self.state.userHabits
+        }
+      });
     }
     
   },
@@ -98,7 +96,8 @@ var HabitList = React.createClass ({
         console.log('user habits fetched from server');
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.habits)
-        });   
+        });
+        userHabits: responseData;   
       })
       .done();
   },

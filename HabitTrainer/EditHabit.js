@@ -39,11 +39,8 @@ var EditHabit = React.createClass ({
   },
   
   updateHabit: function() {
-    console.log('update habit');
-    
     this.props.selectedHabit.habit.reminderTime = this.state.reminderTime;
     this.props.selectedHabit.habit.dueTime = this.state.dueTime;
-    
   },
   
   deleteHabit: function() {
@@ -104,7 +101,7 @@ var EditHabit = React.createClass ({
         
         <TouchableHighlight
           onPress={this.deleteHabit}>
-          <Text style={styles.deleteButtonText}>Delete Habit</Text>
+          <Text style={styles.deleteButtonText}>Deactivate Habit</Text>
         </TouchableHighlight> 
       
       </View>
