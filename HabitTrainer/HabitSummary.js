@@ -1,10 +1,11 @@
 'use strict';
 
 var React = require('react-native');
-var helpers = require('./helper/helpers.js');
 var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
 var PageControl = require('react-native-page-control');
 var screen = require('Dimensions').get('window');
+
+var helpers = require('./helper/helpers.js');
 
 var {
   StyleSheet,
@@ -16,6 +17,7 @@ var {
   PixelRatio,
   NavigatorIOS,
   TouchableOpacity,
+  Modal,
   Image,
   NativeModules: {
     UIImagePickerManager
@@ -47,6 +49,7 @@ var HabitSummary = React.createClass ({
       userHabits: null,
       activeHabits: null,
       accomplishedHabits: null,
+      modalVisible: false,
       dataSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       }),
@@ -77,7 +80,11 @@ var HabitSummary = React.createClass ({
     var diff = next[2];
     var dueTime = next[1];
     var nextHabitHolder = next[0];
-    var nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
+    var nextWidthHolder = 250;
+    if (diff && dueTime) {
+      nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
+    }
+    console.log('nextwidth-----', nextWidthHolder);
     this.setState({nextHabit: nextHabitHolder, nextWidth: nextWidthHolder});
     this._interval = window.setInterval(this.onTick, 60000);
   },
@@ -121,6 +128,16 @@ var HabitSummary = React.createClass ({
     });
   },
 
+  _tweet: function() {
+    alert('tapped');
+  },
+
+  _showHabitModal: function(bool) {
+    console.log('-----clicked');
+    this.setState({modalVisible: bool});
+    // this.render();
+  },
+
   onTick: function() {
     this._processHabits(this.state.activeHabits);
   },
@@ -153,8 +170,30 @@ var HabitSummary = React.createClass ({
   },
 
   render: function(){
+    var modalBackgroundStyle = {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    };
+    var innerContainerTransparentStyle = {backgroundColor: '#fff', padding: 20};
+
     return (
       <View style={styles.container}>
+        <View>
+          <Modal
+            animated={true}
+            transparent={true}
+            visible={this.state.modalVisible}>
+            <View style={[styles.container, modalBackgroundStyle]}>
+              <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
+                <Text>model test</Text>
+                <TouchableOpacity
+                  onPress={this._showHabitModal.bind(this, false)}
+                  style={styles.modalButton}>
+                  <Text>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        </View>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity onPress={this.avatarTapped}>
             <View style={styles.icon}>
@@ -183,11 +222,13 @@ var HabitSummary = React.createClass ({
             onScroll={this.onScroll} 
             scrollEventThrottle={16}>
             <View style={{width: screen.width}}>
-              <View style={styles.pointsCir}>
-                <Text style={styles.points}>
-                  {USER.points}
-                </Text>
-              </View>
+              <TouchableOpacity onPress={this._tweet}>
+                <View style={styles.pointsCir}>
+                  <Text style={styles.points}>
+                    {USER.points}
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
             <View style={styles.accomplishedListContainer}>
               <Text style={styles.content}>
@@ -218,13 +259,15 @@ var HabitSummary = React.createClass ({
             Next Up
           </Text>
         </View>
-        <View>
-          <View style={[styles.overlay,{width: this.state.nextWidth}]}>
+        <TouchableOpacity onPress={this._showHabitModal.bind(this, true)}>
+          <View>
+            <View style={[styles.overlay,{width: this.state.nextWidth}]}>
+            </View>
+            <Text style={styles.next}>
+              {this.state.nextHabit}
+            </Text>
           </View>
-          <Text style={styles.next}>
-            {this.state.nextHabit}
-          </Text>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -287,7 +330,6 @@ var styles = StyleSheet.create({
   overlay: {
     top: 0, 
     position: 'absolute', 
-    padding: 10, 
     height: 39, 
     borderWidth: 1,
     backgroundColor: 'rgba(255, 255, 0, 0.9)'
