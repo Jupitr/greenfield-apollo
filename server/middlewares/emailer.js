@@ -1,4 +1,6 @@
 var nodemailer = require('nodemailer');
+var moment = require('moment');
+var Google = require('../models/googleUser.js');
 
 var transporter = nodemailer.createTransport({
   service: 'Gmail',
@@ -8,7 +10,7 @@ var transporter = nodemailer.createTransport({
   }
 });
 
- var sendSummaryEmail = function(user) {
+var sendSummaryEmail = function(user) {
   transporter.sendMail({
     from: 'habittrainersummary@gmail.com',
     to: user,
@@ -23,6 +25,20 @@ var transporter = nodemailer.createTransport({
   });
 };
 
-// sendSummaryEmail('habittrainersummary@gmail.com');
+var isTodaySunday = function() {
+  return moment().day() === 7;
+};
 
-module.exports.sendSummaryEmail = sendSummaryEmail;
+var updateUserEmailStatus = function() {
+
+};
+
+var checkUserEmailStatus = function() {
+  if (isTodaySunday) {
+    Google.find({}, function(err, results){
+      console.log(results);
+    })
+  }
+}
+
+module.exports = checkUserEmailStatus;

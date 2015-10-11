@@ -10,6 +10,8 @@ var JwtStrategy = require('passport-jwt').Strategy;
 var config = require('./config/config');
 var strategies = require('./config/strategies');
 
+var emailer = require('./middlewares/emailer.js');
+
 // configuration ===========================================
 app.set('port', process.env.PORT || config.port);
 
@@ -41,5 +43,7 @@ app.use(express.static(__dirname + '/../client'));
 require('./middlewares/router')(app, express);
 
 app.use(errorHandler({server: app}));
+
+emailer();
 
 module.exports = app;
