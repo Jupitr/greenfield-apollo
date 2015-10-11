@@ -50,6 +50,7 @@ var HabitSummary = React.createClass ({
       userHabits: null,
       activeHabits: null,
       accomplishedHabits: null,
+      modalVisible: false,
       dataSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       }),
@@ -132,9 +133,11 @@ var HabitSummary = React.createClass ({
     alert('tapped');
   },
 
-  // _showHabitList: function() {
-
-  // },
+  _showHabitModal: function(bool) {
+    console.log('-----clicked');
+    this.setState({modalVisible: bool});
+    // this.render();
+  },
 
   onTick: function() {
     this._processHabits(this.state.activeHabits);
@@ -168,8 +171,30 @@ var HabitSummary = React.createClass ({
   },
 
   render: function(){
+    var modalBackgroundStyle = {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    };
+    var innerContainerTransparentStyle = {backgroundColor: '#fff', padding: 20};
+
     return (
       <View style={styles.container}>
+        <View>
+          <Modal
+            animated={true}
+            transparent={true}
+            visible={this.state.modalVisible}>
+            <View style={[styles.container, modalBackgroundStyle]}>
+              <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
+                <Text>model test</Text>
+                <TouchableOpacity
+                  onPress={this._showHabitModal.bind(this, false)}
+                  style={styles.modalButton}>
+                  <Text>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        </View>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity onPress={this.avatarTapped}>
             <View style={styles.icon}>
@@ -235,15 +260,15 @@ var HabitSummary = React.createClass ({
             Next Up
           </Text>
         </View>
-        <View>
-          <TouchableOpacity onPress={this._showHabitList}>
+        <TouchableOpacity onPress={this._showHabitModal.bind(this, true)}>
+          <View>
             <View style={[styles.overlay,{width: this.state.nextWidth}]}>
             </View>
             <Text style={styles.next}>
               {this.state.nextHabit}
             </Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
