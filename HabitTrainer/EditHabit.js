@@ -65,6 +65,7 @@ var EditHabit = React.createClass ({
     habit.reminderTime = moment(this.state.reminderTime).toISOString();
     habit.dueTime = moment(this.state.dueTime).toISOString();
     this.putToServer(habit);
+    this.props.navigator.pop();
   },
   
   deactivateHabit: function() {
@@ -80,6 +81,7 @@ var EditHabit = React.createClass ({
         {text: 'Yes', onPress: function() {
           habit.active = false;
           self.putToServer(habit);
+          self.props.navigator.pop();
         }},
       ]
     )

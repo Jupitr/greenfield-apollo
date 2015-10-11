@@ -91,8 +91,9 @@ var CreateHabit = React.createClass ({
         console.log(responseData);
       })
       .done();
-    }
+    };
     // console.log(this.props.userHabits.habits);
+    this.props.navigator.pop();
   },
   
   render: function(){
