@@ -103,7 +103,7 @@ module.exports = {
               token: token
             });
           } else {
-            var newUser = new GoogleUser({google: profile.sub});
+            var newUser = new GoogleUser({google: profile.sub, email: profile.email});
 
             newUser.save(function(err) {
               res.send({
