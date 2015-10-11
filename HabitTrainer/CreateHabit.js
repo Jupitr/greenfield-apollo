@@ -2,6 +2,7 @@
  
 var React = require('react-native');
 var moment = require('moment');
+var Button = require('apsl-react-native-button'); 
  
 var {
   StyleSheet,
@@ -96,7 +97,7 @@ var CreateHabit = React.createClass ({
   
   render: function(){
     return (
-      <View style={styles.container}>
+      <View style={styles.habitInput}>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
           onChangeText={(text) => this.setState({habitName: text})}
@@ -104,7 +105,7 @@ var CreateHabit = React.createClass ({
           value={this.state.habitName}
         />
                 
-        <Text style={styles.content}>Remind Me At</Text>
+        <Text style={styles.text}>Remind Me At</Text>
         <View style={styles.rowContainer}>
           <TouchableHighlight
             onPress={this.subtractReminderTime}
@@ -119,7 +120,7 @@ var CreateHabit = React.createClass ({
           </TouchableHighlight>
         </View>     
         
-        <Text style={styles.content}>Due At</Text>
+        <Text style={styles.text}>Due At</Text>
         <View style={styles.rowContainer}>
           <TouchableHighlight
             onPress={this.subtractDueTime}
@@ -134,10 +135,11 @@ var CreateHabit = React.createClass ({
           </TouchableHighlight>
         </View>
         
-        <TouchableHighlight
+        <Button style={styles.createButton}
+          textStyle={styles.buttonText}
           onPress={this.createHabit}>
-          <Text style={styles.createButtonText}>Create Habit</Text>
-        </TouchableHighlight> 
+          Create Habit
+        </Button> 
       
       </View>
     );
@@ -162,9 +164,24 @@ var styles = StyleSheet.create({
     margin: 10,
     color: 'black',
   },
-  createButtonText: {
-    textAlign: 'center',
-    color: 'blue',
+  habitInput: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: 'gray',
+    marginTop: 100,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  buttonText: {
+    color: 'white'
+  },
+  createButton: {
+    backgroundColor: '3498db',
+    marginTop: 20,
+    marginBottom: 15,
+    marginLeft: 50,
+    marginRight: 50,
   },
 });
 

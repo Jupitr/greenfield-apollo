@@ -5,6 +5,7 @@ var Swipeout = require('react-native-swipeout');
 var moment = require('moment');
 var EditHabit = require('./EditHabit.js');
 var CreateHabit = require('./CreateHabit.js');
+var Button = require('apsl-react-native-button'); 
 
 var {
   StyleSheet,
@@ -53,7 +54,7 @@ var HabitList = React.createClass ({
     
     this.editBtn = [{
       text: 'Edit',
-      backgroundColor: 'orange',
+      backgroundColor: '3498db',
       onPress: function(){
         self.props.navigator.push({
           title: 'Edit Habit',
@@ -67,7 +68,7 @@ var HabitList = React.createClass ({
     
     this.completeBtn = [{
       text: 'Did It!',
-      backgroundColor: 'green',
+      backgroundColor: '1abc9c',
       onPress: function() {
         if (activeRow.habit.status === 'completed') {
           return;
@@ -184,11 +185,11 @@ var HabitList = React.createClass ({
           dataSource = {this.state.dataSource}
           renderRow = {this.renderHabit.bind(this)}
         />
-        <TouchableHighlight
-          style={styles.btnContainer}
+        <Button style={styles.createHabitButton}
+          textStyle={styles.buttonText}
           onPress={this._redirectToCreateHabit}>
-          <Text style={styles.createButtonText}>+ Add New Habit</Text>
-        </TouchableHighlight> 
+          + Add New Habit
+        </Button> 
       </View>      
     );
   }
@@ -198,13 +199,19 @@ var styles = StyleSheet.create({
   container: {
   },
   listContainer: {
-    height: 400
-  },
-  btnContainer: {
+    height: 450
   },
   createButtonText: {
     textAlign: 'center',
     color: 'red',
+  },
+  createHabitButton: {
+    backgroundColor: '3498db',
+    marginLeft: 50,
+    marginRight: 50,
+  },
+  buttonText: {
+    color: 'white'
   }
 });
 
