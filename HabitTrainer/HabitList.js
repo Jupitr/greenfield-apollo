@@ -25,6 +25,7 @@ var {
 var BASE_URL = 'https://jupitrlegacy.herokuapp.com';
 // var BASE_URL = 'http://localhost:8080';
 var REQUEST_USER_HABITS_URL = BASE_URL + '/public/users/habits/';
+var CHECK_IN_HABIT_URL = BASE_URL + '/public/records/';
 
 // empty object to reference selected row
 var activeRow = {};
@@ -70,7 +71,8 @@ var HabitList = React.createClass ({
       onPress: function() {
         if (activeRow.habit.status === 'completed') {
           return;
-        } else if (activeRow.habit.status === 'missed') {
+        } else if (activeRow.habit.status === 'missed' ||
+          activeRow.habit.status === 'failed') {
           AlertIOS.alert(
             'Sorry',
             'You missed the deadline for this habit',
@@ -81,19 +83,33 @@ var HabitList = React.createClass ({
             ]
           )
         } else {
-          activeRow.habit.status = 'completed';
-          AlertIOS.alert(
-            'Nice Work!',
-            'Keep it up!',
-            [
-              {text: 'ok', onPress: function() {
-                self.forceUpdate();
-              }},
-            ]
-          )
+          var habit = activeRow.habit
+          habit.status = 'completed';
+          var url = CHECK_IN_HABIT_URL + habit._id;
+          fetch(url, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(habit)
+          })
+          .then((responseData) => {
+            console.log(responseData);
+            AlertIOS.alert(
+              'Nice Work!',
+              'Keep it up!',
+              [
+                {text: 'ok', onPress: function() {
+                  self.forceUpdate();
+                }},
+              ]
+            )
+          })
+          .done();
         }
       }}
-    ]
+    ],
   
     this._redirectToCreateHabit = function() {
       if (activeHabits >= 3) {
@@ -118,6 +134,7 @@ var HabitList = React.createClass ({
     }
     
   },
+  
   
   fetchUserHabits: function() {
     fetch(REQUEST_USER_HABITS_URL)
