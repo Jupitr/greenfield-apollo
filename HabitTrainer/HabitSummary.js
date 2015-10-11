@@ -77,7 +77,11 @@ var HabitSummary = React.createClass ({
     var diff = next[2];
     var dueTime = next[1];
     var nextHabitHolder = next[0];
-    var nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
+    var nextWidthHolder = 250;
+    if (diff && dueTime) {
+      nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
+    }
+    console.log('nextwidth-----', nextWidthHolder);
     this.setState({nextHabit: nextHabitHolder, nextWidth: nextWidthHolder});
     this._interval = window.setInterval(this.onTick, 60000);
   },
@@ -287,7 +291,6 @@ var styles = StyleSheet.create({
   overlay: {
     top: 0, 
     position: 'absolute', 
-    padding: 10, 
     height: 39, 
     borderWidth: 1,
     backgroundColor: 'rgba(255, 255, 0, 0.9)'
