@@ -5,7 +5,6 @@ var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
 var PageControl = require('react-native-page-control');
 var screen = require('Dimensions').get('window');
 
-var HabitSummaryModal = require('./HabitSummaryModal.js');
 var helpers = require('./helper/helpers.js');
 
 var {
