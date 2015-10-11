@@ -135,6 +135,9 @@ var HabitList = React.createClass ({
     
   },
   
+  componentWillReceiveProps: function() {
+    this.fetchUserHabits();
+  },
   
   fetchUserHabits: function() {
     fetch(REQUEST_USER_HABITS_URL)
@@ -195,7 +198,7 @@ var styles = StyleSheet.create({
   container: {
   },
   listContainer: {
-    height: 300
+    height: 400
   },
   btnContainer: {
   },
