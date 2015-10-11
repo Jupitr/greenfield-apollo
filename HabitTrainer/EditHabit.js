@@ -2,6 +2,7 @@
  
 var React = require('react-native');
 var moment = require('moment');
+var Button = require('apsl-react-native-button'); 
  
 var {
   StyleSheet,
@@ -87,9 +88,9 @@ var EditHabit = React.createClass ({
   render: function(){
     return (
       <View style={styles.container}>
-        <Text style={styles.content}>{this.state.habitName}</Text>
+        <Text style={styles.text}>{this.state.habitName}</Text>
         
-        <Text style={styles.content}>Remind Me At</Text>
+        <Text style={styles.text}>Remind Me At</Text>
         <View style={styles.rowContainer}>
           <TouchableHighlight
             onPress={this.subtractReminderTime}
@@ -104,7 +105,7 @@ var EditHabit = React.createClass ({
           </TouchableHighlight>
         </View>     
         
-        <Text style={styles.content}>Due At</Text>
+        <Text style={styles.text}>Due At</Text>
         <View style={styles.rowContainer}>
           <TouchableHighlight
             onPress={this.subtractDueTime}
@@ -119,15 +120,17 @@ var EditHabit = React.createClass ({
           </TouchableHighlight>
         </View>
         
-        <TouchableHighlight
+        <Button style={styles.updateButton}
+          textStyle={styles.buttonText}
           onPress={this.updateHabit}>
-          <Text style={styles.updateButtonText}>Update Habit</Text>
-        </TouchableHighlight> 
+          Update Habit
+        </Button> 
         
-        <TouchableHighlight
+        <Button style={styles.deactivateButton}
+          textStyle={styles.buttonText}
           onPress={this.deactivateHabit}>
-          <Text style={styles.deactivateButtonText}>Deactivate Habit</Text>
-        </TouchableHighlight> 
+          Deactivate Habit
+        </Button> 
       
       </View>
     );
@@ -152,14 +155,21 @@ var styles = StyleSheet.create({
     margin: 10,
     color: 'black',
   },
-  updateButtonText: {
-    textAlign: 'center',
-    color: 'blue',
+  buttonText: {
+    color: 'white'
   },
-  deactivateButtonText: {
-    textAlign: 'center',
-    color: 'red',
-  }
+  updateButton: {
+    backgroundColor: '3498db',
+    marginTop: 20,
+    marginBottom: 15,
+    marginLeft: 50,
+    marginRight: 50,
+  },
+  deactivateButton: {
+    backgroundColor: '#DB575F',
+    marginLeft: 50,
+    marginRight: 50,
+  },
 });
 
 module.exports = EditHabit;
