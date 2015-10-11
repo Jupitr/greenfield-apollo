@@ -156,6 +156,9 @@ var HabitList = React.createClass ({
   renderHabit: function(habit) {
     if (habit.active) {
       activeHabits++;
+      if (habit.staus === 'remind'){
+        habit.status = 'pending';
+      }
       return (
         <Swipeout
           right={this.completeBtn}
