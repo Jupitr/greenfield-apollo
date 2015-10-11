@@ -1,10 +1,12 @@
 'use strict';
 
 var React = require('react-native');
-var helpers = require('./helper/helpers.js');
 var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
 var PageControl = require('react-native-page-control');
 var screen = require('Dimensions').get('window');
+
+var HabitSummaryModal = require('./HabitSummaryModal.js');
+var helpers = require('./helper/helpers.js');
 
 var {
   StyleSheet,
@@ -16,6 +18,7 @@ var {
   PixelRatio,
   NavigatorIOS,
   TouchableOpacity,
+  Modal,
   Image,
   NativeModules: {
     UIImagePickerManager
@@ -126,8 +129,12 @@ var HabitSummary = React.createClass ({
   },
 
   _tweet: function() {
-
+    alert('tapped');
   },
+
+  // _showHabitList: function() {
+
+  // },
 
   onTick: function() {
     this._processHabits(this.state.activeHabits);
@@ -229,11 +236,13 @@ var HabitSummary = React.createClass ({
           </Text>
         </View>
         <View>
-          <View style={[styles.overlay,{width: this.state.nextWidth}]}>
-          </View>
-          <Text style={styles.next}>
-            {this.state.nextHabit}
-          </Text>
+          <TouchableOpacity onPress={this._showHabitList}>
+            <View style={[styles.overlay,{width: this.state.nextWidth}]}>
+            </View>
+            <Text style={styles.next}>
+              {this.state.nextHabit}
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
