@@ -25,18 +25,28 @@ var sendSummaryEmail = function(user) {
   });
 };
 
-var isTodaySunday = function() {
+var isTodayMonday = function() {
+  // set to sunday for testing
   return moment().day() === 7;
 };
 
-var updateUserEmailStatus = function() {
-
+var updateUserEmailStatus = function(id) {
+  Google.findById(id).then(function(user){
+    user.summarySent = true;
+    user.save();
+    console.log(user);
+  });
 };
 
 var checkUserEmailStatus = function() {
-  if (isTodaySunday) {
+  if (isTodayMonday) {
     Google.find({}, function(err, results){
-      console.log(results);
+      results.forEach(function(user) {
+        if (!user.summarySent) {
+          sendSummaryEmail(user.email);
+          updateUserEmailStatus(user.id);
+        }
+      });
     })
   }
 }

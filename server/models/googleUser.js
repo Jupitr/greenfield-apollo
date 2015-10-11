@@ -11,6 +11,15 @@ var GoogleUserSchema = new Schema({
     unique: true
   },
 
+  email: {
+    type: String
+  },
+
+  summarySent: {
+    type: Boolean,
+    default: false
+  },
+
   habitCount: {
     type: Number,
     default: 0
