@@ -125,6 +125,10 @@ var HabitSummary = React.createClass ({
     });
   },
 
+  _tweet: function() {
+
+  },
+
   onTick: function() {
     this._processHabits(this.state.activeHabits);
   },
@@ -187,11 +191,13 @@ var HabitSummary = React.createClass ({
             onScroll={this.onScroll} 
             scrollEventThrottle={16}>
             <View style={{width: screen.width}}>
-              <View style={styles.pointsCir}>
-                <Text style={styles.points}>
-                  {USER.points}
-                </Text>
-              </View>
+              <TouchableOpacity onPress={this._tweet}>
+                <View style={styles.pointsCir}>
+                  <Text style={styles.points}>
+                    {USER.points}
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
             <View style={styles.accomplishedListContainer}>
               <Text style={styles.content}>
