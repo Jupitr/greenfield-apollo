@@ -15,6 +15,9 @@ h1, p, a {
 }
 
 .feat-image {
-  border: 3px solid #ccc;
-  box-shadow: 5px 5px 5px #ddd;
+  box-shadow: 0px 0px 12px #888;
+}
+
+.htlogo {
+  margin-bottom: -20px;
 }
