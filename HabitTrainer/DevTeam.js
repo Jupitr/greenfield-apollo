@@ -88,7 +88,7 @@ var Devs = React.createClass({
           <Text style={styles.textHeader}>Melinda Budde</Text>
           <Text>Full Stack Software Engineer</Text>
           <View style={styles.modalView}>
-            <Text style={styles.textInfo}>Melinda was instrumental in creating and polishing the landing page for our product. In addition to the front end development, she designed our product's logo.</Text>
+            <Text style={styles.textInfo}>Melinda was instrumental in creating and polishing the landing page for our product. In addition to the front end development, she implemented a weekly summary email feature and designed our product's logo.</Text>
           </View>
         </Modal>
       </View>

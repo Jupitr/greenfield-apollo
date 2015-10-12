@@ -56,20 +56,20 @@ var Tech = React.createClass({
     return (
       <View style={[styles.containerMain, styles.appBgColor]}>
         <View style={styles.container}>
-          <Button onPress={this.reactNativeModal}>
+          <Button>
             <Image 
             style={styles.avatar}
             source={{uri: 'http://red-badger.com/blog/wp-content/uploads/2015/04/react-logo-1000-transparent.png'}}
             />
           </Button>
-          <Button onPress={this.angularModal}>
+          <Button>
             <Image 
             style={styles.avatar}
             source={{uri: 'http://www.invokemedia.com/wp-content/uploads/2015/07/angular.png'}}
             onPress={this.openModal2}
             />
           </Button>
-          <Button onPress={this.bowerModal}>
+          <Button>
             <Image 
             style={styles.avatar}
             source={{uri: 'https://camo.githubusercontent.com/aad5f0385a2d8524cb366a1bad62bc74e797743a/687474703a2f2f692e696d6775722e636f6d2f516d47485067632e706e67'}}
@@ -77,19 +77,19 @@ var Tech = React.createClass({
           </Button>
         </View>
         <View style={styles.container2}>
-          <Button onPress={this.nodeModal}>
+          <Button>
             <Image 
               style={styles.avatar}
               source={{uri: 'https://www.airpair.com/static/img/pages/postscomp/prize-node.js.png'}}
             />
           </Button>
-          <Button onPress={this.gruntModal}>
+          <Button>
             <Image 
               style={styles.avatar}
               source={{uri: 'https://i.cloudup.com/bDkmXyEmr5.png'}}
             />
           </Button>
-          <Button onPress={this.mongoModal}>
+          <Button>
             <Image 
               style={styles.avatar}
               source={{uri: 'http://columbia-openacademy.github.io/images/mongodb-logo.png'}}
@@ -97,19 +97,19 @@ var Tech = React.createClass({
           </Button>
         </View>
         <View style={styles.container3}>
-          <Button onPress={this.npmModal}>
+          <Button>
             <Image 
               style={styles.avatar}
               source={{uri: 'https://nwm.julianxhokaxhiu.com/img/logos/npm.png'}}
             />
           </Button>
-          <Button onPress={this.d3Modal}>
+          <Button>
             <Image 
               style={styles.avatar}
               source={{uri: 'https://www.gramwire.com/images/logos/logo_d3js.png'}}
             />
           </Button>
-          <Button onPress={this.momentModal}>
+          <Button>
             <Image 
               style={styles.avatar}
               source={{uri: 'http://uploads.coderpower.com/5476166292f24ac826d97719/552a197435aadfd954ccdedc/version0/logo/logo%20copy.png'}}
@@ -120,8 +120,7 @@ var Tech = React.createClass({
         <Modal style={styles.modal} position={'center'} ref={"reactNative"}>
           <Text style={styles.textHeader}>React Native</Text>
           <View style={styles.modalView}>
-            <Text style={styles.textInfo}>We utilized React Native as our framework for building this mobile app because we wanted
-            the performance of a native application.... TODO</Text>
+            <Text style={styles.textInfo}>https://facebook.github.io/react-native/</Text>
           </View>
         </Modal>
         <Modal style={styles.modal} position={'center'} ref={"angular"}>
