@@ -4,7 +4,6 @@ var React = require('react-native');
 var PageControl = require('react-native-page-control');
 var screen = require('Dimensions').get('window');
 var KDSocialShare = require('NativeModules').KDSocialShare;
-console.log('-----',  KDSocialShare);
 
 var helpers = require('./helper/helpers.js');
 var HabitSummaryHead = require('./HabitSummaryHead.js');
@@ -31,7 +30,7 @@ var HABITS = [
 var USER = {
   name: 'Pied Piper',
   dateJoined: '10/06/15',
-  points: 420
+  points: 42
 };
 
 var BASE_URL = 'https://jupitrlegacy.herokuapp.com';
@@ -67,6 +66,10 @@ var HabitSummary = React.createClass ({
 
   componentWillUnmount: function() {
     window.clearInterval(this._interval);
+  },
+
+  componentWillReceiveProps: function() {
+    this.fetchUserHabits();
   },
 
   fetchUserHabits: function() {
@@ -124,7 +127,7 @@ var HabitSummary = React.createClass ({
   _tweet : function() {
 
     KDSocialShare.tweet({
-        'text': 'I have 420 points from Habit Trainer!!!111!',
+        'text': 'I have ' + USER.points + ' points from Habit Trainer!!!111!',
         'link': 'https://jupitrlegacy.herokuapp.com/',
         //'imagelink':
         //'image': 
@@ -211,7 +214,7 @@ var HabitSummary = React.createClass ({
     var innerContainerTransparentStyle = {backgroundColor: 'rgba(0, 0, 0, 0 )', padding: 20};
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: 'rgba(0, 10, 25, 0.9)'}]}>
         <View>
           <Modal
             animated={true}
@@ -234,7 +237,7 @@ var HabitSummary = React.createClass ({
 
         <HabitSummaryHead/>
 
-        <View style={styles.scrollContainer}>
+        <View style={[styles.scrollContainer, styles.sectionContainer]}>
           <ScrollView 
             ref="ad" 
             pagingEnabled={true} 
@@ -246,6 +249,8 @@ var HabitSummary = React.createClass ({
             scrollEventThrottle={16}>
             <View style={{width: screen.width}}>
               <TouchableOpacity onPress={this._tweet}>
+                <View style={styles.pointsCirBg}>
+                </View>
                 <View style={styles.pointsCir}>
                   <Text style={styles.points}>
                     {USER.points}
@@ -270,22 +275,26 @@ var HabitSummary = React.createClass ({
             </View>
           </ScrollView>
           <PageControl 
-            style={{position:'absolute', left:0, right:0, bottom:10}} 
+            style={{position:'absolute', left:0, right:0, bottom:10, margin: 10}} 
             numberOfPages={3} 
             currentPage={this.state.currentPage} 
             hidesForSinglePage={true} 
-            pageIndicatorTintColor='rgba(30, 30, 30, 0.2)' 
+            pageIndicatorTintColor='rgba(255, 255, 255, 0.2)' 
             indicatorSize={{width:8, height:8}} 
-            currentPageIndicatorTintColor='rgba(0, 0, 0, 0.4)' />
+            currentPageIndicatorTintColor='rgba(255, 255, 255, 0.4)' />
         </View>
 
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', margin: 10}}>
           <Text style={styles.content}>
             Next Up
           </Text>
         </View>
         <TouchableOpacity onPress={this._showHabitModal.bind(this, true)}>
           <View>
+            <View style={[styles.backgroundShadow,{width: 252}]}>
+            </View>
+            <View style={[styles.background,{width: 250}]}>
+            </View>
             <View style={[styles.overlay,{width: this.state.nextWidth}]}>
             </View>
             <Text style={styles.next}>
@@ -306,11 +315,15 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  sectionContainer: {
+    margin: 10
+  },
   content: {
     // borderWidth: 1,
     fontSize: 20,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
+    color: 'white'
   },
   contentSmall: {
     // borderWidth: 1,
@@ -325,12 +338,14 @@ var styles = StyleSheet.create({
   },
   next: {
     flex: 1,
-    borderWidth: 1,
+    // borderWidth: 1,
+    borderColor: 'white',
     padding: 10,
     textAlign: 'center',
     width: 250,
     height: 39,
-    backgroundColor: 'rgba(0, 0, 0, 0)'
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    color: 'white'
   },
   pointsCir: {
     position: 'absolute',
@@ -339,10 +354,20 @@ var styles = StyleSheet.create({
     left: screen.width / 2 - 100,
     top: -50 ,
     borderRadius: 100,
-    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'rgba(255, 10, 0, 0.2)'
+    backgroundColor: 'rgba(80, 150, 200, 0.8)',
+  },
+  pointsCirBg: {
+    position: 'absolute',
+    width: 200,
+    height: 200,
+    left: screen.width / 2 - 98,
+    top: -48 ,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   scrollContainer: {
     width:screen.width, 
@@ -352,12 +377,26 @@ var styles = StyleSheet.create({
   points: {
     fontSize: 50,
     textAlign: 'center',
+    color: 'rgba(255, 255, 255, 0.9)'
   }, 
+  background: {
+    top: 0, 
+    position: 'absolute', 
+    height: 39, 
+    backgroundColor: '00a9ac'
+  },
+  backgroundShadow: {
+    top: 2, 
+    left: 2,
+    position: 'absolute', 
+    height: 40, 
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+  },
   overlay: {
     top: 0, 
     position: 'absolute', 
     height: 39, 
-    backgroundColor: 'rgba(255, 255, 0, 0.9)'
+    backgroundColor: 'rgba(250, 140, 0, 0.5)'
   },
   accomplishedListContainer: {
     top: -30,

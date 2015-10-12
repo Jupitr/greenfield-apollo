@@ -11,6 +11,7 @@ var {
   Text,
   TouchableOpacity,
   PixelRatio,
+  Image,
   NativeModules: {
     UIImagePickerManager
   }
@@ -27,10 +28,10 @@ var HabitSummaryHead = React.createClass ({
 
   render: function(){
     return (
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', margin: 10}}>
           <TouchableOpacity onPress={this.avatarTapped}>
             <View style={styles.icon}>
-            { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
+            { this.state.avatarSource === null ? <Text style={{color: 'rgba(255, 255, 255, 0.6)'}}>Select a Photo...</Text> :
               <Image style={styles.icon} source={this.state.avatarSource} />
             }
             </View>
@@ -89,19 +90,27 @@ var styles = StyleSheet.create({
     // borderWidth: 1,
     fontSize: 20,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
+    color: 'white',
+    marginLeft: 20
   },
   contentSmall: {
     // borderWidth: 1,
     fontSize: 12,
     textAlign: 'center',
     margin: 10,
-    marginTop: 2
+    marginTop: 2,
+    color: 'rgba(255, 255, 255, 0.7)',
+    marginLeft: 20
   },
   icon: {
     width: 75,
     height: 75,
     borderWidth: 1 / PixelRatio.get(),
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(200, 200, 200, 0.1)',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
