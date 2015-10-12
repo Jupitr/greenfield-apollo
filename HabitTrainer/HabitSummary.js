@@ -1,11 +1,11 @@
 'use strict';
 
 var React = require('react-native');
-var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
 var PageControl = require('react-native-page-control');
 var screen = require('Dimensions').get('window');
 
 var helpers = require('./helper/helpers.js');
+var HabitSummaryHead = require('./HabitSummaryHead.js');
 
 var {
   StyleSheet,
@@ -18,10 +18,6 @@ var {
   NavigatorIOS,
   TouchableOpacity,
   Modal,
-  Image,
-  NativeModules: {
-    UIImagePickerManager
-  }
 } = React;
 
 var HABITS = [
@@ -50,10 +46,21 @@ var HabitSummary = React.createClass ({
       activeHabits: null,
       accomplishedHabits: null,
       modalVisible: false,
-      dataSource: new ListView.DataSource({
+      accomplishedSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       }),
+      allSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      })
     };
+  },
+
+  componentDidMount: function() {
+    this.fetchUserHabits();
+  },
+
+  componentWillUnmount: function() {
+    window.clearInterval(this._interval);
   },
 
   fetchUserHabits: function() {
@@ -64,11 +71,16 @@ var HabitSummary = React.createClass ({
         this.setState({
           userHabits: responseData
         });
+
+        // set all user habits
         var accomplished = helpers.sortHabits(this.state.userHabits.habits)[0];
         var active = helpers.sortHabits(this.state.userHabits.habits)[1];
         this.setState({accomplishedHabits: accomplished, activeHabits: active});
         this.setState(this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(HABITS)
+          dataSource: this.state.accomplishedSource.cloneWithRows(HABITS)
+        }));
+        this.setState(this.setState({
+          dataSource: this.state.allSource.cloneWithRows(this.state.userHabits.habits)
         }));
         this._processHabits(this.state.activeHabits);  
       })
@@ -80,52 +92,13 @@ var HabitSummary = React.createClass ({
     var diff = next[2];
     var dueTime = next[1];
     var nextHabitHolder = next[0];
-    var nextWidthHolder = 250;
+    var nextWidthHolder = 0;
     if (diff && dueTime) {
       nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
     }
     console.log('nextwidth-----', nextWidthHolder);
     this.setState({nextHabit: nextHabitHolder, nextWidth: nextWidthHolder});
     this._interval = window.setInterval(this.onTick, 60000);
-  },
-
-  componentDidMount: function() {
-    this.fetchUserHabits();
-  },
-
-  componentWillUnmount: function() {
-    window.clearInterval(this._interval);
-  },
-
-  avatarTapped: function() {
-  // Specify any or all of these keys
-    var options = {
-      title: 'Select Avatar',
-      cancelButtonTitle: 'Cancel',
-      takePhotoButtonTitle: 'Take Photo...',
-      takePhotoButtonHidden: false,
-      chooseFromLibraryButtonTitle: 'Choose from Library...',
-      chooseFromLibraryButtonHidden: false,
-      returnBase64Image: false,
-      returnIsVertical: false,
-      quality: 0.2
-    };
-    UIImagePickerManager.showImagePicker(options, (responseType, response) => {
-      console.log(`Response Type = ${responseType}`);
-
-      if (responseType !== 'cancel') {
-        var source;
-        if (responseType === 'data') { // New photo taken OR passed returnBase64Image true -  response is the 64 bit encoded image data string
-          source = {uri: 'data:image/jpeg;base64,' + response, isStatic: true};
-        } else { // Selected from library - response is the URI to the local file asset
-          source = {uri: response.replace('file://', ''), isStatic: true};
-        }
-
-        this.setState({
-          avatarSource: source
-        });
-      }
-    });
   },
 
   _tweet: function() {
@@ -135,7 +108,6 @@ var HabitSummary = React.createClass ({
   _showHabitModal: function(bool) {
     console.log('-----clicked');
     this.setState({modalVisible: bool});
-    // this.render();
   },
 
   onTick: function() {
@@ -148,6 +120,14 @@ var HabitSummary = React.createClass ({
     this.setState({
       currentPage: Math.floor((offsetX - pageWidth / 2) / pageWidth) + 1
     });
+  },
+
+  renderAllHabits: function(habit) {
+    return (
+      <View style={styles.accomplishedList}>
+        <Text style={{textAlign: 'center'}}>{habit.habitName}</Text>
+      </View>
+    );
   },
 
   renderAccomplishedHabits: function(habit) {
@@ -184,7 +164,8 @@ var HabitSummary = React.createClass ({
             visible={this.state.modalVisible}>
             <View style={[styles.container, modalBackgroundStyle]}>
               <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
-                <Text>model test</Text>
+                <ListView>
+                </ListView>
                 <TouchableOpacity
                   onPress={this._showHabitModal.bind(this, false)}
                   style={styles.modalButton}>
@@ -194,23 +175,9 @@ var HabitSummary = React.createClass ({
             </View>
           </Modal>
         </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity onPress={this.avatarTapped}>
-            <View style={styles.icon}>
-            { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
-              <Image style={styles.icon} source={this.state.avatarSource} />
-            }
-            </View>
-          </TouchableOpacity>
-          <View>
-            <Text style={styles.content}>
-              Hello, {USER.name}! 
-            </Text>
-            <Text style={styles.contentSmall}>
-              Training since {USER.dateJoined}
-            </Text>
-          </View>
-        </View>
+
+        <HabitSummaryHead/>
+
         <View style={styles.scrollContainer}>
           <ScrollView 
             ref="ad" 
@@ -219,7 +186,7 @@ var HabitSummary = React.createClass ({
             vertical={false}
             showsHorizontalScrollIndicator={false} 
             bounces={false} 
-            onScroll={this.onScroll} 
+            onScroll={this.onScroll}
             scrollEventThrottle={16}>
             <View style={{width: screen.width}}>
               <TouchableOpacity onPress={this._tweet}>
@@ -234,7 +201,7 @@ var HabitSummary = React.createClass ({
               <Text style={styles.content}>
                 Habits You've Formed
               </Text>
-              <ListView dataSource = {this.state.dataSource}
+              <ListView dataSource = {this.state.accomplishedSource}
                 renderRow = {this.renderAccomplishedHabits.bind(this)}/>
             </View>
             <View style={{width: screen.width}}>
@@ -254,6 +221,8 @@ var HabitSummary = React.createClass ({
             indicatorSize={{width:8, height:8}} 
             currentPageIndicatorTintColor='rgba(0, 0, 0, 0.4)' />
         </View>
+
+
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.content}>
             Next Up
@@ -268,6 +237,7 @@ var HabitSummary = React.createClass ({
             </Text>
           </View>
         </TouchableOpacity>
+
       </View>
     );
   }
@@ -331,7 +301,6 @@ var styles = StyleSheet.create({
     top: 0, 
     position: 'absolute', 
     height: 39, 
-    borderWidth: 1,
     backgroundColor: 'rgba(255, 255, 0, 0.9)'
   },
   accomplishedListContainer: {
