@@ -106,33 +106,33 @@ var CreateHabit = React.createClass ({
           value={this.state.habitName}
         />
                 
-        <Text style={styles.text}>Remind Me At</Text>
-        <View style={styles.rowContainer}>
+        <Text style={styles.topTimeHeadingText}>Remind Me At</Text>
+        <View style={styles.dateContainer}>
           <TouchableHighlight
             onPress={this.subtractReminderTime}
             underlayColor="transparent">
-            <Text style={styles.text}>-</Text>
+            <Text style={styles.selectorText}>-</Text>
           </TouchableHighlight>
           <Text style={styles.text}> { moment(this.state.reminderTime).format('hh:mm') + '\n' + moment(this.state.reminderTime).format('A') } </Text>
           <TouchableHighlight
             onPress={this.addReminderTime}
             underlayColor="transparent">
-            <Text style={styles.text}>+</Text>
+            <Text style={styles.selectorText}>+</Text>
           </TouchableHighlight>
         </View>     
         
-        <Text style={styles.text}>Due At</Text>
-        <View style={styles.rowContainer}>
+        <Text style={styles.timeHeadingText}>Due At</Text>
+        <View style={styles.dateContainer}>
           <TouchableHighlight
             onPress={this.subtractDueTime}
             underlayColor="transparent">
-            <Text style={styles.text}>-</Text>
+            <Text style={styles.selectorText}>-</Text>
           </TouchableHighlight>
           <Text style={styles.text}> { moment(this.state.dueTime).format('hh:mm') + '\n' + moment(this.state.dueTime).format('A') } </Text>
           <TouchableHighlight
             onPress={this.addDueTime}
             underlayColor="transparent">
-            <Text style={styles.text}>+</Text>
+            <Text style={styles.selectorText}>+</Text>
           </TouchableHighlight>
         </View>
         
@@ -153,33 +153,53 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-   rowContainer: {
+   dateContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 20
   },
   text: {
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: '500',
+    margin: 10,
+    color: 'black',
+  },
+  topTimeHeadingText: {
     fontSize: 20,
+    textAlign: 'center',
+    fontWeight: '500',
+    marginTop: 50,
+    color: 'black',
+  },
+  timeHeadingText: {
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: '500',
+    marginTop: 25,
+    color: 'black',
+  },
+  selectorText: {
+    fontSize: 24,
     textAlign: 'center',
     fontWeight: '500',
     margin: 10,
     color: 'black',
   },
   habitInput: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: 'gray',
-    marginTop: 100,
+    marginTop: 160,
     marginLeft: 20,
     marginRight: 20,
+    marginBottom: 200
   },
   buttonText: {
     color: 'white'
   },
   createButton: {
     backgroundColor: '3498db',
-    marginTop: 20,
+    marginTop: 35,
     marginBottom: 15,
     marginLeft: 50,
     marginRight: 50,
