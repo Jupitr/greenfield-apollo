@@ -48,7 +48,7 @@ var HabitTrainer = React.createClass({
     if (!this.state.user) {
       return (
         <View style={styles.container}>
-          <Text style={{fontSize: 28, width: 450, textAlign: 'center', backgroundColor: 'rgba(20, 20, 20, 0.3)', color: 'rgb(200, 200, 200)', padding: 25, marginTop: 2, marginBottom: 20, fontWeight: 'bold'}}>HABIT TRAINER</Text>
+          <Text style={{fontSize: 28, width: 450, textAlign: 'center', backgroundColor: 'rgba(20, 20, 50, 0.2)', color: 'rgb(200, 200, 200)', padding: 25, marginTop: 2, marginBottom: 20, fontWeight: 'bold'}}>HABIT TRAINER</Text>
           <TouchableHighlight style={{top: 80}} onPress={() => {this._signIn(); }}>
             <View style={{backgroundColor: 'fe4b66', flexDirection: 'row'}}>
               <Text style={{width: 200, textAlign: 'center', color: 'white', padding: 12, marginTop: 2, fontWeight: '400'}}>Sign in with Google+</Text>
