@@ -18,11 +18,31 @@ var Devs = React.createClass({
         // Their role in the project
   render: function() {
     return (
-      <View style={styles.container}>
-        <Image 
-        style={styles.avatar}
-        source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
-        />
+      <View>
+        <View style={styles.container}>
+          <Image 
+          style={styles.avatar}
+          source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
+          />
+        </View>
+        <View style={styles.container1}>
+          <Image 
+          style={styles.avatar}
+          source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
+          />
+        </View>
+        <View style={styles.container2}>
+          <Image 
+          style={styles.avatar}
+          source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
+          />
+        </View>
+        <View style={styles.container3}>
+          <Image 
+          style={styles.avatar}
+          source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
+          />
+        </View>
       </View>
     );
   },
@@ -31,10 +51,38 @@ var Devs = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
     marginLeft: 20,
     marginRight: 20,
+    marginTop: 100
+  },
+  container1: {
+    flex: 2,
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 27
+  },
+  container2: {
+    flex: 3,
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 27
+  },
+  container3: {
+    flex: 4,
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 27
   },
   avatar: {
     width: 100,
