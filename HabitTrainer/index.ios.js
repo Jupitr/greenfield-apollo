@@ -19,8 +19,12 @@ var {
   Text,
   View,
   Component,
-  TouchableHighlight
+  TouchableHighlight,
+  StatusBarIOS
 } = React;
+
+StatusBarIOS.setStyle(1);
+StatusBarIOS.setStyle('light-content');
 
 var HabitTrainer = React.createClass({
   
@@ -61,8 +65,9 @@ var HabitTrainer = React.createClass({
     // else {
       return (
         <TabBarIOS
-          tintColor="#0061EE"
-          barTintColor="#F4F4F4">
+          transluscent={true}
+          tintColor="fe4b66"
+          barTintColor="rgba(0, 10, 20, 0.2)">
           <Icon.TabBarItem
             title="Home"
             iconName="ios-home-outline"
