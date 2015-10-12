@@ -21,7 +21,7 @@ var HabitSummaryHead = React.createClass ({
   getInitialState: function(){
     return {
       avatarSource: null,
-      userName: 'Public User',
+      userName: 'lain.lai.jiang',
       dateJoined: '10/06/2015'
     }
   },

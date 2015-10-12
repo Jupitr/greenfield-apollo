@@ -40,7 +40,7 @@ var REQUEST_USER_HABITS_URL = BASE_URL + '/public/users/habits';
 var HabitSummary = React.createClass ({
   getInitialState: function(){
     return {
-      userName: 'Public User',
+      userName: 'lain.lai.jiang',
       userHabits: null,
       activeHabits: null,
       accomplishedHabits: null,

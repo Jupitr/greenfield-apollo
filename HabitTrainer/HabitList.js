@@ -223,7 +223,7 @@ var styles = StyleSheet.create({
     width: screen.width - 60
   },
   habitTitle: {
-    fontSize: 20
+    fontSize: 18
   }, 
   habitOther: {
     fontSize: 17
