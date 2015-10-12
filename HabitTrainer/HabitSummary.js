@@ -129,8 +129,8 @@ var HabitSummary = React.createClass ({
     KDSocialShare.tweet({
         'text': 'I have ' + USER.points + ' points from Habit Trainer!!!111!',
         'link': 'https://jupitrlegacy.herokuapp.com/',
-        //'imagelink':
-        //'image': 
+        'imagelink': 'http://vignette1.wikia.nocookie.net/josh100lubu/images/4/40/18360-doge-doge-simple.jpg/revision/latest?cb=20150626051745'
+        // 'image': 
       },
       (results) => {
         console.log(results);
@@ -442,7 +442,7 @@ var styles = StyleSheet.create({
     padding: 20,
   },
   appBgColor: {
-    backgroundColor: 'rgba(0, 20, 45, 0.9)'
+    backgroundColor: 'rgba(0, 15, 40, 0.9)'
   },
   textColor1: {
     color: 'white',

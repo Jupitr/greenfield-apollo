@@ -122,6 +122,12 @@ var EditHabit = React.createClass ({
           </TouchableHighlight>
         </View>
         
+        <TouchableOpacity style={styles.createHabit} onPress={this.createHabit}>
+          <Text style={styles.createHabitText}>
+            Create Habit
+          </Text>
+        </TouchableOpacity>
+        
         <Button style={styles.updateButton}
           textStyle={styles.buttonText}
           onPress={this.updateHabit}>

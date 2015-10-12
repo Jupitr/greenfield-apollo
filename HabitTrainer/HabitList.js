@@ -174,8 +174,8 @@ var HabitList = React.createClass ({
           <View style={{flexDirection: 'row'}}>
             <View style={styles.habitList}>
               <Text style={[styles.habitTitle, styles.habitTitleColor]}>{habit.habitName.toUpperCase()}</Text>
-              <Text style={styles.habitOtherColor}>Status: {habit.status}</Text>
-              <Text style={styles.habitOtherColor}>Due: { moment(habit.dueTime).format('hh:mm a')}</Text>
+              <Text style={[styles.habitOther, styles.habitOtherColor]}>Status: {habit.status}</Text>
+              <Text style={[styles.habitOther, styles.habitOtherColor]}>Due: { moment(habit.dueTime).format('hh:mm a')}</Text>
             </View>
             <View style={{justifyContent: 'flex-end'}}>
               <Text style={styles.streakText}> {habit.streakRecord} </Text>
@@ -223,7 +223,10 @@ var styles = StyleSheet.create({
     width: screen.width - 60
   },
   habitTitle: {
-    fontSize: 15
+    fontSize: 20
+  }, 
+  habitOther: {
+    fontSize: 17
   }, 
   habitOtherColor: {
     color: 'rgb(180, 180, 180)'
@@ -235,15 +238,15 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: 'red',
   },
-  createHabitButton: {
-    backgroundColor: '3498db',
-    marginLeft: 50,
-    marginRight: 50,
-    position: 'absolute',
-    top: screen.height * 0.75,
-    left: screen.width/2 - 175,
-    width: 250,
-  },
+  // createHabitButton: {
+  //   backgroundColor: '3498db',
+  //   marginLeft: 50,
+  //   marginRight: 50,
+  //   position: 'absolute',
+  //   top: screen.height * 0.75,
+  //   left: screen.width/2 - 175,
+  //   width: 250,
+  // },
   createHabit: {
     marginLeft: 50,
     marginRight: 50,
@@ -266,7 +269,7 @@ var styles = StyleSheet.create({
     color: 'white'
   },
   appBgColor: {
-    backgroundColor: 'rgba(0, 15, 30, 0.9)'
+    backgroundColor: 'rgba(0, 15, 40, 0.9)'
   },
 });
 
