@@ -47,8 +47,8 @@ app.use(errorHandler({server: app}));
 
 // right now the emailer is set to check for sunday; change it to monday tomorrow
 // sort of a hacky way to do this - should instead use a scheduler/CRON worker
-// setInterval(emailer, 60000);
-emailer('steinert.donald@gmail.com');
+setInterval(emailer, 60000);
+// emailer('steinert.donald@gmail.com');
 
 // to drop the google db
 // google.remove({}, function(){
