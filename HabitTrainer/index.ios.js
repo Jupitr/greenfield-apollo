@@ -20,7 +20,8 @@ var {
   View,
   Component,
   TouchableHighlight,
-  StatusBarIOS
+  StatusBarIOS,
+  Image
 } = React;
 
 StatusBarIOS.setStyle(1);
@@ -40,29 +41,23 @@ var HabitTrainer = React.createClass({
       '680744037017-cdfhgdavv68iomp2imi3rkf5q5b5d41r.apps.googleusercontent.com', // from .plist file
       []// SCOPES // array of authorization names: eg ['https://www.googleapis.com/auth/calendar'] for requesting access to user calendar
     );
+    this._signOut();
   },
 
   render: function() {
-    // if (!this.state.user) {
-    //   return (
-    //     <View style={styles.container}>
-    //       <TouchableHighlight onPress={() => {this._signIn(); }}>
-    //         <View style={{backgroundColor: '#f44336', flexDirection: 'row'}}>
-    //           <View style={{padding: 12, borderWidth: 1/2, borderColor: 'transparent', borderRightColor: 'white'}}>
-    //             <Icon
-    //               name='ion|social-googleplus'
-    //               size={24}
-    //               color='white'
-    //               style={{width: 24, height: 24}}
-    //             />
-    //           </View>
-    //           <Text style={{color: 'white', padding: 12, marginTop: 2, fontWeight: 'bold'}}>Sign in with Google+</Text>
-    //         </View>
-    //       </TouchableHighlight>
-    //     </View>
-    //   );
-    // }
-    // else {
+    if (!this.state.user) {
+      return (
+        <View style={styles.container}>
+          <Text style={{fontSize: 28, width: 450, textAlign: 'center', backgroundColor: 'rgba(20, 20, 20, 0.3)', color: 'rgb(200, 200, 200)', padding: 25, marginTop: 2, marginBottom: 20, fontWeight: 'bold'}}>HABIT TRAINER</Text>
+          <TouchableHighlight onPress={() => {this._signIn(); }}>
+            <View style={{top: 80, backgroundColor: 'fe4b66', flexDirection: 'row'}}>
+              <Text style={{width: 200, textAlign: 'center', color: 'white', padding: 12, marginTop: 2, fontWeight: '400'}}>Sign in with Google+</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+      );
+    }
+    else {
       return (
         <TabBarIOS
           transluscent={true}
@@ -106,7 +101,7 @@ var HabitTrainer = React.createClass({
           </Icon.TabBarItem>
         </TabBarIOS>
       );
-    // }
+    }
   },
 
   _configureOauth: function(clientId, scopes=[]) {
@@ -176,18 +171,12 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'rgba(0, 15, 40, 0.9)',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  bg: {
+    resizeMode: 'cover',
+    flex: 1
+  }
 });
 
 AppRegistry.registerComponent('HabitTrainer', () => HabitTrainer);
