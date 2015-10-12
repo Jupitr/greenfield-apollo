@@ -94,7 +94,7 @@ var HabitSummary = React.createClass ({
   },
 
   _returnSortedHabits: function (habits) {
-    var accomplished = helpers.sortHabits(habits)[0].length ? helpers.sortHabits(habits)[0] : null;
+    var accomplished = helpers.sortHabits(habits)[0].length ? helpers.sortHabits(habits)[0] : HABITS;
     var active = helpers.sortHabits(habits)[1].length ? helpers.sortHabits(habits)[1] : null;
     var completed = helpers.sortHabits(habits)[2].length ? helpers.sortHabits(habits)[2] : null;
     var pending = helpers.sortHabits(habits)[3].length ? helpers.sortHabits(habits)[3] : null;
@@ -168,7 +168,7 @@ var HabitSummary = React.createClass ({
 
   renderList: function(habit) {
     return (
-      <View style={[styles.accomplishedList, {backgroundColor: 'rgba(10, 10, 10, 0.4)', borderColor: 'rgba(255, 255, 255, 0.6)'}]}>
+      <View style={[styles.accomplishedList, {backgroundColor: 'rgba(0, 200, 200, 0.6)', borderColor: 'rgba(255, 255, 255, 0.6)', marginTop: 10}]}>
         <Text style={{textAlign: 'center', color: 'white'}}>{habit.habitName}</Text>
       </View>
     );
@@ -178,8 +178,12 @@ var HabitSummary = React.createClass ({
     if (self.state.accomplishedHabits === null) {
       return (
         <View style={[styles.container, {height: 90}]}>
-          <Text>You have not formed habits.</Text>
-          <Text>Time to get moving!</Text>
+          <Text style={{color: 'rgb(180, 180, 180)'}}>
+            You have not formed habits.
+          </Text>
+          <Text style={{color: 'rgb(180, 180, 180)'}}>
+            Time to get moving!
+          </Text>
         </View>
       );
     }
@@ -269,19 +273,11 @@ var HabitSummary = React.createClass ({
               </Text>
 
               {this._checkAccomplished(this)}
-
-            </View>
-            <View style={{width: screen.width}}>
-              <View style={styles.pointsCir}>
-                <Text style={styles.points}>
-                  badges?!?!?
-                </Text>
-              </View>
             </View>
           </ScrollView>
           <PageControl 
             style={{position:'absolute', left:0, right:0, bottom:10, margin: 10}} 
-            numberOfPages={3} 
+            numberOfPages={2} 
             currentPage={this.state.currentPage} 
             hidesForSinglePage={true} 
             pageIndicatorTintColor='rgba(255, 255, 255, 0.2)' 
@@ -393,7 +389,8 @@ var styles = StyleSheet.create({
   scrollContainer: {
     width:screen.width, 
     height:250,
-    marginTop: 10
+    marginTop: 10,
+    borderColor: 'white'
   },
   points: {
     fontSize: 50,
@@ -429,16 +426,16 @@ var styles = StyleSheet.create({
     width: 200,
     padding: 5,
     margin: 5,
-    borderWidth: 1
+    // borderWidth: 1
   },
   modalContainer: {
     justifyContent: 'center', 
     alignItems: 'center',  
   },
   modalList: {
-    backgroundColor: '1abc9c',
+    backgroundColor: '00a9ac',
     borderWidth: 1 / PixelRatio.get(),
-    borderRadius: 10,
+    // borderRadius: 10,
     padding: 20,
   },
   appBgColor: {
@@ -451,3 +448,11 @@ var styles = StyleSheet.create({
 });
 
 module.exports = HabitSummary;
+
+/*            <View style={{width: screen.width}}>
+              <View style={styles.pointsCir}>
+                <Text style={styles.points}>
+                  badges?!?!?
+                </Text>
+              </View>
+            </View>*/
