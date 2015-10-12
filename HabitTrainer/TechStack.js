@@ -118,31 +118,35 @@ var Tech = React.createClass({
         </View>
 
         <Modal style={styles.modal} position={'center'} ref={"reactNative"}>
-          <Text style={styles.text}>React Native blah blah</Text>
+          <Text style={styles.textHeader}>React Native</Text>
+          <View style={styles.modalView}>
+            <Text style={styles.textInfo}>We utilized React Native as our framework for building this mobile app because we wanted
+            the performance of a native application.... TODO</Text>
+          </View>
         </Modal>
         <Modal style={styles.modal} position={'center'} ref={"angular"}>
-          <Text style={styles.text}>Angular blah blah</Text>
+          <Text style={styles.textHeader}>Angular</Text>
         </Modal>
         <Modal style={styles.modal} position={'center'} ref={"bower"}>
-          <Text style={styles.text}>Bower blah blah</Text>
+          <Text style={styles.textHeader}>Bower</Text>
         </Modal>
         <Modal style={styles.modal} position={'center'} ref={"node"}>
-          <Text style={styles.text}>Node blah blah</Text>
+          <Text style={styles.textHeader}>Node</Text>
         </Modal>
         <Modal style={styles.modal} position={'center'} ref={"grunt"}>
-          <Text style={styles.text}>Grunt blah blah</Text>
+          <Text style={styles.textHeader}>Grunt</Text>
         </Modal>
         <Modal style={styles.modal} position={'center'} ref={"mongo"}>
-          <Text style={styles.text}>MongoDB blah blah</Text>
+          <Text style={styles.textHeader}>MongoDB</Text>
         </Modal>
         <Modal style={styles.modal} position={'center'} ref={"npm"}>
-          <Text style={styles.text}>npm blah blah</Text>
+          <Text style={styles.textHeader}>Npm</Text>
         </Modal>
         <Modal style={styles.modal} position={'center'} ref={"d3"}>
-          <Text style={styles.text}>D3 blah blah</Text>
+          <Text style={styles.textHeader}>D3</Text>
         </Modal>
         <Modal style={styles.modal} position={'center'} ref={"moment"}>
-          <Text style={styles.text}>Moment blah blah</Text>
+          <Text style={styles.textHeader}>Moment</Text>
         </Modal>
 
       </View>
@@ -183,14 +187,27 @@ var styles = StyleSheet.create({
     height: 100
   },
   modal: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     height: 300,
     width: 300
   },
-  text: {
+  modalView: {
+    flex: 1,
+    marginTop: 30,
+    marginRight: 20,
+    marginLeft: 20,
+    justifyContent: 'flex-start'
+  },
+  textHeader: {
     color: "black",
-    fontSize: 16
+    fontSize: 25,
+    lineHeight: 40
+  },
+  textInfo: {
+    color: 'black',
+    fontSize: 16,
+    textAlign: 'center'
   }
 });
 
