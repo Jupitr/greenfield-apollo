@@ -76,7 +76,7 @@ var styles = StyleSheet.create({
     textAlign: 'center'
   },
   appBgColor: {
-    backgroundColor: 'rgba(0, 20, 45, 0.9)'
+    backgroundColor: 'rgba(0, 15, 40, 0.9)'
   },
   avatar: {
     width: 150,
