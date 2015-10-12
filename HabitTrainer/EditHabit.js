@@ -92,7 +92,7 @@ var EditHabit = React.createClass ({
   render: function(){
     return (
       <View style={[styles.container, styles.appBgColor]}>
-        <Text style={styles.habitNameText}>{this.state.habitName}</Text>
+        <Text style={styles.habitNameText}>{this.state.habitName.toUpperCase()}</Text>
         <Text style={styles.timeHeadingText}>Remind Me At</Text>
         <View style={styles.dateContainer}>
           <TouchableHighlight
@@ -172,8 +172,7 @@ var styles = StyleSheet.create({
   habitNameText: {
     fontSize: 30,
     marginBottom: 10,
-    fontWeight: '500',
-    color: 'white'
+    color: 'rgb(200, 200, 200)'
   },
   // buttonText: {
   //   color: 'white',
