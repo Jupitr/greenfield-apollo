@@ -31,7 +31,7 @@ var AboutList = React.createClass({
 
   render: function() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styles.appBgColor]}>
         <Button style={styles.techStackButton}
           textStyle={styles.buttonText}
           onPress={() => {
@@ -57,9 +57,7 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 20,
-    marginRight: 20,
+    alignItems: 'center'
   },
   techStackButton: {
     backgroundColor: '1abc9c'
@@ -69,7 +67,10 @@ var styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white'
-  }
+  },
+  appBgColor: {
+    backgroundColor: 'rgba(0, 20, 45, 0.9)'
+  },
 });
 
 module.exports = AboutList;

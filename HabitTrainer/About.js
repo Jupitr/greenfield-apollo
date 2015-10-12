@@ -14,7 +14,8 @@ var About = React.createClass ({
   render: function() {
     return (
       <NavigatorIOS
-        barTintColor="#F4F4F4"
+        barTintColor="rgba(0, 20, 40, 0.8)"
+        titleTextColor='white'
         style={styles.container}
           initialRoute={{
             title: 'About',
