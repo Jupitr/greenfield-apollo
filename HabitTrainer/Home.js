@@ -25,7 +25,7 @@ var Home = React.createClass ({
         transluscent={true}
         style={styles.container}
           initialRoute={{
-            title: 'COLOR IS JUST FOR TESTING',
+            title: 'Habit Summary',
             component: HabitSummary,
             passProps: {
               habits: this.state.userHabits

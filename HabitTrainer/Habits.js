@@ -13,7 +13,8 @@ var Habits = React.createClass({
   render: function() {
     return (
       <NavigatorIOS
-        barTintColor="#F4F4F4"
+        barTintColor="rgba(0, 10, 20, 0.2)"
+        titleTextColor='white'
         style={styles.container}
         initialRoute={{
       title: 'My Habits',
