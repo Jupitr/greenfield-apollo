@@ -56,7 +56,7 @@ var HabitList = React.createClass ({
     
     this.editBtn = [{
       text: 'Edit',
-      backgroundColor: '3498db',
+      backgroundColor: '8db063',
       onPress: function(){
         self.props.navigator.push({
           title: 'Edit Habit',
@@ -70,7 +70,7 @@ var HabitList = React.createClass ({
     
     this.completeBtn = [{
       text: 'Did It!',
-      backgroundColor: '1abc9c',
+      backgroundColor: '00a9ac',
       onPress: function() {
         if (activeRow.habit.status === 'completed') {
           return;
@@ -220,7 +220,7 @@ var styles = StyleSheet.create({
   habitList: {
     padding: 15,
     paddingLeft: 20,
-    width: screen.width - 30
+    width: screen.width - 60
   },
   habitTitle: {
     fontSize: 15
@@ -258,7 +258,9 @@ var styles = StyleSheet.create({
     textAlign: 'center'
   },
   streakText: {
-
+    padding: 20,
+    fontSize: 30,
+    color: 'c69037'
   },
   buttonText: {
     color: 'white'
