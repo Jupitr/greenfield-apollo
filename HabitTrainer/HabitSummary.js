@@ -1,11 +1,11 @@
 'use strict';
 
 var React = require('react-native');
-var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
 var PageControl = require('react-native-page-control');
 var screen = require('Dimensions').get('window');
 
 var helpers = require('./helper/helpers.js');
+var HabitSummaryHead = require('./HabitSummaryHead.js');
 
 var {
   StyleSheet,
@@ -18,10 +18,6 @@ var {
   NavigatorIOS,
   TouchableOpacity,
   Modal,
-  Image,
-  NativeModules: {
-    UIImagePickerManager
-  }
 } = React;
 
 var HABITS = [
@@ -42,51 +38,25 @@ var REQUEST_USER_HABITS_URL = BASE_URL + '/public/users/habits';
 
 var HabitSummary = React.createClass ({
   getInitialState: function(){
-    console.log(this.props.userHabits);
     return {
-      avatarSource: null,
       userName: 'Public User',
       userHabits: null,
       activeHabits: null,
       accomplishedHabits: null,
       modalVisible: false,
-      dataSource: new ListView.DataSource({
+      accomplishedSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       }),
-    };
-  },
-
-  fetchUserHabits: function() {
-    fetch(REQUEST_USER_HABITS_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log('_______________user habits fetched from server______________');
-        this.setState({
-          userHabits: responseData
-        });
-        var accomplished = helpers.sortHabits(this.state.userHabits.habits)[0];
-        var active = helpers.sortHabits(this.state.userHabits.habits)[1];
-        this.setState({accomplishedHabits: accomplished, activeHabits: active});
-        this.setState(this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(HABITS)
-        }));
-        this._processHabits(this.state.activeHabits);  
+      completedSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
+      pendingSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
+      missedSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
       })
-      .done();
-  },
-
-  _processHabits: function(habits) {
-    var next = helpers.nextHabit(habits);
-    var diff = next[2];
-    var dueTime = next[1];
-    var nextHabitHolder = next[0];
-    var nextWidthHolder = 250;
-    if (diff && dueTime) {
-      nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
-    }
-    console.log('nextwidth-----', nextWidthHolder);
-    this.setState({nextHabit: nextHabitHolder, nextWidth: nextWidthHolder});
-    this._interval = window.setInterval(this.onTick, 60000);
+    };
   },
 
   componentDidMount: function() {
@@ -97,35 +67,56 @@ var HabitSummary = React.createClass ({
     window.clearInterval(this._interval);
   },
 
-  avatarTapped: function() {
-  // Specify any or all of these keys
-    var options = {
-      title: 'Select Avatar',
-      cancelButtonTitle: 'Cancel',
-      takePhotoButtonTitle: 'Take Photo...',
-      takePhotoButtonHidden: false,
-      chooseFromLibraryButtonTitle: 'Choose from Library...',
-      chooseFromLibraryButtonHidden: false,
-      returnBase64Image: false,
-      returnIsVertical: false,
-      quality: 0.2
-    };
-    UIImagePickerManager.showImagePicker(options, (responseType, response) => {
-      console.log(`Response Type = ${responseType}`);
-
-      if (responseType !== 'cancel') {
-        var source;
-        if (responseType === 'data') { // New photo taken OR passed returnBase64Image true -  response is the 64 bit encoded image data string
-          source = {uri: 'data:image/jpeg;base64,' + response, isStatic: true};
-        } else { // Selected from library - response is the URI to the local file asset
-          source = {uri: response.replace('file://', ''), isStatic: true};
-        }
-
+  fetchUserHabits: function() {
+    fetch(REQUEST_USER_HABITS_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log('_______________user habits fetched from server______________');
         this.setState({
-          avatarSource: source
+          userHabits: responseData
         });
-      }
-    });
+
+        this.setState(this._returnSortedHabits(this.state.userHabits.habits));
+        this.setState({
+          accomplishedSource: this.state.accomplishedSource.cloneWithRows(this.state.accomplishedHabits || []),
+          completedSource: this.state.completedSource.cloneWithRows(this.state.completedHabits || []),
+          pendingSource: this.state.pendingSource.cloneWithRows(this.state.pendingHabits || []),
+          missedSource: this.state.missedSource.cloneWithRows(this.state.missedHabits || [])
+        });
+        this._processNextHabit(this.state.activeHabits);  
+      })
+      .done();
+  },
+
+  _returnSortedHabits: function (habits) {
+    var accomplished = helpers.sortHabits(habits)[0].length ? helpers.sortHabits(habits)[0] : null;
+    var active = helpers.sortHabits(habits)[1].length ? helpers.sortHabits(habits)[1] : null;
+    var completed = helpers.sortHabits(habits)[2].length ? helpers.sortHabits(habits)[2] : null;
+    var pending = helpers.sortHabits(habits)[3].length ? helpers.sortHabits(habits)[3] : null;
+    var missed = helpers.sortHabits(habits)[4].length ? helpers.sortHabits(habits)[4] : null;
+
+    console.log('missed ------', missed);
+
+    return {
+      accomplishedHabits: accomplished,
+      activeHabits: active,
+      completedHabits: completed,
+      pendingHabits: pending,
+      missedHabits: missed
+    };
+  },
+
+  _processNextHabit: function(habits) {
+    var next = helpers.nextHabit(habits);
+    var diff = next[2];
+    var dueTime = next[1];
+    var nextHabitHolder = next[0];
+    var nextWidthHolder = 0;
+    if (diff && dueTime) {
+      nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
+    }
+    this.setState({nextHabit: nextHabitHolder, nextWidth: nextWidthHolder});
+    this._interval = window.setInterval(this.onTick, 60000);
   },
 
   _tweet: function() {
@@ -135,11 +126,11 @@ var HabitSummary = React.createClass ({
   _showHabitModal: function(bool) {
     console.log('-----clicked');
     this.setState({modalVisible: bool});
-    // this.render();
+    console.log('after setting visible', this.state.modalVisible);
   },
 
   onTick: function() {
-    this._processHabits(this.state.activeHabits);
+    this._processNextHabit(this.state.activeHabits);
   },
 
   onScroll: function(event){
@@ -150,20 +141,52 @@ var HabitSummary = React.createClass ({
     });
   },
 
-  renderAccomplishedHabits: function(habit) {
-    if (habit) {
+  renderAllHabits: function(self) {
+    return (
+      <View style={styles.modalList}>
+        {this._checkHabitList(self, 'completed')}
+        {this._checkHabitList(self, 'pending')}
+        {this._checkHabitList(self, 'missed')}
+      </View>
+    );
+  },
+
+  renderList: function(habit) {
+    return (
+      <View style={[styles.accomplishedList, {backgroundColor: 'rgba(10, 10, 10, 0.4)', borderColor: 'rgba(255, 255, 255, 0.6)'}]}>
+        <Text style={{textAlign: 'center', color: 'white'}}>{habit.habitName}</Text>
+      </View>
+    );
+  },
+
+  _checkAccomplished: function(self) {
+    if (self.state.accomplishedHabits === null) {
       return (
-        <View style={styles.accomplishedList}>
-          <Text style={{textAlign: 'center'}}>{habit.habitName}</Text>
+        <View style={[styles.container, {height: 90}]}>
+          <Text>You have not formed habits.</Text>
+          <Text>Time to get moving!</Text>
         </View>
       );
     }
     else {
       return (
-        <View> 
-          <Text>
-            You haven't accomplished any habits. Time to get moving!
+        <ListView dataSource = {this.state.accomplishedSource}
+        renderRow = {this.renderList}/>
+      )
+    }
+  },
+
+  _checkHabitList: function(self, queryStr) {
+    var set = queryStr + 'Habits';
+    var source = queryStr + 'Source';
+    if (self.state[set] !== null) {
+      return (
+        <View style={styles.modalContainer}>
+          <Text style={{color: 'white'}}>
+            {queryStr.toUpperCase()}
           </Text>
+          <ListView dataSource = {self.state[source]}
+          renderRow = {this.renderList}/>
         </View>
       )
     }
@@ -171,9 +194,9 @@ var HabitSummary = React.createClass ({
 
   render: function(){
     var modalBackgroundStyle = {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+      backgroundColor: 'rgba(0, 0, 0, 0.7)'
     };
-    var innerContainerTransparentStyle = {backgroundColor: '#fff', padding: 20};
+    var innerContainerTransparentStyle = {backgroundColor: 'rgba(0, 0, 0, 0 )', padding: 20};
 
     return (
       <View style={styles.container}>
@@ -184,33 +207,21 @@ var HabitSummary = React.createClass ({
             visible={this.state.modalVisible}>
             <View style={[styles.container, modalBackgroundStyle]}>
               <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
-                <Text>model test</Text>
-                <TouchableOpacity
-                  onPress={this._showHabitModal.bind(this, false)}
-                  style={styles.modalButton}>
-                  <Text>Close</Text>
-                </TouchableOpacity>
+                <View style={{margin: 20}}>
+                  <TouchableOpacity
+                    onPress={this._showHabitModal.bind(this, false)}
+                    style={styles.modalButton}>
+                    <Text style={{color: 'white'}}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+                {this.renderAllHabits(this)}
               </View>
             </View>
           </Modal>
         </View>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity onPress={this.avatarTapped}>
-            <View style={styles.icon}>
-            { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
-              <Image style={styles.icon} source={this.state.avatarSource} />
-            }
-            </View>
-          </TouchableOpacity>
-          <View>
-            <Text style={styles.content}>
-              Hello, {USER.name}! 
-            </Text>
-            <Text style={styles.contentSmall}>
-              Training since {USER.dateJoined}
-            </Text>
-          </View>
-        </View>
+
+        <HabitSummaryHead/>
+
         <View style={styles.scrollContainer}>
           <ScrollView 
             ref="ad" 
@@ -219,7 +230,7 @@ var HabitSummary = React.createClass ({
             vertical={false}
             showsHorizontalScrollIndicator={false} 
             bounces={false} 
-            onScroll={this.onScroll} 
+            onScroll={this.onScroll}
             scrollEventThrottle={16}>
             <View style={{width: screen.width}}>
               <TouchableOpacity onPress={this._tweet}>
@@ -234,8 +245,9 @@ var HabitSummary = React.createClass ({
               <Text style={styles.content}>
                 Habits You've Formed
               </Text>
-              <ListView dataSource = {this.state.dataSource}
-                renderRow = {this.renderAccomplishedHabits.bind(this)}/>
+
+              {this._checkAccomplished(this)}
+
             </View>
             <View style={{width: screen.width}}>
               <View style={styles.pointsCir}>
@@ -254,6 +266,7 @@ var HabitSummary = React.createClass ({
             indicatorSize={{width:8, height:8}} 
             currentPageIndicatorTintColor='rgba(0, 0, 0, 0.4)' />
         </View>
+
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.content}>
             Next Up
@@ -268,6 +281,7 @@ var HabitSummary = React.createClass ({
             </Text>
           </View>
         </TouchableOpacity>
+
       </View>
     );
   }
@@ -331,7 +345,6 @@ var styles = StyleSheet.create({
     top: 0, 
     position: 'absolute', 
     height: 39, 
-    borderWidth: 1,
     backgroundColor: 'rgba(255, 255, 0, 0.9)'
   },
   accomplishedListContainer: {
@@ -345,6 +358,15 @@ var styles = StyleSheet.create({
     padding: 5,
     margin: 5,
     borderWidth: 1
+  },
+  modalContainer: {
+    justifyContent: 'center', 
+    alignItems: 'center',  
+  },
+  modalList: {
+    backgroundColor: '1abc9c',
+    borderWidth: 1 / PixelRatio.get(),
+    padding: 20,
   }
 });
 
