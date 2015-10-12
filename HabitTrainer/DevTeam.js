@@ -29,9 +29,13 @@ var Devs = React.createClass({
           source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
           />
         </View>
-        <View style={styles.container2}>
-        <Text>Lain Jiang - Product Owner</Text>
-        <Text>Kevin Lee - Scrum Master</Text>
+        <View style={styles.text}>
+          <Text>Lain Jiang</Text>
+          <Text>Kevin Lee</Text>
+        </View>
+        <View style={styles.textInfo}>
+          <Text>Product Owner</Text>
+          <Text>Scrum Master</Text>
         </View>
         <View style={styles.container3}>
           <Image 
@@ -42,6 +46,14 @@ var Devs = React.createClass({
           style={styles.avatar}
           source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAJDAAAAJGNiMDNhNDQzLTQ3NTUtNDZkOS1iZjFhLWJiZDhiNjg2ZDM1Zg.jpg'}}
           />
+        </View>
+        <View style={styles.text}>
+          <Text>Don Steinert</Text>
+          <Text>Melinda Budde</Text>
+        </View>
+        <View style={styles.textInfo}>
+          <Text>Full Stack Engineer</Text>
+          <Text>Full Stack Engineer</Text>
         </View>
       </View>
     );
@@ -60,7 +72,7 @@ var styles = StyleSheet.create({
   container1: {
     flex: 2,
     flexDirection: 'row',
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'flex-start',
     marginLeft: 20,
     marginRight: 20,
@@ -68,7 +80,7 @@ var styles = StyleSheet.create({
   },
   container2: {
     flex: 3,
-    flexDirection: 'row',
+    flexDirection: 'column',
     // justifyContent: 'center',
     alignItems: 'flex-start',
     marginLeft: 20,
@@ -89,6 +101,19 @@ var styles = StyleSheet.create({
     height: 150,
     borderRadius: 50,
     marginRight: 35
+  },
+  text: {
+    fontSize: 12,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginTop: 27
+  },
+  textInfo: {
+    fontSize: 12,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start'
   }
 });
 
