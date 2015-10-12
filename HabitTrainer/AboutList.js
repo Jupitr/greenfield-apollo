@@ -10,7 +10,8 @@ var {
   View,
   Text,
   Component,
-  NavigatorIOS
+  NavigatorIOS,
+  TouchableOpacity
 } = React;
 
 var AboutList = React.createClass({
@@ -32,22 +33,20 @@ var AboutList = React.createClass({
   render: function() {
     return (
       <View style={[styles.container, styles.appBgColor]}>
-        <Button style={styles.techStackButton}
-          textStyle={styles.buttonText}
+        <TouchableOpacity style={styles.techStackButton}
           onPress={() => {
             this.techStackRoute();
           }}
         >
-          Tech Stack
-        </Button>
-        <Button style={styles.devTeamButton}
-          textStyle={styles.buttonText}
+          <Text style={styles.buttonText}>Tech Stack</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.devTeamButton}
           onPress={() => {
             this.devTeamRoute();
           }}
         >
-          Developers
-        </Button>
+          <Text style={styles.buttonText}>Developers</Text>
+        </TouchableOpacity>
         </View>
     );
   },
@@ -60,13 +59,14 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   techStackButton: {
-    backgroundColor: '1abc9c'
   },
   devTeamButton: {
-    backgroundColor: '3498db'
+
   },
   buttonText: {
-    color: 'white'
+    fontSize: 25,
+    color: 'fe4b66',
+    textAlign: 'center'
   },
   appBgColor: {
     backgroundColor: 'rgba(0, 20, 45, 0.9)'
