@@ -124,7 +124,7 @@ var HabitSummary = React.createClass ({
   _tweet : function() {
 
     KDSocialShare.tweet({
-        'text': 'I have now 420 points from Habit Trainer!',
+        'text': 'I have 420 points from Habit Trainer!!!111!',
         'link': 'https://jupitrlegacy.herokuapp.com/',
         //'imagelink':
         //'image': 
