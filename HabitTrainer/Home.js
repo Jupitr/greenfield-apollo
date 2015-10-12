@@ -20,6 +20,7 @@ var Home = React.createClass ({
   render: function() {
     return (
       <NavigatorIOS
+        barTintColor="#F4F4F4"
         style={styles.container}
           initialRoute={{
             title: 'COLOR IS JUST FOR TESTING',
