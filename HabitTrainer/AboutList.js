@@ -4,6 +4,7 @@ var React = require('react-native');
 var TechStack = require('./TechStack.js');
 var DevTeam = require('./DevTeam.js');
 var Button = require('apsl-react-native-button'); 
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var {
   StyleSheet,
@@ -11,7 +12,8 @@ var {
   Text,
   Component,
   NavigatorIOS,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } = React;
 
 var AboutList = React.createClass({
@@ -61,7 +63,7 @@ var styles = StyleSheet.create({
   techStackButton: {
   },
   devTeamButton: {
-
+    marginTop: 50
   },
   buttonText: {
     fontSize: 25,
@@ -70,6 +72,12 @@ var styles = StyleSheet.create({
   },
   appBgColor: {
     backgroundColor: 'rgba(0, 20, 45, 0.9)'
+  },
+  avatar: {
+    width: 150,
+    height: 150,
+    borderRadius: 50,
+    marginRight: 35
   },
 });
 
