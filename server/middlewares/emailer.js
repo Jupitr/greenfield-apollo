@@ -16,7 +16,7 @@ var sendSummaryEmail = function(user) {
     to: user,
     subject: 'Weekly Habits Summary',
     text: 'This is a reminder to complete your habits.',
-    html: '<b>This is a reminder to complete your habits.</b>'
+    html: '<body style="background-color:#132032;font-family:Helvetica"><h1 style="color:white">Habit Trainer</h1><p>Don\'t forget to complete you habits this week<p></body>'
   }, function(error) {
     if (error) {
       return console.log(error);
@@ -51,4 +51,5 @@ var checkUserEmailStatus = function() {
   }
 }
 
-module.exports = checkUserEmailStatus;
+module.exports = sendSummaryEmail;
+// module.exports = checkUserEmailStatus;
