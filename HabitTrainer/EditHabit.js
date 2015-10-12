@@ -90,35 +90,35 @@ var EditHabit = React.createClass ({
   render: function(){
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>{this.state.habitName}</Text>
+        <Text style={styles.habitNameText}>{this.state.habitName}</Text>
         
-        <Text style={styles.text}>Remind Me At</Text>
-        <View style={styles.rowContainer}>
+        <Text style={styles.timeHeadingText}>Remind Me At</Text>
+        <View style={styles.dateContainer}>
           <TouchableHighlight
             onPress={this.subtractReminderTime}
             underlayColor="transparent">
-            <Text style={styles.text}>-</Text>
+            <Text style={styles.selectorText}>-</Text>
           </TouchableHighlight>
           <Text style={styles.text}> { moment(this.state.reminderTime).format('hh:mm') + '\n' + moment(this.state.reminderTime).format('A') } </Text>
           <TouchableHighlight
             onPress={this.addReminderTime}
             underlayColor="transparent">
-            <Text style={styles.text}>+</Text>
+            <Text style={styles.selectorText}>+</Text>
           </TouchableHighlight>
         </View>     
         
-        <Text style={styles.text}>Due At</Text>
-        <View style={styles.rowContainer}>
+        <Text style={styles.timeHeadingText}>Due At</Text>
+        <View style={styles.dateContainer}>
           <TouchableHighlight
             onPress={this.subtractDueTime}
             underlayColor="transparent">
-            <Text style={styles.text}>-</Text>
+            <Text style={styles.selectorText}>-</Text>
           </TouchableHighlight>
           <Text style={styles.text}> { moment(this.state.dueTime).format('hh:mm') + '\n' + moment(this.state.dueTime).format('A') } </Text>
           <TouchableHighlight
             onPress={this.addDueTime}
             underlayColor="transparent">
-            <Text style={styles.text}>+</Text>
+            <Text style={styles.selectorText}>+</Text>
           </TouchableHighlight>
         </View>
         
@@ -143,26 +143,44 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-   rowContainer: {
+   dateContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 20
   },
   text: {
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
     fontWeight: '500',
     margin: 10,
     color: 'black',
   },
+  timeHeadingText: {
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: '500',
+    marginTop: 25,
+    color: 'black',
+  },
+  selectorText: {
+    fontSize: 24,
+    textAlign: 'center',
+    fontWeight: '500',
+    margin: 10,
+    color: 'black',
+  },
+  habitNameText: {
+    fontSize: 30,
+    marginBottom: 10,
+    fontWeight: '500',
+  },
   buttonText: {
-    color: 'white'
+    color: 'white',
   },
   updateButton: {
     backgroundColor: '3498db',
-    marginTop: 20,
+    marginTop: 30,
     marginBottom: 15,
     marginLeft: 50,
     marginRight: 50,
