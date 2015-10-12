@@ -4,13 +4,16 @@ var React = require('react-native');
 var TechStack = require('./TechStack.js');
 var DevTeam = require('./DevTeam.js');
 var Button = require('apsl-react-native-button'); 
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var {
   StyleSheet,
   View,
   Text,
   Component,
-  NavigatorIOS
+  NavigatorIOS,
+  TouchableOpacity,
+  Image
 } = React;
 
 var AboutList = React.createClass({
@@ -32,22 +35,20 @@ var AboutList = React.createClass({
   render: function() {
     return (
       <View style={[styles.container, styles.appBgColor]}>
-        <Button style={styles.techStackButton}
-          textStyle={styles.buttonText}
+        <TouchableOpacity style={styles.techStackButton}
           onPress={() => {
             this.techStackRoute();
           }}
         >
-          Tech Stack
-        </Button>
-        <Button style={styles.devTeamButton}
-          textStyle={styles.buttonText}
+          <Text style={styles.buttonText}>Tech Stack</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.devTeamButton}
           onPress={() => {
             this.devTeamRoute();
           }}
         >
-          Developers
-        </Button>
+          <Text style={styles.buttonText}>Developers</Text>
+        </TouchableOpacity>
         </View>
     );
   },
@@ -60,16 +61,23 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   techStackButton: {
-    backgroundColor: '1abc9c'
   },
   devTeamButton: {
-    backgroundColor: '3498db'
+    marginTop: 50
   },
   buttonText: {
-    color: 'white'
+    fontSize: 25,
+    color: 'fe4b66',
+    textAlign: 'center'
   },
   appBgColor: {
     backgroundColor: 'rgba(0, 20, 45, 0.9)'
+  },
+  avatar: {
+    width: 150,
+    height: 150,
+    borderRadius: 50,
+    marginRight: 35
   },
 });
 

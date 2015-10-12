@@ -6,7 +6,7 @@ var AboutList = require('./AboutList');
 var {
   StyleSheet,
   NavigatorIOS,
-  Component
+  Component,
 } = React;
 
 
