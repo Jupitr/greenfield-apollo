@@ -67,7 +67,7 @@ var HabitTrainer = React.createClass({
         <TabBarIOS
           transluscent={true}
           tintColor="fe4b66"
-          barTintColor="rgba(0, 10, 20, 0.2)">
+          barTintColor="rgba(0, 20, 40, 0.8)">
           <Icon.TabBarItem
             title="Home"
             iconName="ios-home-outline"
