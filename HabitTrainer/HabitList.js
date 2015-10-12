@@ -6,6 +6,7 @@ var moment = require('moment');
 var EditHabit = require('./EditHabit.js');
 var CreateHabit = require('./CreateHabit.js');
 var Button = require('apsl-react-native-button'); 
+var screen = require('Dimensions').get('window');
 
 var {
   StyleSheet,
@@ -13,6 +14,7 @@ var {
   ListView,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   Component,
   AlertIOS
 } = React;
@@ -54,7 +56,7 @@ var HabitList = React.createClass ({
     
     this.editBtn = [{
       text: 'Edit',
-      backgroundColor: '3498db',
+      backgroundColor: '8db063',
       onPress: function(){
         self.props.navigator.push({
           title: 'Edit Habit',
@@ -68,7 +70,7 @@ var HabitList = React.createClass ({
     
     this.completeBtn = [{
       text: 'Did It!',
-      backgroundColor: '1abc9c',
+      backgroundColor: '00a9ac',
       onPress: function() {
         if (activeRow.habit.status === 'completed') {
           return;
@@ -166,13 +168,20 @@ var HabitList = React.createClass ({
           autoClose='true'
           // sets selected row habit property on swipe
           onOpen={function() {activeRow.habit = habit}}
+          backgroundColor='rgba(0, 20, 40, 0.2)'
           >
-          <View>
-            <Text>{habit.habitName}</Text>
-            <Text>Streak: {habit.streakRecord}</Text>
-            <Text>Status: {habit.status}</Text>
-            <Text>Due: { moment(habit.dueTime).format('hh:mm a')}</Text>
+        <TouchableOpacity>
+          <View style={{flexDirection: 'row'}}>
+            <View style={styles.habitList}>
+              <Text style={[styles.habitTitle, styles.habitTitleColor]}>{habit.habitName.toUpperCase()}</Text>
+              <Text style={styles.habitOtherColor}>Status: {habit.status}</Text>
+              <Text style={styles.habitOtherColor}>Due: { moment(habit.dueTime).format('hh:mm a')}</Text>
+            </View>
+            <View style={{justifyContent: 'flex-end'}}>
+              <Text style={styles.streakText}> {habit.streakRecord} </Text>
+            </View>
           </View>
+        </TouchableOpacity>
         </Swipeout>
       );
     } else {
@@ -183,16 +192,15 @@ var HabitList = React.createClass ({
   render: function() {
     activeHabits = 0;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styles.appBgColor]}>
         <ListView style={styles.listContainer}
           dataSource = {this.state.dataSource}
-          renderRow = {this.renderHabit.bind(this)}
-        />
-        <Button style={styles.createHabitButton}
-          textStyle={styles.buttonText}
-          onPress={this._redirectToCreateHabit}>
-          + Add New Habit
-        </Button> 
+          renderRow = {this.renderHabit.bind(this)}/>
+        <TouchableOpacity style={styles.createHabit} onPress={this._redirectToCreateHabit}>
+          <Text style={styles.createHabitText}>
+            + Add New Habit
+          </Text>
+        </TouchableOpacity>
       </View>      
     );
   }
@@ -200,9 +208,28 @@ var HabitList = React.createClass ({
 
 var styles = StyleSheet.create({
   container: {
+    height: screen.height
+  },
+  centerOption: {
+    justifyContent: 'center', 
+    alignItems: 'center',  
   },
   listContainer: {
     height: 450
+  },
+  habitList: {
+    padding: 15,
+    paddingLeft: 20,
+    width: screen.width - 60
+  },
+  habitTitle: {
+    fontSize: 15
+  }, 
+  habitOtherColor: {
+    color: 'rgb(180, 180, 180)'
+  },
+  habitTitleColor: {
+    color: 'rgb(230, 230, 230)'
   },
   createButtonText: {
     textAlign: 'center',
@@ -212,10 +239,41 @@ var styles = StyleSheet.create({
     backgroundColor: '3498db',
     marginLeft: 50,
     marginRight: 50,
+    position: 'absolute',
+    top: screen.height * 0.75,
+    left: screen.width/2 - 175,
+    width: 250,
+  },
+  createHabit: {
+    marginLeft: 50,
+    marginRight: 50,
+    position: 'absolute',
+    top: screen.height * 0.6,
+    left: screen.width/2 - 175,
+    width: 250,
+  },
+  createHabitText: {
+    fontSize: 25,
+    color: 'fe4b66',
+    textAlign: 'center'
+  },
+  streakText: {
+    padding: 20,
+    fontSize: 30,
+    color: 'c69037'
   },
   buttonText: {
     color: 'white'
-  }
+  },
+  appBgColor: {
+    backgroundColor: 'rgba(0, 15, 30, 0.9)'
+  },
 });
 
 module.exports = HabitList;
+/*
+        <Button style={styles.createHabitButton}
+          textStyle={styles.buttonText}
+          onPress={this._redirectToCreateHabit}>
+          + Add New Habit
+        </Button> */

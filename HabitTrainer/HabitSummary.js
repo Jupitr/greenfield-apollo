@@ -211,10 +211,13 @@ var HabitSummary = React.createClass ({
     var modalBackgroundStyle = {
       backgroundColor: 'rgba(0, 0, 0, 0.7)'
     };
-    var innerContainerTransparentStyle = {backgroundColor: 'rgba(0, 0, 0, 0 )', padding: 20};
+    var innerContainerTransparentStyle = {
+      backgroundColor: 'rgba(0, 0, 0, 0 )', 
+      padding: 20
+    };
 
     return (
-      <View style={[styles.container, {backgroundColor: 'rgba(0, 15, 30, 0.9)'}]}>
+      <View style={[styles.container, styles.appBgColor]}>
         <View>
           <Modal
             animated={true}
@@ -226,7 +229,7 @@ var HabitSummary = React.createClass ({
                   <TouchableOpacity
                     onPress={this._showHabitModal.bind(this, false)}
                     style={styles.modalButton}>
-                    <Text style={{color: 'white'}}>Close</Text>
+                    <Text style={styles.textColor1}>Close</Text>
                   </TouchableOpacity>
                 </View>
                 {this.renderAllHabits(this)}
@@ -255,6 +258,8 @@ var HabitSummary = React.createClass ({
                   <Text style={styles.points}>
                     {USER.points}
                   </Text>
+                </View>
+                <View style={styles.pointsCirBg2}>
                 </View>
               </TouchableOpacity>
             </View>
@@ -313,7 +318,8 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+
   },
   sectionContainer: {
     margin: 10
@@ -356,7 +362,9 @@ var styles = StyleSheet.create({
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(80, 150, 200, 0.8)',
+    backgroundColor: 'rgba(80, 150, 200, 0.5)',
+    borderWidth: 20,
+    borderColor: 'rgba(255, 20, 20, 0.5)'
   },
   pointsCirBg: {
     position: 'absolute',
@@ -369,13 +377,26 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
+  pointsCirBg2: {
+    position: 'absolute',
+    width: 200,
+    height: 200,
+    left: screen.width / 2 - 100,
+    top: -50 ,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    borderColor: 'rgba(255, 255, 0, 0.4)',
+    borderWidth: 35,
+  },
   scrollContainer: {
     width:screen.width, 
     height:250,
     marginTop: 10
   },
   points: {
-    fontSize: 70,
+    fontSize: 50,
     textAlign: 'center',
     color: 'rgba(200, 200, 200, 0.9)'
   }, 
@@ -419,6 +440,13 @@ var styles = StyleSheet.create({
     borderWidth: 1 / PixelRatio.get(),
     borderRadius: 10,
     padding: 20,
+  },
+  appBgColor: {
+    backgroundColor: 'rgba(0, 20, 45, 0.9)'
+  },
+  textColor1: {
+    color: 'white',
+    textAlign: 'center'
   }
 });
 

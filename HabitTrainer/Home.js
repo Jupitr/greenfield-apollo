@@ -20,12 +20,12 @@ var Home = React.createClass ({
   render: function() {
     return (
       <NavigatorIOS
-        barTintColor="rgba(0, 10, 20, 0.2)"
+        barTintColor="rgba(0, 20, 40, 0.8)"
         titleTextColor='white'
         transluscent={true}
         style={styles.container}
           initialRoute={{
-            title: 'COLOR IS JUST FOR TESTING',
+            title: 'Habit Summary',
             component: HabitSummary,
             passProps: {
               habits: this.state.userHabits
