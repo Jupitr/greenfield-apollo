@@ -39,6 +39,8 @@
 		5C5B32111BC9BD47002A046A /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5C5B320D1BC9BD47002A046A /* GoogleSignIn.bundle */; settings = {ASSET_TAGS = (); }; };
 		5C5B32121BC9BD47002A046A /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5B320E1BC9BD47002A046A /* GoogleSignIn.framework */; settings = {ASSET_TAGS = (); }; };
 		5C5B32131BC9BD47002A046A /* RNGoogleSignin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B32101BC9BD47002A046A /* RNGoogleSignin.m */; settings = {ASSET_TAGS = (); }; };
+		5C5B322C1BCB5BE4002A046A /* KDSocialShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B322B1BCB5BE3002A046A /* KDSocialShare.m */; settings = {ASSET_TAGS = (); }; };
+		5C5B323A1BCB5C09002A046A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5B32391BCB5C09002A046A /* Social.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
 
@@ -175,6 +177,9 @@
 		5C5B320E1BC9BD47002A046A /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSignIn.framework; sourceTree = "<group>"; };
 		5C5B320F1BC9BD47002A046A /* RNGoogleSignin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNGoogleSignin.h; sourceTree = "<group>"; };
 		5C5B32101BC9BD47002A046A /* RNGoogleSignin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGoogleSignin.m; sourceTree = "<group>"; };
+		5C5B322A1BCB5BE3002A046A /* KDSocialShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KDSocialShare.h; sourceTree = "<group>"; };
+		5C5B322B1BCB5BE3002A046A /* KDSocialShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KDSocialShare.m; sourceTree = "<group>"; };
+		5C5B32391BCB5C09002A046A /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -191,6 +196,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C5B323A1BCB5C09002A046A /* Social.framework in Frameworks */,
 				5C5B32091BC9B9DE002A046A /* AddressBook.framework in Frameworks */,
 				5C5B320A1BC9B9DE002A046A /* StoreKit.framework in Frameworks */,
 				5C5B320B1BC9B9DE002A046A /* SystemConfiguration.framework in Frameworks */,
@@ -372,6 +378,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5C5B322A1BCB5BE3002A046A /* KDSocialShare.h */,
+				5C5B322B1BCB5BE3002A046A /* KDSocialShare.m */,
 				5C5B320C1BC9BD47002A046A /* RNGoogleSignin */,
 				0A7D1A8D1BC91D68006FE967 /* RNVectorIcons.xcodeproj */,
 				5C5B319C1BC8B672002A046A /* ART.xcodeproj */,
@@ -401,6 +409,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5C5B32391BCB5C09002A046A /* Social.framework */,
 				5C5B32061BC9B9DE002A046A /* AddressBook.framework */,
 				5C5B32071BC9B9DE002A046A /* StoreKit.framework */,
 				5C5B32081BC9B9DE002A046A /* SystemConfiguration.framework */,
@@ -676,6 +685,7 @@
 			files = (
 				5C5B32131BC9BD47002A046A /* RNGoogleSignin.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				5C5B322C1BCB5BE4002A046A /* KDSocialShare.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				5C5B31531BC88901002A046A /* UIImagePickerManager.m in Sources */,
 			);
