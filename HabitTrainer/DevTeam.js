@@ -33,7 +33,7 @@ var Devs = React.createClass({
         // Their role in the project
   render: function() {
     return (
-      <View>
+      <View style={[styles.containerMain, styles.appBgColor]}>
         <View style={styles.container}>
           <Button onPress={this.lainModal}>
           <Image 
@@ -97,6 +97,10 @@ var Devs = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  containerMain: {
+    flex: 1,
+    flexDirection: 'column',
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -130,7 +134,7 @@ var styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 27
+    marginTop: 100
   },
   avatar: {
     width: 150,
@@ -152,28 +156,39 @@ var styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   textHeader: {
-    color: "black",
+    color: "white",
     fontSize: 30,
     lineHeight: 40
   },
   modal: {
     justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: '#1abc9c',
     height: 300,
-    width: 300
+    width: 300,
+    borderRadius: 50
   },
   modalView: {
     flex: 1,
     marginTop: 30,
     marginRight: 20,
     marginLeft: 20,
+    marginBottom: 20,
     justifyContent: 'flex-start'
   },
   textInfo: {
-    color: 'black',
+    color: 'white',
     fontSize: 16,
     textAlign: 'center'
-  }
+  },
+  textTitle: {
+    color: 'white',
+    fontSize: 12,
+    textAlign: 'center'
+  },
+  appBgColor: {
+    backgroundColor: 'rgba(0, 20, 45, 0.9)'
+  },
 });
 
 module.exports = Devs;

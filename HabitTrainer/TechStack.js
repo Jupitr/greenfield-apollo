@@ -54,7 +54,7 @@ var Tech = React.createClass({
   render: function() {
 
     return (
-      <View>
+      <View style={[styles.containerMain, styles.appBgColor]}>
         <View style={styles.container}>
           <Button onPress={this.reactNativeModal}>
             <Image 
@@ -155,6 +155,10 @@ var Tech = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  containerMain: {
+    flex: 1,
+    flexDirection: 'column',
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -162,7 +166,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 150
+    marginTop: 200
   },
   container2: {
     flex: 2,
@@ -171,7 +175,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 20
+    marginTop: 50
   },
   container3: {
     flex: 3,
@@ -180,7 +184,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 20    
+    paddingBottom: 175   
   },
   avatar: {
     width: 100,
@@ -190,7 +194,8 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     height: 300,
-    width: 300
+    width: 300,
+    backgroundColor: '#1abc9c',
   },
   modalView: {
     flex: 1,
@@ -200,15 +205,18 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   textHeader: {
-    color: "black",
+    color: "white",
     fontSize: 25,
     lineHeight: 40
   },
   textInfo: {
-    color: 'black',
+    color: 'white',
     fontSize: 16,
     textAlign: 'center'
-  }
+  },
+  appBgColor: {
+    backgroundColor: 'rgba(0, 20, 45, 0.9)'
+  },
 });
 
 module.exports = Tech;
