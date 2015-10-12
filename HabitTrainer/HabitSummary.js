@@ -214,7 +214,7 @@ var HabitSummary = React.createClass ({
     var innerContainerTransparentStyle = {backgroundColor: 'rgba(0, 0, 0, 0 )', padding: 20};
 
     return (
-      <View style={[styles.container, {backgroundColor: 'rgba(0, 10, 25, 0.9)'}]}>
+      <View style={[styles.container, {backgroundColor: 'rgba(0, 15, 30, 0.9)'}]}>
         <View>
           <Modal
             animated={true}
