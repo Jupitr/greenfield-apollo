@@ -24,7 +24,12 @@ var nextHabit = exports.nextHabit = function(habits) {
 }
 
 var sortHabits = exports.sortHabits = function(habits) {
-  var accomplished = [], active = [];
+  var accomplished = [], 
+      active = [], 
+      completed = [], 
+      missed = [], 
+      pending = [];
+
   for (var i = 0; i < habits.length; i++) {
     if (habits[i].streak >= 21) {
       accomplished.push(habits[i]);
@@ -32,8 +37,17 @@ var sortHabits = exports.sortHabits = function(habits) {
     if (habits[i].active) {
       active.push(habits[i]);
     }
+    if (habits[i].status === 'completed') {
+      completed.push(habits[i]);
+    }
+    if (habits[i].status === 'pending') {
+      pending.push(habits[i]);
+    }
+    if (habits[i].status === 'missed' || habits[i].status === 'failed') {
+      missed.push(habits[i]);
+    }
   }
-  return [accomplished, active];
+  return [accomplished, active, completed, pending, missed];
 }
 
 var parseTime = exports.parseTime = function(time, cb) {

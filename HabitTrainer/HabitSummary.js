@@ -38,9 +38,7 @@ var REQUEST_USER_HABITS_URL = BASE_URL + '/public/users/habits';
 
 var HabitSummary = React.createClass ({
   getInitialState: function(){
-    console.log(this.props.userHabits);
     return {
-      avatarSource: null,
       userName: 'Public User',
       userHabits: null,
       activeHabits: null,
@@ -49,7 +47,13 @@ var HabitSummary = React.createClass ({
       accomplishedSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       }),
-      allSource: new ListView.DataSource({
+      completedSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
+      pendingSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
+      missedSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       })
     };
@@ -72,22 +76,37 @@ var HabitSummary = React.createClass ({
           userHabits: responseData
         });
 
-        // set all user habits
-        var accomplished = helpers.sortHabits(this.state.userHabits.habits)[0];
-        var active = helpers.sortHabits(this.state.userHabits.habits)[1];
-        this.setState({accomplishedHabits: accomplished, activeHabits: active});
-        this.setState(this.setState({
-          dataSource: this.state.accomplishedSource.cloneWithRows(HABITS)
-        }));
-        this.setState(this.setState({
-          dataSource: this.state.allSource.cloneWithRows(this.state.userHabits.habits)
-        }));
-        this._processHabits(this.state.activeHabits);  
+        this.setState(this._returnSortedHabits(this.state.userHabits.habits));
+        this.setState({
+          accomplishedSource: this.state.accomplishedSource.cloneWithRows(this.state.accomplishedHabits || []),
+          completedSource: this.state.completedSource.cloneWithRows(this.state.completedHabits || []),
+          pendingSource: this.state.pendingSource.cloneWithRows(this.state.pendingHabits || []),
+          missedSource: this.state.missedSource.cloneWithRows(this.state.missedHabits || [])
+        });
+        this._processNextHabit(this.state.activeHabits);  
       })
       .done();
   },
 
-  _processHabits: function(habits) {
+  _returnSortedHabits: function (habits) {
+    var accomplished = helpers.sortHabits(habits)[0].length ? helpers.sortHabits(habits)[0] : null;
+    var active = helpers.sortHabits(habits)[1].length ? helpers.sortHabits(habits)[1] : null;
+    var completed = helpers.sortHabits(habits)[2] ? helpers.sortHabits(habits)[2] : null;
+    var pending = helpers.sortHabits(habits)[3] ? helpers.sortHabits(habits)[3] : null;
+    var missed = helpers.sortHabits(habits)[4] ? helpers.sortHabits(habits)[4] : null;
+
+    console.log('active ------', active);
+
+    return {
+      accomplishedHabits: accomplished,
+      activeHabits: active,
+      completedHabits: completed,
+      pendingHabits: pending,
+      missedHabits: missed
+    };
+  },
+
+  _processNextHabit: function(habits) {
     var next = helpers.nextHabit(habits);
     var diff = next[2];
     var dueTime = next[1];
@@ -96,7 +115,6 @@ var HabitSummary = React.createClass ({
     if (diff && dueTime) {
       nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
     }
-    console.log('nextwidth-----', nextWidthHolder);
     this.setState({nextHabit: nextHabitHolder, nextWidth: nextWidthHolder});
     this._interval = window.setInterval(this.onTick, 60000);
   },
@@ -111,7 +129,7 @@ var HabitSummary = React.createClass ({
   },
 
   onTick: function() {
-    this._processHabits(this.state.activeHabits);
+    this._processNextHabit(this.state.activeHabits);
   },
 
   onScroll: function(event){
@@ -123,6 +141,7 @@ var HabitSummary = React.createClass ({
   },
 
   renderAllHabits: function(habit) {
+    console.log('-----habit', habit);
     return (
       <View style={styles.accomplishedList}>
         <Text style={{textAlign: 'center'}}>{habit.habitName}</Text>
@@ -131,21 +150,24 @@ var HabitSummary = React.createClass ({
   },
 
   renderAccomplishedHabits: function(habit) {
-    if (habit) {
+    return (
+      <View style={styles.accomplishedList}>
+        <Text style={{textAlign: 'center'}}>{habit.habitName}</Text>
+      </View>
+    );
+  },
+
+  _checkAccomplished: function(self) {
+    if (self.state.accomplishedHabits === null) {
       return (
-        <View style={styles.accomplishedList}>
-          <Text style={{textAlign: 'center'}}>{habit.habitName}</Text>
+        <View style={[styles.container, {height: 90}]}>
+          <Text>You have not formed habits.</Text>
+          <Text>Time to get moving!</Text>
         </View>
       );
     }
     else {
-      return (
-        <View> 
-          <Text>
-            You haven't accomplished any habits. Time to get moving!
-          </Text>
-        </View>
-      )
+
     }
   },
 
@@ -164,8 +186,9 @@ var HabitSummary = React.createClass ({
             visible={this.state.modalVisible}>
             <View style={[styles.container, modalBackgroundStyle]}>
               <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
-                <ListView>
-                </ListView>
+                <Text>where is it?</Text>
+                <ListView dataSource = {this.state.allSource}
+                renderRow = {this.renderAllHabits}/>
                 <TouchableOpacity
                   onPress={this._showHabitModal.bind(this, false)}
                   style={styles.modalButton}>
@@ -201,8 +224,9 @@ var HabitSummary = React.createClass ({
               <Text style={styles.content}>
                 Habits You've Formed
               </Text>
-              <ListView dataSource = {this.state.accomplishedSource}
-                renderRow = {this.renderAccomplishedHabits.bind(this)}/>
+
+              {this._checkAccomplished(this)}
+              
             </View>
             <View style={{width: screen.width}}>
               <View style={styles.pointsCir}>
@@ -221,7 +245,6 @@ var HabitSummary = React.createClass ({
             indicatorSize={{width:8, height:8}} 
             currentPageIndicatorTintColor='rgba(0, 0, 0, 0.4)' />
         </View>
-
 
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.content}>
