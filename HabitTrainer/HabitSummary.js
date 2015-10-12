@@ -375,9 +375,9 @@ var styles = StyleSheet.create({
     marginTop: 10
   },
   points: {
-    fontSize: 50,
+    fontSize: 70,
     textAlign: 'center',
-    color: 'rgba(255, 255, 255, 0.9)'
+    color: 'rgba(200, 200, 200, 0.9)'
   }, 
   background: {
     top: 0, 
