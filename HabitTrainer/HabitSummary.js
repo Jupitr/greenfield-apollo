@@ -91,11 +91,11 @@ var HabitSummary = React.createClass ({
   _returnSortedHabits: function (habits) {
     var accomplished = helpers.sortHabits(habits)[0].length ? helpers.sortHabits(habits)[0] : null;
     var active = helpers.sortHabits(habits)[1].length ? helpers.sortHabits(habits)[1] : null;
-    var completed = helpers.sortHabits(habits)[2] ? helpers.sortHabits(habits)[2] : null;
-    var pending = helpers.sortHabits(habits)[3] ? helpers.sortHabits(habits)[3] : null;
-    var missed = helpers.sortHabits(habits)[4] ? helpers.sortHabits(habits)[4] : null;
+    var completed = helpers.sortHabits(habits)[2].length ? helpers.sortHabits(habits)[2] : null;
+    var pending = helpers.sortHabits(habits)[3].length ? helpers.sortHabits(habits)[3] : null;
+    var missed = helpers.sortHabits(habits)[4].length ? helpers.sortHabits(habits)[4] : null;
 
-    console.log('active ------', active);
+    console.log('missed ------', missed);
 
     return {
       accomplishedHabits: accomplished,
@@ -126,6 +126,7 @@ var HabitSummary = React.createClass ({
   _showHabitModal: function(bool) {
     console.log('-----clicked');
     this.setState({modalVisible: bool});
+    console.log('after setting visible', this.state.modalVisible);
   },
 
   onTick: function() {
@@ -140,19 +141,20 @@ var HabitSummary = React.createClass ({
     });
   },
 
-  renderAllHabits: function(habit) {
-    console.log('-----habit', habit);
+  renderAllHabits: function(self) {
     return (
-      <View style={styles.accomplishedList}>
-        <Text style={{textAlign: 'center'}}>{habit.habitName}</Text>
+      <View style={styles.modalList}>
+        {this._checkHabitList(self, 'completed')}
+        {this._checkHabitList(self, 'pending')}
+        {this._checkHabitList(self, 'missed')}
       </View>
     );
   },
 
-  renderAccomplishedHabits: function(habit) {
+  renderList: function(habit) {
     return (
-      <View style={styles.accomplishedList}>
-        <Text style={{textAlign: 'center'}}>{habit.habitName}</Text>
+      <View style={[styles.accomplishedList, {backgroundColor: 'rgba(10, 10, 10, 0.4)', borderColor: 'rgba(255, 255, 255, 0.6)'}]}>
+        <Text style={{textAlign: 'center', color: 'white'}}>{habit.habitName}</Text>
       </View>
     );
   },
@@ -167,15 +169,34 @@ var HabitSummary = React.createClass ({
       );
     }
     else {
+      return (
+        <ListView dataSource = {this.state.accomplishedSource}
+        renderRow = {this.renderList}/>
+      )
+    }
+  },
 
+  _checkHabitList: function(self, queryStr) {
+    var set = queryStr + 'Habits';
+    var source = queryStr + 'Source';
+    if (self.state[set] !== null) {
+      return (
+        <View style={styles.modalContainer}>
+          <Text style={{color: 'white'}}>
+            {queryStr.toUpperCase()}
+          </Text>
+          <ListView dataSource = {self.state[source]}
+          renderRow = {this.renderList}/>
+        </View>
+      )
     }
   },
 
   render: function(){
     var modalBackgroundStyle = {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+      backgroundColor: 'rgba(0, 0, 0, 0.7)'
     };
-    var innerContainerTransparentStyle = {backgroundColor: '#fff', padding: 20};
+    var innerContainerTransparentStyle = {backgroundColor: 'rgba(0, 0, 0, 0 )', padding: 20};
 
     return (
       <View style={styles.container}>
@@ -186,14 +207,14 @@ var HabitSummary = React.createClass ({
             visible={this.state.modalVisible}>
             <View style={[styles.container, modalBackgroundStyle]}>
               <View style={[styles.innerContainer, innerContainerTransparentStyle]}>
-                <Text>where is it?</Text>
-                <ListView dataSource = {this.state.allSource}
-                renderRow = {this.renderAllHabits}/>
-                <TouchableOpacity
-                  onPress={this._showHabitModal.bind(this, false)}
-                  style={styles.modalButton}>
-                  <Text>Close</Text>
-                </TouchableOpacity>
+                <View style={{margin: 20}}>
+                  <TouchableOpacity
+                    onPress={this._showHabitModal.bind(this, false)}
+                    style={styles.modalButton}>
+                    <Text style={{color: 'white'}}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+                {this.renderAllHabits(this)}
               </View>
             </View>
           </Modal>
@@ -226,7 +247,7 @@ var HabitSummary = React.createClass ({
               </Text>
 
               {this._checkAccomplished(this)}
-              
+
             </View>
             <View style={{width: screen.width}}>
               <View style={styles.pointsCir}>
@@ -337,6 +358,15 @@ var styles = StyleSheet.create({
     padding: 5,
     margin: 5,
     borderWidth: 1
+  },
+  modalContainer: {
+    justifyContent: 'center', 
+    alignItems: 'center',  
+  },
+  modalList: {
+    backgroundColor: '1abc9c',
+    borderWidth: 1 / PixelRatio.get(),
+    padding: 20,
   }
 });
 
