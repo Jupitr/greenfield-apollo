@@ -40,7 +40,7 @@ var sortHabits = exports.sortHabits = function(habits) {
     if (habits[i].status === 'completed') {
       completed.push(habits[i]);
     }
-    if (habits[i].status === 'pending') {
+    if (habits[i].status === 'pending' || habits[i].status === 'remind') {
       pending.push(habits[i]);
     }
     if (habits[i].status === 'missed' || habits[i].status === 'failed') {

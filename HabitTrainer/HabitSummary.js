@@ -3,6 +3,8 @@
 var React = require('react-native');
 var PageControl = require('react-native-page-control');
 var screen = require('Dimensions').get('window');
+var KDSocialShare = require('NativeModules').KDSocialShare;
+console.log('-----',  KDSocialShare);
 
 var helpers = require('./helper/helpers.js');
 var HabitSummaryHead = require('./HabitSummaryHead.js');
@@ -119,8 +121,18 @@ var HabitSummary = React.createClass ({
     this._interval = window.setInterval(this.onTick, 60000);
   },
 
-  _tweet: function() {
-    alert('tapped');
+  _tweet : function() {
+
+    KDSocialShare.tweet({
+        'text': 'I have now 420 points from Habit Trainer!',
+        'link': 'https://jupitrlegacy.herokuapp.com/',
+        //'imagelink':
+        //'image': 
+      },
+      (results) => {
+        console.log(results);
+      }
+    );
   },
 
   _showHabitModal: function(bool) {
@@ -366,6 +378,7 @@ var styles = StyleSheet.create({
   modalList: {
     backgroundColor: '1abc9c',
     borderWidth: 1 / PixelRatio.get(),
+    borderRadius: 10,
     padding: 20,
   }
 });
