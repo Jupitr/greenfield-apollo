@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react-native');
+var Button = require('react-native-button');
+var Modal = require('react-native-modalbox');
 
 var {
   StyleSheet,
@@ -13,6 +15,19 @@ var {
 
 var Devs = React.createClass({
 
+  lainModal: function(){
+    this.refs.lain.open();
+  },
+  kevinModal: function(){
+    this.refs.kevin.open();
+  },
+  donModal: function(){
+    this.refs.don.open();
+  },
+  melindaModal: function(){
+    this.refs.melinda.open();
+  },
+
       // sample placeholder image
         // create dev team images in list?
         // Their role in the project
@@ -20,41 +35,62 @@ var Devs = React.createClass({
     return (
       <View>
         <View style={styles.container}>
+          <Button onPress={this.lainModal}>
           <Image 
           style={styles.avatar}
           source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/1/000/1cd/000/299302b.jpg'}}
           />
+          </Button>
+          <Button onPress={this.kevinModal}>
           <Image 
           style={styles.avatar}
           source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
           />
-        </View>
-        <View style={styles.text}>
-          <Text>Lain Jiang</Text>
-          <Text>Kevin Lee</Text>
-        </View>
-        <View style={styles.textInfo}>
-          <Text>Product Owner</Text>
-          <Text>Scrum Master</Text>
+          </Button>
         </View>
         <View style={styles.container3}>
+          <Button onPress={this.donModal}>
           <Image 
           style={styles.avatar}
           source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAZwAAAAJGY3MWY1MjE3LWEyNjEtNDMwMC1hZmQyLTdmY2MyZjlmNGZkNA.jpg'}}
           />
+          </Button>
+          <Button onPress={this.melindaModal}>
           <Image 
           style={styles.avatar}
           source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAJDAAAAJGNiMDNhNDQzLTQ3NTUtNDZkOS1iZjFhLWJiZDhiNjg2ZDM1Zg.jpg'}}
           />
+          </Button>
         </View>
-        <View style={styles.text}>
-          <Text>Don Steinert</Text>
-          <Text>Melinda Budde</Text>
-        </View>
-        <View style={styles.textInfo}>
-          <Text>Full Stack Engineer</Text>
-          <Text>Full Stack Engineer</Text>
-        </View>
+        <Modal style={styles.modal} position={'center'} ref={"lain"}>
+          <Text style={styles.textHeader}>Lain Jiang</Text>
+          <Text>Product Owner</Text>
+          <View style={styles.modalView}>
+            <Text style={styles.textInfo}>As Product Owner, Lain organized the project's workflow from the ground up. She implemented the home view of the mobile application,
+            utilizing google authentication to provide a login portal as well as integrating twitter into the home page.</Text>
+          </View>
+        </Modal>
+        <Modal style={styles.modal} position={'center'} ref={"kevin"}>
+          <Text style={styles.textHeader}>Kevin Lee</Text>
+          <Text>Scrum Master</Text>
+          <View style={styles.modalView}>
+            <Text style={styles.textInfo}>As Scrum Master, Kevin implemented continuous integration and deployment with Grunt and Heroku. In addition, he created the About page for the mobile application.</Text>
+          </View>
+        </Modal>
+        <Modal style={styles.modal} position={'center'} ref={"don"}>
+          <Text style={styles.textHeader}>Don Steinert</Text>
+          <Text>Full Stack Software Engineer</Text>
+          <View style={styles.modalView}>
+            <Text style={styles.textInfo}>Don was the driving force on development for the mobile version of Habit Trainer. He integrated native swiping and notifications, as well as connecting the mobile application to our deployed server.</Text>
+          </View>
+        </Modal>
+        <Modal style={styles.modal} position={'center'} ref={"melinda"}>
+          <Text style={styles.textHeader}>Melinda Budde</Text>
+          <Text>Full Stack Software Engineer</Text>
+          <View style={styles.modalView}>
+            <Text style={styles.textInfo}>Melinda was instrumental in creating and polishing the landing page for our product. In addition to the front end development, she designed our product's logo.</Text>
+          </View>
+        </Modal>
       </View>
     );
   },
@@ -67,7 +103,7 @@ var styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 125
+    marginTop: 175
   },
   container1: {
     flex: 2,
@@ -114,6 +150,29 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start'
+  },
+  textHeader: {
+    color: "black",
+    fontSize: 30,
+    lineHeight: 40
+  },
+  modal: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 300,
+    width: 300
+  },
+  modalView: {
+    flex: 1,
+    marginTop: 30,
+    marginRight: 20,
+    marginLeft: 20,
+    justifyContent: 'flex-start'
+  },
+  textInfo: {
+    color: 'black',
+    fontSize: 16,
+    textAlign: 'center'
   }
 });
 
