@@ -3,6 +3,7 @@
 var React = require('react-native');
 var moment = require('moment');
 var Button = require('apsl-react-native-button'); 
+var screen = require('Dimensions').get('window');
  
 var {
   StyleSheet,
@@ -13,7 +14,8 @@ var {
   DatePickerIOS,
   TextInput,
   TouchableHighlight,
-  AlertIOS
+  AlertIOS,
+  TouchableOpacity
 } = React;
 
 var BASE_URL = 'https://jupitrlegacy.herokuapp.com';
@@ -89,9 +91,8 @@ var EditHabit = React.createClass ({
   
   render: function(){
     return (
-      <View style={styles.container}>
-        <Text style={styles.habitNameText}>{this.state.habitName}</Text>
-        
+      <View style={[styles.container, styles.appBgColor]}>
+        <Text style={styles.habitNameText}>{this.state.habitName.toUpperCase()}</Text>
         <Text style={styles.timeHeadingText}>Remind Me At</Text>
         <View style={styles.dateContainer}>
           <TouchableHighlight
@@ -106,7 +107,6 @@ var EditHabit = React.createClass ({
             <Text style={styles.selectorText}>+</Text>
           </TouchableHighlight>
         </View>     
-        
         <Text style={styles.timeHeadingText}>Due At</Text>
         <View style={styles.dateContainer}>
           <TouchableHighlight
@@ -121,19 +121,18 @@ var EditHabit = React.createClass ({
             <Text style={styles.selectorText}>+</Text>
           </TouchableHighlight>
         </View>
-        
-        <Button style={styles.updateButton}
-          textStyle={styles.buttonText}
-          onPress={this.updateHabit}>
-          Update Habit
-        </Button> 
-        
-        <Button style={styles.deactivateButton}
-          textStyle={styles.buttonText}
-          onPress={this.deactivateHabit}>
-          Deactivate Habit
-        </Button> 
-      
+        <View style={{marginTop: 20}}>
+          <TouchableOpacity style={styles.updateHabit} onPress={this.updateHabit}>
+            <Text style={styles.updateHabitText}>
+              Update Habit
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.updateHabit} onPress={this.updateHabit}>
+            <Text style={[styles.updateHabitText, {fontSize: 18, color: 'rgba(200, 200, 200, 0.5)'}]}>
+              Deactivate Habit
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -154,42 +153,67 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '500',
     margin: 10,
-    color: 'black',
+    color: 'rgb(180, 180, 180)',
   },
   timeHeadingText: {
     fontSize: 20,
     textAlign: 'center',
     fontWeight: '500',
     marginTop: 25,
-    color: 'black',
+    color: 'c69037',
   },
   selectorText: {
     fontSize: 24,
     textAlign: 'center',
     fontWeight: '500',
     margin: 10,
-    color: 'black',
+    color: '8db063',
   },
   habitNameText: {
     fontSize: 30,
     marginBottom: 10,
-    fontWeight: '500',
+    color: 'rgb(200, 200, 200)'
   },
-  buttonText: {
-    color: 'white',
-  },
-  updateButton: {
-    backgroundColor: '3498db',
-    marginTop: 30,
-    marginBottom: 15,
-    marginLeft: 50,
-    marginRight: 50,
-  },
+  // buttonText: {
+  //   color: 'white',
+  // },
+  // updateButton: {
+  //   backgroundColor: '3498db',
+  //   marginTop: 30,
+  //   marginBottom: 15,
+  //   marginLeft: 50,
+  //   marginRight: 50,
+  // },
   deactivateButton: {
     backgroundColor: '#DB575F',
     marginLeft: 50,
     marginRight: 50,
   },
+  updateHabit: {  
+    width: 250,
+    textAlign: 'center',
+    margin: 5
+  },
+  updateHabitText: {
+    fontSize: 25,
+    color: 'fe4b66',
+    textAlign: 'center'
+  },
+  appBgColor: {
+    backgroundColor: 'rgba(0, 15, 40, 0.9)'
+  },
 });
+
+// <Button style={styles.updateButton}
+//   textStyle={styles.buttonText}
+//   onPress={this.updateHabit}>
+//   Update Habit
+// </Button> 
+
+// <Button style={styles.deactivateButton}
+//   textStyle={styles.buttonText}
+//   onPress={this.deactivateHabit}>
+//   Deactivate Habit
+// </Button> 
 
 module.exports = EditHabit;

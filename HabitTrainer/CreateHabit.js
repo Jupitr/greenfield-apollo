@@ -3,6 +3,7 @@
 var React = require('react-native');
 var moment = require('moment');
 var Button = require('apsl-react-native-button'); 
+var screen = require('Dimensions').get('window');
  
 var {
   StyleSheet,
@@ -13,6 +14,7 @@ var {
   DatePickerIOS,
   TextInput,
   TouchableHighlight,
+  TouchableOpacity,
   AlertIOS
 } = React;
 
@@ -98,49 +100,55 @@ var CreateHabit = React.createClass ({
   
   render: function(){
     return (
-      <View style={styles.habitInput}>
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(text) => this.setState({habitName: text})}
-          placeholder='Habit Name'
-          value={this.state.habitName}
-        />
-                
-        <Text style={styles.topTimeHeadingText}>Remind Me At</Text>
-        <View style={styles.dateContainer}>
-          <TouchableHighlight
-            onPress={this.subtractReminderTime}
-            underlayColor="transparent">
-            <Text style={styles.selectorText}>-</Text>
-          </TouchableHighlight>
-          <Text style={styles.text}> { moment(this.state.reminderTime).format('hh:mm') + '\n' + moment(this.state.reminderTime).format('A') } </Text>
-          <TouchableHighlight
-            onPress={this.addReminderTime}
-            underlayColor="transparent">
-            <Text style={styles.selectorText}>+</Text>
-          </TouchableHighlight>
-        </View>     
-        
-        <Text style={styles.timeHeadingText}>Due At</Text>
-        <View style={styles.dateContainer}>
-          <TouchableHighlight
-            onPress={this.subtractDueTime}
-            underlayColor="transparent">
-            <Text style={styles.selectorText}>-</Text>
-          </TouchableHighlight>
-          <Text style={styles.text}> { moment(this.state.dueTime).format('hh:mm') + '\n' + moment(this.state.dueTime).format('A') } </Text>
-          <TouchableHighlight
-            onPress={this.addDueTime}
-            underlayColor="transparent">
-            <Text style={styles.selectorText}>+</Text>
-          </TouchableHighlight>
+      <View style={[styles.container, styles.appBgColor]}>
+        <View style={{top: 65}}>
+          <TextInput
+            style={styles.habitInput}
+            onChangeText={(text) => this.setState({habitName: text})}
+            placeholder='Habit Name'
+            autoCapitalize='characters'
+            placeholderTextColor='rgba(200, 200, 200, 0.2)'
+            value={this.state.habitName}/>
         </View>
+        <View style={{top: 80}}>
+          <Text style={styles.topTimeHeadingText}>Remind Me At</Text>
+          <View style={styles.dateContainer}>
+            <TouchableHighlight
+              onPress={this.subtractReminderTime}
+              underlayColor="transparent">
+              <Text style={styles.selectorText}>-</Text>
+            </TouchableHighlight>
+            <Text style={styles.text}> { moment(this.state.reminderTime).format('hh:mm') + '\n' + moment(this.state.reminderTime).format('A') } </Text>
+            <TouchableHighlight
+              onPress={this.addReminderTime}
+              underlayColor="transparent">
+              <Text style={styles.selectorText}>+</Text>
+            </TouchableHighlight>
+          </View>     
         
-        <Button style={styles.createButton}
-          textStyle={styles.buttonText}
-          onPress={this.createHabit}>
-          Create Habit
-        </Button> 
+          <Text style={styles.timeHeadingText}>Due At</Text>
+          <View style={styles.dateContainer}>
+            <TouchableHighlight
+              onPress={this.subtractDueTime}
+              underlayColor="transparent">
+              <Text style={styles.selectorText}>-</Text>
+            </TouchableHighlight>
+            <Text style={styles.text}> { moment(this.state.dueTime).format('hh:mm') + '\n' + moment(this.state.dueTime).format('A') } </Text>
+            <TouchableHighlight
+              onPress={this.addDueTime}
+              underlayColor="transparent">
+              <Text style={styles.selectorText}>+</Text>
+            </TouchableHighlight>
+          </View>
+          
+
+          <TouchableOpacity style={styles.createHabit} onPress={this.createHabit}>
+            <Text style={styles.createHabitText}>
+              Create Habit
+            </Text>
+          </TouchableOpacity>
+
+        </View>
       
       </View>
     );
@@ -149,9 +157,7 @@ var CreateHabit = React.createClass ({
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    height: screen.height
   },
    dateContainer: {
     flexDirection: 'row',
@@ -162,37 +168,36 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '500',
     margin: 10,
-    color: 'black',
+    color: 'rgb(180, 180, 180)',
   },
   topTimeHeadingText: {
     fontSize: 20,
     textAlign: 'center',
     fontWeight: '500',
     marginTop: 50,
-    color: 'black',
+    color: 'c69037',
   },
   timeHeadingText: {
     fontSize: 20,
     textAlign: 'center',
     fontWeight: '500',
     marginTop: 25,
-    color: 'black',
+    color: 'c69037',
   },
   selectorText: {
     fontSize: 24,
     textAlign: 'center',
     fontWeight: '500',
     margin: 10,
-    color: 'black',
+    color: '8db063',
   },
   habitInput: {
-    justifyContent: 'center',
-    alignItems: 'center',
     borderColor: 'gray',
-    marginTop: 160,
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 200
+    height: 80, 
+    backgroundColor: 'rgba(0, 20, 40, 0.4)', 
+    fontSize: 30,
+    padding: 20,
+    color: 'rgba(180, 180, 180, 0.8)'
   },
   buttonText: {
     color: 'white'
@@ -204,6 +209,28 @@ var styles = StyleSheet.create({
     marginLeft: 50,
     marginRight: 50,
   },
+  appBgColor: {
+    backgroundColor: 'rgba(0, 15, 40, 0.9)'
+  },
+  createHabit: {  
+    marginLeft: 50,
+    marginRight: 50,
+    position: 'absolute',
+    top: 300,
+    left: screen.width/2 - 175,
+    width: 250,
+  },
+  createHabitText: {
+    fontSize: 25,
+    color: 'fe4b66',
+    textAlign: 'center'
+  },
 });
 
 module.exports = CreateHabit;
+
+          // <Button style={styles.createButton}
+          //   textStyle={styles.buttonText}
+          //   onPress={this.createHabit}>
+          //   Create Habit
+          // </Button> 
