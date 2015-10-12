@@ -148,7 +148,7 @@ var CreateHabit = React.createClass ({
             </Text>
           </TouchableOpacity>
 
-          </View>
+        </View>
       
       </View>
     );

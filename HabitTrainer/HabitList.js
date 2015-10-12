@@ -251,7 +251,7 @@ var styles = StyleSheet.create({
     marginLeft: 50,
     marginRight: 50,
     position: 'absolute',
-    top: screen.height * 0.6,
+    top: screen.height * 0.69,
     left: screen.width/2 - 175,
     width: 250,
   },
@@ -264,9 +264,6 @@ var styles = StyleSheet.create({
     padding: 20,
     fontSize: 30,
     color: 'c69037'
-  },
-  buttonText: {
-    color: 'white'
   },
   appBgColor: {
     backgroundColor: 'rgba(0, 15, 40, 0.9)'
