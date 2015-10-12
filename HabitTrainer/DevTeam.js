@@ -158,7 +158,7 @@ var styles = StyleSheet.create({
   textHeader: {
     color: "white",
     fontSize: 30,
-    lineHeight: 40
+    lineHeight: 60
   },
   modal: {
     justifyContent: 'flex-start',
@@ -184,6 +184,7 @@ var styles = StyleSheet.create({
   textTitle: {
     color: 'white',
     fontSize: 12,
+    lineHeight: 25,
     textAlign: 'center'
   },
   appBgColor: {

@@ -47,7 +47,7 @@ var AboutList = React.createClass({
             this.devTeamRoute();
           }}
         >
-          <Text style={styles.buttonText}>Developers</Text>
+          <Text style={styles.buttonText2}>Developers</Text>
         </TouchableOpacity>
         </View>
     );
@@ -68,6 +68,11 @@ var styles = StyleSheet.create({
   buttonText: {
     fontSize: 25,
     color: 'fe4b66',
+    textAlign: 'center'
+  },
+  buttonText2: {
+    fontSize: 25,
+    color: '00a9ac',
     textAlign: 'center'
   },
   appBgColor: {
