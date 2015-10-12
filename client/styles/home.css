@@ -20,4 +20,6 @@ h1, p, a {
 
 .htlogo {
   margin-bottom: -20px;
+  border-radius: 50px;
+  box-shadow: 0px 0px 12px #888;
 }
