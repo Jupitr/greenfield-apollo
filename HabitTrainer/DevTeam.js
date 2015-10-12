@@ -22,26 +22,25 @@ var Devs = React.createClass({
         <View style={styles.container}>
           <Image 
           style={styles.avatar}
-          source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
+          source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/1/000/1cd/000/299302b.jpg'}}
           />
-          <Text>Kevin Lee</Text>
-        </View>
-        <View style={styles.container1}>
           <Image 
           style={styles.avatar}
           source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
           />
         </View>
         <View style={styles.container2}>
-          <Image 
-          style={styles.avatar}
-          source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
-          />
+        <Text>Lain Jiang - Product Owner</Text>
+        <Text>Kevin Lee - Scrum Master</Text>
         </View>
         <View style={styles.container3}>
           <Image 
           style={styles.avatar}
-          source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
+          source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAZwAAAAJGY3MWY1MjE3LWEyNjEtNDMwMC1hZmQyLTdmY2MyZjlmNGZkNA.jpg'}}
+          />
+          <Image 
+          style={styles.avatar}
+          source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAJDAAAAJGNiMDNhNDQzLTQ3NTUtNDZkOS1iZjFhLWJiZDhiNjg2ZDM1Zg.jpg'}}
           />
         </View>
       </View>
@@ -56,7 +55,7 @@ var styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 100
+    marginTop: 125
   },
   container1: {
     flex: 2,
@@ -86,9 +85,10 @@ var styles = StyleSheet.create({
     marginTop: 27
   },
   avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50
+    width: 150,
+    height: 150,
+    borderRadius: 50,
+    marginRight: 35
   }
 });
 
