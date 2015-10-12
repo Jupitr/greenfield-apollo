@@ -24,6 +24,7 @@ var Devs = React.createClass({
           style={styles.avatar}
           source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAU1AAAAJGVjZTAwZmQwLWE3MWQtNDgwZC1iMGIxLWNkNGJhYjZjOGIwOQ.jpg'}}
           />
+          <Text>Kevin Lee</Text>
         </View>
         <View style={styles.container1}>
           <Image 
@@ -86,7 +87,8 @@ var styles = StyleSheet.create({
   },
   avatar: {
     width: 100,
-    height: 100
+    height: 100,
+    borderRadius: 50
   }
 });
 
