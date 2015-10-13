@@ -262,7 +262,8 @@ var styles = StyleSheet.create({
   },
   streakText: {
     padding: 20,
-    fontSize: 30,
+    right: 10,
+    fontSize: 40,
     color: 'c69037'
   },
   appBgColor: {

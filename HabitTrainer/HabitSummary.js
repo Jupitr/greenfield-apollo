@@ -112,16 +112,18 @@ var HabitSummary = React.createClass ({
   },
 
   _processNextHabit: function(habits) {
-    var next = helpers.nextHabit(habits);
-    var diff = next[2];
-    var dueTime = next[1];
-    var nextHabitHolder = next[0];
-    var nextWidthHolder = 0;
-    if (diff && dueTime) {
-      nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
+    if (habits) {
+      var next = helpers.nextHabit(habits);
+      var diff = next[2];
+      var dueTime = next[1];
+      var nextHabitHolder = next[0];
+      var nextWidthHolder = 0;
+      if (diff && dueTime) {
+        nextWidthHolder = helpers.mapToDomain([0, dueTime],[0, 250], diff, true);
+      }
+      this.setState({nextHabit: nextHabitHolder, nextWidth: nextWidthHolder});
+      this._interval = window.setInterval(this.onTick, 60000);
     }
-    this.setState({nextHabit: nextHabitHolder, nextWidth: nextWidthHolder});
-    this._interval = window.setInterval(this.onTick, 60000);
   },
 
   _tweet : function() {
@@ -244,7 +246,7 @@ var HabitSummary = React.createClass ({
 
         <HabitSummaryHead/>
 
-        <View style={[styles.scrollContainer, styles.sectionContainer]}>
+        <TouchableOpacity style={[styles.scrollContainer, styles.sectionContainer]} onPress={this._tweet}>
           <ScrollView 
             ref="ad" 
             pagingEnabled={true} 
@@ -253,9 +255,10 @@ var HabitSummary = React.createClass ({
             showsHorizontalScrollIndicator={false} 
             bounces={false} 
             onScroll={this.onScroll}
+            onPress={this._tweet}
             scrollEventThrottle={16}>
             <View style={{width: screen.width}}>
-              <TouchableOpacity onPress={this._tweet}>
+              <TouchableOpacity>
                 <View style={styles.pointsCirBg}>
                 </View>
                 <View style={styles.pointsCir}>
@@ -283,7 +286,7 @@ var HabitSummary = React.createClass ({
             pageIndicatorTintColor='rgba(255, 255, 255, 0.2)' 
             indicatorSize={{width:8, height:8}} 
             currentPageIndicatorTintColor='rgba(255, 255, 255, 0.4)' />
-        </View>
+        </TouchableOpacity>
 
         <View style={{flexDirection: 'row', margin: 10}}>
           <Text style={styles.content}>
