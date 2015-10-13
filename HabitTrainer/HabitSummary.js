@@ -246,7 +246,7 @@ var HabitSummary = React.createClass ({
 
         <HabitSummaryHead/>
 
-        <TouchableOpacity style={[styles.scrollContainer, styles.sectionContainer]} onPress={this._tweet}>
+        <View style={[styles.scrollContainer, styles.sectionContainer]}>
           <ScrollView 
             ref="ad" 
             pagingEnabled={true} 
@@ -258,7 +258,7 @@ var HabitSummary = React.createClass ({
             onPress={this._tweet}
             scrollEventThrottle={16}>
             <View style={{width: screen.width}}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={this._tweet}>
                 <View style={styles.pointsCirBg}>
                 </View>
                 <View style={styles.pointsCir}>
@@ -286,7 +286,7 @@ var HabitSummary = React.createClass ({
             pageIndicatorTintColor='rgba(255, 255, 255, 0.2)' 
             indicatorSize={{width:8, height:8}} 
             currentPageIndicatorTintColor='rgba(255, 255, 255, 0.4)' />
-        </TouchableOpacity>
+        </View>
 
         <View style={{flexDirection: 'row', margin: 10}}>
           <Text style={styles.content}>

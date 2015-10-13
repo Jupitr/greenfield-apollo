@@ -41,7 +41,7 @@ var HabitTrainer = React.createClass({
       '680744037017-cdfhgdavv68iomp2imi3rkf5q5b5d41r.apps.googleusercontent.com', // from .plist file
       []// SCOPES // array of authorization names: eg ['https://www.googleapis.com/auth/calendar'] for requesting access to user calendar
     );
-    // this._signOut();
+    this._signOut();
   },
 
   render: function() {
