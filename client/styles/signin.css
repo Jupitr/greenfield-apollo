@@ -6,9 +6,11 @@ h1, p, a {
   margin-bottom: 20px;
   text-align: center;
 }
+
 .features h2 {
   font-weight: normal;
 }
+
 .features .col-lg-4 p {
   margin-right: 10px;
   margin-left: 10px;
@@ -23,4 +25,8 @@ h1, p, a {
   margin-top: 50px;
   border-radius: 50px;
   box-shadow: 0px 0px 12px #888;
+}
+
+.tweeter {
+  background-color: #55acee;
 }
